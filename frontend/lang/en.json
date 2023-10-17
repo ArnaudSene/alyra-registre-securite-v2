@@ -1,0 +1,115 @@
+{
+    "Index": {
+        "title": "Security Register"
+    },
+    "HomePager": {
+        "homePagerTitle": "Decentralized application - (DAPPS)",
+        "homePagerSubtitle1": "Manage your security register using all the power of blockchain.",
+        "homePagerSubtitle2" : "Via a ",
+        "homePagerSubtitle3": ", digitize and secure your documents with ease.",
+        "subscribe": "Subscribe",
+        "descTitle": "In concrete terms, how does that work?",
+        "descSubTitle": "An NFT to seal them all!",
+        "descText1": "During a security check by an expert and after validation on your part, a digital document is generated.",
+        "descText2": "This document containing metadata will be saved on a decentralized storage space also called ",
+        "descText3": "Another document will certify the verification and register it definitively in the blockchain. This document is called ",
+        "descText4": "The NFT registered in the blockchain contains the following information",
+        "descText5": "Your address or public key",
+        "descText6": "The address or public key of the verifier",
+        "descText7": "The URL to the metadata",
+        "moreInfo": "Learn more?",
+        "cpyTitle": "Your are a company",
+        "cpyEnum1": "Register your company",
+        "cpyEnum2": "Security registers by site",
+        "cpyEnum3": "Digital registers, no more paper registers",
+        "cpyEnum4": "Decentralized register using blockchain",
+        "cpyEnum5": "Secure and tamper-proof records.",
+        "cpyVGPTitle": "You are an approved VGP company",
+        "cpyVGPEnum1": "Register your company",
+        "cpyVGPEnum2": "Security registers by site",
+        "consultRegisterTitle": "You would like to consult the registers",
+        "consultRegisterEnum1": "Free consultation",
+        "consultRegisterEnum2": "Access to company security records",
+        "consultRegisterButton": "Consult registers"
+    },
+    "HeaderFooter": {
+        "title": "Security Register",
+        "register": "Show registers",
+        "member": "Member",
+        "companySubscription": "Company account subscription",
+        "verifierSubscription": "Company VGP account subscription",
+        "company": "Companies",
+        "verifier": "VGP Companies",
+        "support": "Support",
+        "faq": "FAQ",
+        "documentation": "Documentation",
+        "products": "Products",
+        "contact": "Contact",
+        "developer": "Developer",
+        "helper": "Helper",
+        "rights": "All rights reserved"
+    },
+    "ToasterMessages": {
+        "notConnected": {
+            "title": "Permission denied",
+            "description": "You are not connected!"
+        },
+        "subscribeCompany": {
+            "ok": {
+                "title": "Success",
+                "description": "Company successfully created!"
+            },
+            "error": {
+                "title": "Error",
+                "description": "Unable to create company!"
+            }
+        },
+        "subscribeVerifier": {
+            "ok": {
+                "title": "Success",
+                "description": "Company successfully created!"
+            },
+            "error": {
+                "title": "Error",
+                "description": "Unable to create company!"
+            }
+        }
+    },
+    "layout": {
+        "button": {
+            "validate": "Validate",
+            "subscribe": "Subscribe",
+            "save": "Save",
+            "cancel": "Cancel"
+        },
+        "form": {
+            "subscriptionCompany": {
+                "title": "Create company account",
+                "description": "By creating your company account you will be able to add more sites, manage accounts and security registers.",
+                "name": "Company name",
+                "address": "Company address",
+                "siret": "Siret",
+                "siteName": "Site/building name",
+                "siteAddress": "Site/building address"
+            },
+            "subscriptionVerifier": {
+                "title": "Create VGP company account",
+                "description": "By creating your company account you will be able to manage accounts and security registers for your clients.",
+                "name": "Company name",
+                "address": "Company address",
+                "siret": "Siret",
+                "approval": "Approval number"                
+            }
+        },
+        "eventLog": {
+            "linkTitle": "Show event log",
+            "blockTitle": "Transaction log",
+            "smartContractAddress": "Smart contract address",
+            "blockHash": "Block hash",
+            "transactionHash": "Transaction hash",
+            "blockNumber": "Block number",
+            "publicKeyAddress": "Public key address",
+            "title": "Saved data"
+        }
+    }
+}

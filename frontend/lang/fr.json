@@ -1,0 +1,115 @@
+{
+    "Index": {
+        "title": "Registre de sécurité"
+    },
+    "HomePager": {
+        "homePagerTitle": "Application décentralisée - (DAPPS)",
+        "homePagerSubtitle1": "Gérez votre registre de sécurité en exploitation toute la puissance de la blockchain.",
+        "homePagerSubtitle2" : "Via un ",
+        "homePagerSubtitle3": ", digitalisez et sécurisez vos documents en toute simplicité.",
+        "subscribe": "Souscrire",
+        "descTitle": "Concrètement comment ça marche?",
+        "descSubTitle": "Un NFT pour les sceller tous!",
+        "descText1": "Lors d'une vérification de sécurité par un expert et après validation de votre part, un document digital est généré.",
+        "descText2": "Ce document contenant des métadonnées va être sauvegardé sur un espace de stockage décentsalisé aussi appelé ",
+        "descText3": "Un autre document va quand à lui certifier la vérification et l'inscrire de façon définitive dans la blockchain. Ce document se nomme un ",
+        "descText4": "Le NFT inscrit dans la blockchain contient les informations suivantes",
+        "descText5": "Votre adresse ou clé publique",
+        "descText6": "L'adresse ou clé publique du vérificateur",
+        "descText7": "L'url vers les metadonnées",
+        "moreInfo": "En savoir plus?",
+        "cpyTitle": "Vous êtes une compagnie",
+        "cpyEnum1": "Enregistrez votre compagnie",
+        "cpyEnum2": "Registres de sécurités par site",
+        "cpyEnum3": "Registres digitalisés, fini le registre papier",
+        "cpyEnum4": "Registres décentralisés grâce à la blockchain",
+        "cpyEnum5": "Registres sécurisés et infalsifiables",
+        "cpyVGPTitle": "Vous êtes une compagnie VGP agrée",
+        "cpyVGPEnum1": "Enregistrez votre compagnie",
+        "cpyVGPEnum2": "Valider des contrôles de vérification prériodiques pour vos clients!",
+        "consultRegisterTitle": "Vous souhaitez consulter les registres",
+        "consultRegisterEnum1": "Consultation libre",
+        "consultRegisterEnum2": "Accès aux registres de sécurités des compagnies",
+        "consultRegisterButton": "Consultez les registres"
+    },
+    "HeaderFooter": {
+        "title": "Registre de sécurité",
+        "register": "Consultation de registres",
+        "member": "Espace membre",
+        "companySubscription": "Souscription d'un compte compagnie",
+        "verifierSubscription": "Souscription d'un compte compagnie VGP",
+        "company": "Espace compagnie",
+        "verifier": "Espace compagnie VGP",
+        "support": "Support",
+        "faq": "FAQ",
+        "documentation": "Documentation",
+        "products": "Produits",
+        "contact": "Contact",
+        "developer": "Développeur",
+        "helper": "Helper",
+        "rights": "Tous droits réservés"
+    },
+    "ToasterMessages": {
+        "notConnected": {
+            "title": "Permission restreinte",
+            "description": "Vous n'êtes pas connecté!"
+        },
+        "subscribeCompany": {
+            "ok": {
+                "title": "Succès",
+                "description": "Compagnie créée avec succès!"
+            },
+            "error": {
+                "title": "Erreur",
+                "description": "Impossible de créer la compagnie!"
+            }
+        },
+        "subscribeVerifier": {
+            "ok": {
+                "title": "Succès",
+                "description": "Compagnie créée avec succès!"
+            },
+            "error": {
+                "title": "Erreur",
+                "description": "Impossible de créer la compagnie!"
+            }
+        }
+    },
+    "layout": {
+        "button": {
+            "validate": "Valider",
+            "subscribe": "Souscrire",
+            "save": "Sauvegarder",
+            "cancel": "Annuler"
+        },
+        "form": {
+            "subscriptionCompany": {
+                "title": "Création d'un compte compagnie",
+                "description": "En créant votre compte de compagnie vous pouvez ajouter des sites supplémentaires, gérer vos comptes et registres de sécurité.",
+                "name": "Nom de compagnie",
+                "address": "Adresse de la compagnie",
+                "siret": "Siret",
+                "siteName": "Nom du site/bâtiment",
+                "siteAddress": "Adresse du site/bâtiment"
+            },
+            "subscriptionVerifier": {
+                "title": "Création d'un compte de compagnie VGP",
+                "description": "En créant votre compagnie vous pouvez gérer vos comptes et les registres de sécurité de vos clients.",
+                "name": "Nom de compagnie",
+                "address": "Adresse de la compagnie",
+                "siret": "Siret",
+                "approval": "Numéro d'aggrément"
+            }
+        },
+        "eventLog": {
+            "linkTitle": "Voir les logs d'événement",
+            "blockTitle": "Log de transaction",
+            "smartContractAddress": "Adresse du Smart contract",
+            "blockHash": "Hash du block",
+            "transactionHash": "Hash de transaction",
+            "blockNumber": "Numéro du block",
+            "publicKeyAddress": "Adresse de clé publique",
+            "title": "Données enregistrées"
+        }
+    }
+}

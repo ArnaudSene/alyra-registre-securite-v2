@@ -64,11 +64,11 @@ contract SecurityRegister is ERC721URIStorage {
      * @dev A workflow to manage verification status.
      *
      * Status:
-     *  - WaitForApproval The verification has been created, the verifier should validate it.
-     *  - ValidatedByVerifier The verifier validated the verification, the company should approve it.
-     *  - Approved The company approved the verification, the token is ready to be minted.
-     *  - Rejected The company rejected the verification, the token is ready to be minted.
-     *  - ApprovedWithReservation The company approved with reservation, the verifier should validate a second time.
+     *  - WaitForApproval: The verification has been created, the verifier should validate it.
+     *  - ValidatedByVerifier: The verifier validated the verification, the company should approve it.
+     *  - Approved: The company approved the verification, the token is ready to be minted.
+     *  - Rejected: The company rejected the verification, the token is ready to be minted.
+     *  - ApprovedWithReservation: The company approved with reservation, the verifier should validate a second time.
      */
     enum VerificationStatus {
         WaitForApproval,

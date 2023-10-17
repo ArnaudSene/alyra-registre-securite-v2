@@ -70,6 +70,8 @@ export interface IVerificationTaskCreated {
 
 export interface IVerificationTaskCreatedv2 {
     company: `0x${string}`
+    companyName: string
+    companyAddress: string
     siteName: string
     siteAddress: string
     companySiret: string

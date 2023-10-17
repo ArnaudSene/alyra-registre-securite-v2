@@ -27,6 +27,7 @@ import {
     IVerifierCreated, IVerifierProfile
 } from "@/interfaces/company";
 import {RegisterVerificationId} from "@/constants/enums";
+import 'dotenv/config'
 
 
 const usedNetwork = () => {
@@ -92,6 +93,19 @@ export const writeContractByFunctionName = async (
 
 
 export const readEvents = async (signature: string): Promise<GetLogsReturnType<any>> => {
+    try {
+        return await client.getLogs({
+            address: contractAddress,
+            event: parseAbiItem([signature]),
+            fromBlock: BigInt(genesisBlock),
+            toBlock: 'latest'
+        })
+    } catch (err) {
+        throw formattedError(err)
+    }
+}
+
+export const readEventsFromTheGraph = async (signature: string): Promise<GetLogsReturnType<any>> => {
     try {
         return await client.getLogs({
             address: contractAddress,
@@ -235,6 +249,7 @@ export  const getRegisterCreatedEvents = async () => {
             return data
         })
 }
+
 
 export  const getCompanyAccountUpdatedEventsv2 = async () => {
     return readEvents(CompanyAccountUpdated)
