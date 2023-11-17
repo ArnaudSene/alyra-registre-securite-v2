@@ -1,0 +1,106 @@
+query RegisterCreateds {
+    registerCreateds {
+        id
+        _siteName
+        _siteAddressName
+        _siret
+        _name
+        _addressName
+        _addr
+    }
+}
+
+query CompanyAccountUpdateds {
+    companyAccountUpdateds {
+        id
+        _company
+        _account
+        _name
+        _firstName
+        _action
+    }
+}
+query VerifierCreateds {
+    verifierCreateds {
+        id
+        _verifier
+        _name
+        _addressName
+        _siret
+        _approvalNumber
+    }
+}
+
+query VerifierAccountUpdateds {
+    verifierAccountUpdateds {
+        id
+        _verifier
+        _account
+        _name
+        _firstName
+        _action
+    }
+}
+
+query VerifierAddedToCompanies {
+    verifierAddedToCompanies {
+        id
+        _verifier
+        _company
+    }     
+}
+
+
+
+query VerificationTaskValidateds {
+    verificationTaskValidateds {
+        id
+        _verifier
+        _taskId
+        _taskStatus
+    }
+
+}
+
+query VerificationTaskUpdateds {
+    verificationTaskUpdateds {
+        id
+        _company
+        _taskId
+        _taskStatus
+    }
+}
+
+query VerificationTaskCreateds($first: Int, $skip: Int){
+    verificationTaskCreateds(first: $first, skip: $skip, orderBy: _timestamp, orderDirection: desc) {
+        id
+        _company
+        _verifier
+        _registerId
+        _securityType
+        _taskId
+        _taskStatus
+        _siteName
+        _timestamp
+    }
+}
+
+query VerificationTaskCreatedByID($_company: Bytes, $first: Int, $skip: Int) {
+    verificationTaskCreateds(
+        first: $first, 
+        skip: $skip, 
+        where: { _company: $_company }, 
+        orderBy: _timestamp, 
+        orderDirection: desc
+    ) {
+        id
+        _company
+        _verifier
+        _registerId
+        _securityType
+        _taskId
+        _taskStatus
+        _siteName
+        _timestamp
+    }
+}

@@ -1,9 +1,9 @@
 'use client'
 
 import { useState } from "react"
-import Loader from "@/app/[locale]/components/Loader";
-import {VerifierRootPage} from "@/app/[locale]/components/verifier/VerifierRootPage";
-import IsConnectedAs from "@/app/[locale]/components/IsConnectedAs";
+import { VerifierRootPage } from "@/app/[locale]/components/verifier/VerifierRootPage"
+import Loader from "@/app/[locale]/components/Loader"
+import IsConnectedAs from "@/app/[locale]/components/IsConnectedAs"
 
 const VerifierPage = () => {
     const [loading, setLoading] = useState(false)
@@ -17,4 +17,4 @@ const VerifierPage = () => {
   )
 }
 
-export default VerifierPage;
+export default VerifierPage

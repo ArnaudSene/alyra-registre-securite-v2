@@ -1,5 +1,5 @@
 
-import {SubscribeCompanyButton} from "@/app/[locale]/components/company/SubscribeCompanyButton";
+import { SubscribeCompanyButton } from "@/app/[locale]/components/company/SubscribeCompanyButton"
 
 
 export const SubscribeCompanyNew = () => {
@@ -40,5 +40,5 @@ export const SubscribeCompanyNew = () => {
                 <SubscribeCompanyButton />
             </div>
         </div>
-    );
-};
+    )
+}

@@ -1,8 +1,8 @@
 'use client'
 
-import { createPortal } from "react-dom";
-import {useState} from "react";
-import {AccountVerifierModalForm} from "@/app/[locale]/components/verifier/AccountVerifierModalFormOld";
+import { createPortal } from "react-dom"
+import { useState } from "react"
+import { AccountVerifierModalForm } from "@/app/[locale]/components/verifier/AccountVerifierModalFormOld"
 
 export const AccountVerifierButton = () => {
 
@@ -20,5 +20,5 @@ export const AccountVerifierButton = () => {
                 <AccountVerifierModalForm closeModal={() => setShowModal(false)}/>,
                 document.body)}
         </div>
-    );
-};
+    )
+}

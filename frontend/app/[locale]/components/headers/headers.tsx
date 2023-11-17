@@ -1,21 +1,21 @@
 'use client'
 
-import LanguageSwitcher from "./languageSwitcher"
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { ConnectButton } from "@rainbow-me/rainbowkit"
 import { useAccount } from "wagmi"
-import { useEffect, useState } from 'react'
-import { usePathname } from 'next/navigation';
-import { IHeaderFooter } from "@/interfaces/intl"
-import { headerFooterIntl } from '@/utils/intl'
 import { useHeaderFooterContext } from "@/contexts/HeaderFooter"
+import { IHeaderFooter } from "@/interfaces/intl"
+import LanguageSwitcher from "./languageSwitcher"
+import { headerFooterIntl } from '@/utils/intl'
 
 
 const Headers = () => {
     const { isConnected } = useAccount()
     const { headerOn } = useHeaderFooterContext()
     const [toggle, setToggle] = useState(false)
-    const [scrolling, setScrolling] = useState(false);
+    const [scrolling, setScrolling] = useState(false)
     const headerIntl: IHeaderFooter = headerFooterIntl()
     
     useEffect(() => {
@@ -25,24 +25,29 @@ const Headers = () => {
         const handleScroll = () => {
             // scroll > 10%
             if (window.scrollY > (document.body.clientHeight - window.innerHeight) * 0.1) {
-              setScrolling(true);
+              setScrolling(true)
             } else {
-              setScrolling(false);
+              setScrolling(false)
             }
-          };
+          }
       
-          window.addEventListener('scroll', handleScroll);
+          window.addEventListener('scroll', handleScroll)
       
           return () => {
-            window.removeEventListener('scroll', handleScroll);
-          };
+            window.removeEventListener('scroll', handleScroll)
+          }
 
     }, [isConnected, usePathname()])
 
     return (
         <header>
             {headerOn && (
-                <div className={`${scrolling ? "bg-teal-50/80 bg-gradient-to-br from-indigo-600/20              via-fuchsia-500/20 to-indigo-500/20 backdrop-blur-sm shadow-xl ease-in-out duration-300" : "bg-transparent ease-in-out duration-300"} fixed top-0 left-0 w-full z-50 mb-20`}>
+                <div className={`${scrolling 
+                    ? "bg-teal-50/80 bg-gradient-to-br from-indigo-600/20 via-fuchsia-500/20 to-indigo-500/20 \
+                        backdrop-blur-sm shadow-xl ease-in-out duration-300" 
+                    : "bg-transparent ease-in-out duration-300"} 
+                    fixed top-0 left-0 w-full z-10 mb-20`}>
+
                     <nav className="flex flex-row justify-between text-center p-3">
                         <div className="md:w-full mr-3">
         
@@ -185,4 +190,4 @@ const Headers = () => {
         </header>
     )
 }
-export default Headers;
+export default Headers

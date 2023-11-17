@@ -10,7 +10,7 @@ const HomePager = () => {
     const headerFooterIntlData: IHeaderFooter = headerFooterIntl()
     
     return (
-        <div className="pb-10">
+        <div className="">
 
             {/* Introduction */}
             <div className="flex flex-col md:flex-row justify-between md:mb-5 pt-16 px-2 z-10">
@@ -56,12 +56,12 @@ const HomePager = () => {
                 <h2 className='mx-auto p-6 text-center font-bold text-xl md:text-2xl'>{homePagerIntlData.moreInfo}</h2>
                 <div className='flex flex-row justify-center'>
 
-                    <ButtonLink params={{
+                    <ButtonLink props={{
                         title: headerFooterIntlData.contact,
                         href: "/contact"
                     }}/>
 
-                    <ButtonLink params={{
+                    <ButtonLink props={{
                         title: headerFooterIntlData.documentation,
                         href: "/documentation"
                     }}/>
@@ -129,7 +129,7 @@ const HomePager = () => {
                             </div>
 
                             <div className='flex justify-end'>
-                                <ButtonLink params={{
+                                <ButtonLink props={{
                                     "title": homePagerIntlData.subscribe,
                                     "href": "/subscriptionCompany"
                                 }}/>
@@ -166,7 +166,7 @@ const HomePager = () => {
                             </div>
 
                             <div className='flex justify-end '>
-                                <ButtonLink params={{
+                                <ButtonLink props={{
                                     "title": homePagerIntlData.subscribe,
                                     "href": "/subscriptionVerifier"
                                 }}/>
@@ -200,7 +200,7 @@ const HomePager = () => {
                             </div>
 
                             <div className='flex justify-end'>
-                                <ButtonLink params={{
+                                <ButtonLink props={{
                                     "title": homePagerIntlData.consultRegisterButton,
                                     "href": "/register",
                                 }}/>
@@ -214,4 +214,4 @@ const HomePager = () => {
     )   
 }
 
-export default HomePager;
+export default HomePager

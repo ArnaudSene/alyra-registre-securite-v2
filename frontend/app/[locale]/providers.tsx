@@ -1,16 +1,17 @@
 'use client'
 
-import '@rainbow-me/rainbowkit/styles.css';
+import '@rainbow-me/rainbowkit/styles.css'
+import { ChakraProvider, extendTheme } from '@chakra-ui/react'
+import { ReactNode, useEffect, useState } from "react"
 import { connectorsForWallets, Theme, getDefaultWallets, RainbowKitProvider, lightTheme } from '@rainbow-me/rainbowkit'
 import { argentWallet, ledgerWallet, trustWallet } from '@rainbow-me/rainbowkit/wallets'
 import { configureChains, createConfig, WagmiConfig } from 'wagmi'
 import { hardhat, sepolia } from 'wagmi/chains'
 import { publicProvider } from 'wagmi/providers/public'
-import { ChakraProvider, extendTheme } from '@chakra-ui/react'
-import merge from 'lodash.merge';
-import { ReactNode, useEffect, useState } from "react";
-import { IdentityContextProvider } from "@/contexts/Identity";
-import { HeaderFooterContextProvider } from '@/contexts/HeaderFooter';
+import merge from 'lodash.merge'
+import { IdentityContextProvider } from "@/contexts/Identity"
+import { HeaderFooterContextProvider } from '@/contexts/HeaderFooter'
+import { RegisterSecurityEventContextProvider } from '@/contexts/registerSecurityEvent'
 
 
 const customTheme = merge(lightTheme({
@@ -58,7 +59,7 @@ const customTheme = merge(lightTheme({
         selectedOptionBorder: '',
         standby: '',
     },
-} as Theme);
+} as Theme)
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
     [
@@ -66,7 +67,7 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
         ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [hardhat] : []),
     ],
     [publicProvider()]
-);
+)
 
 const projectId: string = process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID || ""
 
@@ -74,11 +75,11 @@ const { wallets } = getDefaultWallets({
     appName: 'RainbowKit Security Register',
     projectId: projectId,
     chains,
-});
+})
 
 const AppInfo = {
     appName: 'Security Register RS+',
-};
+}
 
 const connectors = connectorsForWallets([
     ...wallets,
@@ -90,18 +91,18 @@ const connectors = connectorsForWallets([
             ledgerWallet({ projectId, chains }),
         ],
     },
-]);
+])
 
 const wagmiConfig = createConfig({
     autoConnect: true,
     connectors,
     publicClient,
     webSocketPublicClient,
-});
+})
 
 export function Providers({ children }: { children: ReactNode }) {
-    const [mounted, setMounted] = useState(false);
-    useEffect(() => setMounted(true), []);
+    const [mounted, setMounted] = useState(false)
+    useEffect(() => setMounted(true), [])
 
     const theme = extendTheme({
         colors: {
@@ -120,12 +121,14 @@ export function Providers({ children }: { children: ReactNode }) {
                     <RainbowKitProvider chains={chains} appInfo={AppInfo} theme={customTheme}>
                         <IdentityContextProvider>
                             <HeaderFooterContextProvider>
-                                {mounted && children}
+                                <RegisterSecurityEventContextProvider>
+                                    {mounted && children}
+                                </RegisterSecurityEventContextProvider>
                             </HeaderFooterContextProvider>
                         </IdentityContextProvider>
                     </RainbowKitProvider>
                 </WagmiConfig>
             </ChakraProvider>
         </div>
-    );
+    )
 }

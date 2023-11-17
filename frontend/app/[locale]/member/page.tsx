@@ -1,11 +1,11 @@
 'use client'
 
-import Loader from "@/app/[locale]/components/Loader";
-import IsConnectedAs from "@/app/[locale]/components/IsConnectedAs";
 import { useState } from "react"
-import { useIdentityContext } from "@/contexts/Identity";
-import { headerFooterIntl } from "@/utils/intl";
-import { IHeaderFooter } from "@/interfaces/intl";
+import { useIdentityContext } from "@/contexts/Identity"
+import IsConnectedAs from "@/app/[locale]/components/IsConnectedAs"
+import Loader from "@/app/[locale]/components/Loader"
+import { headerFooterIntl } from "@/utils/intl"
+import { IHeaderFooter } from "@/interfaces/intl"
 
 
 const Member = () => {
@@ -41,4 +41,4 @@ const Member = () => {
     )   
 }
 
-export default Member;
+export default Member

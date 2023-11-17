@@ -5,14 +5,14 @@ export async function submitCreateCompany(prevState: any, formData: FormData) {
 
     const indexIntl = (formData: FormData): string[] => {
         const mapping: {
-            [key: string]: number;
+            [key: string]: number
           } = {
             name: 0,
             address: 1,
             siret: 2,
             siteName: 3,
             siteAddress: 4,
-          };
+          }
           
         let result: string[] = []
 

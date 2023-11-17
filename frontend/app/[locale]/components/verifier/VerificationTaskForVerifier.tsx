@@ -1,24 +1,25 @@
 'use client'
 
+import { useToast } from "@chakra-ui/react"
+import { useEffect, useState } from "react"
+import { useAccount } from "wagmi"
+import { useIdentityContext } from "@/contexts/Identity"
+import { VerificationStatus } from "@/constants/enums"
+import { IRegisterCreated } from "@/interfaces/registers"
+import { IVerifierCreated } from "@/interfaces/verifier"
+import { IVerificationTaskCreated, IVerificationTaskUpdated, IVerificationTaskValidated } from "@/interfaces/verificationTasks"
+import Loader from "@/app/[locale]/components/Loader"
 import {
     convertTimestampToDate,
-    getRegisterCreatedEvents, getRegisterVerification,
-    getVerificationTaskCreatedEventsv2, getVerificationTaskUpdatedEvents, getVerificationTaskValidatedEventsv2,
-    getVerifierCreatedEvents, writeContractByFunctionName,
-} from "@/utils";
-import { useEffect, useState } from "react";
-import { useAccount } from "wagmi";
-import {useIdentityContext} from "@/contexts/Identity";
-import {
-    IRegisterCreated,
-    IVerificationTaskCreated, IVerificationTaskUpdated, IVerificationTaskValidated,
-    IVerifierCreated
-} from "@/interfaces/company";
-import { VerificationStatus} from "@/constants/enums";
-import Loader from "@/app/[locale]/components/Loader";
-import {useToast} from "@chakra-ui/react";
-
-
+    getRegisterCreatedEvents, 
+    getRegisterVerification,
+    getVerificationTaskCreatedEventsv2, 
+    getVerificationTaskUpdatedEvents, 
+    getVerificationTaskValidatedEventsv2,
+    getVerifierCreatedEvents,
+} from "@/utils"
+    
+    
 export const VerificationTaskForVerifier = () => {
     const { address} = useAccount()
     const {refreshScreen, setVerificationTaskStatus, setSelectedVerificationTask, approveVerificationTaskRefresh, setApproveVerificationTaskRefresh, createVerificationTaskRefresh,  verificationTaskRefresh } = useIdentityContext()
@@ -300,5 +301,5 @@ export const VerificationTaskForVerifier = () => {
             </div>
         </div>
         </Loader>
-    );
-};
+    )
+}

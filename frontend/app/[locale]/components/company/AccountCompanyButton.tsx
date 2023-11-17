@@ -1,8 +1,8 @@
 'use client'
 
-import { createPortal } from "react-dom";
-import {useState} from "react";
-import {AccountCompanyModalForm} from "@/app/[locale]/components/company/AccountCompanyModalForm";
+import { createPortal } from "react-dom"
+import { useState } from "react"
+import { AccountCompanyModalForm } from "@/app/[locale]/components/company/AccountCompanyModalForm"
 
 export const AccountCompanyButton = () => {
 
@@ -20,5 +20,5 @@ export const AccountCompanyButton = () => {
                 <AccountCompanyModalForm closeModal={() => setShowModal(false)}/>,
                 document.body)}
         </div>
-    );
-};
+    )
+}

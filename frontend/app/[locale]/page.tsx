@@ -1,5 +1,4 @@
-import HomePager from "./homePager/page";
-
+import HomePager from "./homePager/page"
 
 const Home = () => {
 
@@ -8,4 +7,4 @@ const Home = () => {
     )
 }
 
-export default Home;
+export default Home

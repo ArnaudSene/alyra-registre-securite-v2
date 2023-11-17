@@ -1,8 +1,8 @@
 'use client'
 
 import { useSearchParams } from 'next/navigation' 
-import { SubscribeCompany } from "@/app/[locale]/components/company/SubscribeCompany";
-import { SubscribeVerifier } from "@/app/[locale]/components/verifier/SubscribeVerifier";
+import { SubscribeCompany } from "@/app/[locale]/components/company/SubscribeCompany"
+import { SubscribeVerifier } from "@/app/[locale]/components/verifier/SubscribeVerifier"
 
 
 const Subscription = () => {
@@ -21,4 +21,4 @@ const Subscription = () => {
   )
 }
 
-export default Subscription;
+export default Subscription

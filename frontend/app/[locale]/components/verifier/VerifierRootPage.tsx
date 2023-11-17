@@ -1,15 +1,12 @@
 'use client'
 
-import {getVerifierCreatedEvents} from "@/utils";
-import {useEffect, useState} from "react";
-import {useAccount} from "wagmi";
-import {useRouter} from "next/navigation";
-import {useIdentityContext} from "@/contexts/Identity";
-import {AccountVerifier} from "@/app/[locale]/components/verifier/AccountVerifier";
-import {VerificationTaskForVerifier} from "@/app/[locale]/components/verifier/VerificationTaskForVerifier";
-import {VerificationTaskMenuForVerifier} from "@/app/[locale]/components/verifier/VerificationTaskMenuForVerifier";
-import {VerificationTask} from "@/app/[locale]/components/company/VerificationTask";
-import {VerificationTaskForVerifierv2} from "@/app/[locale]/components/verifier/VerificationTaskForVerifierv2";
+import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
+import { useAccount } from "wagmi"
+import { useIdentityContext } from "@/contexts/Identity"
+import { AccountVerifier } from "@/app/[locale]/components/verifier/AccountVerifier"
+import { VerificationTaskMenuForVerifier } from "@/app/[locale]/components/verifier/VerificationTaskMenuForVerifier"
+import { getVerifierCreatedEvents } from "@/utils"
 
 export const VerifierRootPage = () => {
     const { address, isConnected } = useAccount()
@@ -108,13 +105,13 @@ export const VerifierRootPage = () => {
                     </div>
 
                     {/*Verification*/}
-                    <div className={`flex flex-col mx-auto ${toggleVerification}`}>
+                    {/* <div className={`flex flex-col mx-auto ${toggleVerification}`}>
                         <VerificationTaskForVerifierv2 />
 
-                    </div>
+                    </div> */}
                 </div>
 
             </div>
         </div>
-    );
-};
+    )
+}

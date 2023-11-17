@@ -1,8 +1,8 @@
 'use client'
 
-import {useState} from "react";
-import { createPortal } from "react-dom";
-import {VerifierModalForm} from "@/app/[locale]/components/verifier/VerifierModalForm";
+import { useState } from "react"
+import { createPortal } from "react-dom"
+import { VerifierModalForm } from "@/app/[locale]/components/verifier/VerifierModalForm"
 
 export const SubscribeVerifierButton = () => {
 
@@ -24,5 +24,5 @@ export const SubscribeVerifierButton = () => {
                 <VerifierModalForm closeModal={() => setShowModal(false)}/>,
                 document.body)}
         </>
-    );
-};
+    )
+}

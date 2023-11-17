@@ -1,9 +1,9 @@
 'use client'
 
-import {useEffect} from "react";
-import {useAccount} from "wagmi";
-import {useIdentityContext} from "@/contexts/Identity";
-import {SubscribeVerifierButton} from "@/app/[locale]/components/verifier/SubscribeVerifierButton";
+import { useEffect } from "react"
+import { useAccount } from "wagmi"
+import { useIdentityContext } from "@/contexts/Identity"
+import { SubscribeVerifierButton } from "@/app/[locale]/components/verifier/SubscribeVerifierButton"
 
 
 export const SubscribeVerifier = () => {
@@ -46,5 +46,5 @@ export const SubscribeVerifier = () => {
                 <SubscribeVerifierButton />
             </div>
         </div>
-    );
-};
+    )
+}

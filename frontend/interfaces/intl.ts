@@ -9,6 +9,10 @@ export interface IToasterMessages {
     subscribeVerifierOkDescription: string
     subscribeVerifierErrorTitle: string
     subscribeVerifierErrorDescription: string
+    createVerificationTaskOkTitle: string
+    createVerificationTaskOkDescription: string
+    createVerificationTaskErrorTitle: string
+    createVerificationTaskErrorDescription: string
 }
 
 export interface IIndex {
@@ -108,4 +112,40 @@ export interface ILog {
     transactionHash: `0x${string}` | null
     transactionIndex: number | null
     args?: any
+}
+
+export interface IVerificationTaskGrid {
+    pageTitle: string,
+    searchBar: string,
+    createVerificationButton: string,
+    sectors: string[],
+    fieldGridTitle: string,
+    fieldGridValues: string[],
+    fieldsubGridFirstTitle: string,
+    fieldsubGridFirstValues: string[],
+    fieldsubGridSecondTitle: string,
+    fieldsubGridSecondValues: string[]
+}
+
+export interface IVerificationTaskFilters {
+    title: string,
+    pendingApproval: string,
+    validated: string,
+    approved: string,
+    rejected: string,
+    conditionallyApproved: string
+    status: string[]
+}
+
+export interface IVerificationTaskFields {
+    grid: string[],
+    subGridFirst: string[],
+    subGridSecond: string[],
+}
+
+export interface ICreateVerificationTaskForm {
+    title: string
+    selectSite: string
+    selectSector: string
+    selectVerificationType: string
 }

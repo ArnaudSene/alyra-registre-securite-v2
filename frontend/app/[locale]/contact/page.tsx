@@ -1,5 +1,5 @@
-import Headers from "@/app/[locale]/components/headers/headers";
-import Footer from "@/app/[locale]/components/footers/footer";
+import Headers from "@/app/[locale]/components/headers/headers"
+import Footer from "@/app/[locale]/components/footers/footer"
 
 const Contact = () => {
     return (
@@ -14,4 +14,4 @@ const Contact = () => {
   )
 }
 
-export default Contact;
+export default Contact

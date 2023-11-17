@@ -1,5 +1,17 @@
-import { IFormSubscriptionCompany, IFormSubscriptionVerifier, IHeaderFooter, IHomePager, IIndex, ILayoutButton, ILayoutEventLog, IToasterMessages } from '@/interfaces/intl'
 import { useTranslations } from 'next-intl'
+import { 
+    ICreateVerificationTaskForm, 
+    IFormSubscriptionCompany, 
+    IFormSubscriptionVerifier, 
+    IHeaderFooter, 
+    IHomePager, 
+    IIndex, 
+    ILayoutButton, 
+    ILayoutEventLog, 
+    IToasterMessages, 
+    IVerificationTaskFilters 
+} from '@/interfaces/intl'
+import { IVerificationTaskGrid } from "@/interfaces/verificationTasks"
 
 export const toasterMessages = (): IToasterMessages => {
     const t = useTranslations('ToasterMessages')
@@ -15,6 +27,10 @@ export const toasterMessages = (): IToasterMessages => {
         subscribeVerifierOkDescription: t('subscribeVerifier.ok.description'),
         subscribeVerifierErrorTitle: t('subscribeVerifier.error.title'),
         subscribeVerifierErrorDescription: t('subscribeVerifier.error.description'),
+        createVerificationTaskOkTitle: t('createVerificationTask.ok.title'),
+        createVerificationTaskOkDescription: t('createVerificationTask.ok.description'),
+        createVerificationTaskErrorTitle: t('createVerificationTask.error.title'),
+        createVerificationTaskErrorDescription: t('createVerificationTask.error.description'),
     }
 }
 
@@ -127,5 +143,74 @@ export const layoutEventLogIntl = (): ILayoutEventLog => {
         transactionHash: t('transactionHash'),
         blockNumber: t('blockNumber'),
         publicKeyAddress: t('publicKeyAddress'),
+    }
+}
+
+
+
+export const createVerificationTaskFormIntl = (): ICreateVerificationTaskForm => {
+    const t = useTranslations('layout.form.createVerificationTask')
+
+    return {
+        title: t('title'),
+        selectSite: t('selectSite'),
+        selectSector: t('selectSector'),
+        selectVerificationType: t('selectVerificationType')
+    }
+}
+
+export const verificationTaskFiltersIntl = (): IVerificationTaskFilters => {
+    const t = useTranslations('layout.grid.verificationTasks.filters')
+    let status: string[] = []
+    const keys = ["pendingApproval", "validated", "approved", "rejected", "conditionallyApproved"]
+    
+    keys.map((key) => status.push(t(key)) )
+
+
+    return {
+        title: t('title'),
+        pendingApproval: t('pendingApproval'),
+        validated: t('validated'),
+        approved: t('approved'),
+        rejected: t('rejected'),
+        conditionallyApproved: t('conditionallyApproved'),
+        status: status
+    }
+}
+
+export const verificationTaskGridIntl = (): IVerificationTaskGrid => {
+    const t = useTranslations('layout.grid.verificationTasks.grid')
+    const sectorsIntl = useTranslations('layout.grid.verificationTasks.grid.sectors')
+    const fieldsGridValuesIntl = useTranslations('layout.grid.verificationTasks.grid.fields.grid.values')
+    const fieldsSubGridFirstValuesIntl = useTranslations('layout.grid.verificationTasks.grid.fields.subGridFirst.values')
+    const fieldsSubGridSecondValuesIntl = useTranslations('layout.grid.verificationTasks.grid.fields.subGridSecond.values')
+
+    // keys
+    const sectorsKeys = ['Ventilation', 'Pressure', 'Elevators', 'Noise', 'Light', 'Electricity', 'Fire', 'Refrigeration', 'Thermal', 'Doors', 'Ionizing', 'Optical', 'Chemical', 'Signaling', 'Air'] as const
+    const fieldsGridKeys = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+    const fieldsSubGridFirstKeys = ["0", "1", "2", "3", "4", "5", "6"]
+    const fieldsSubGridSecondKeys = ["0", "1", "2", "3", "4", "5"]
+
+    let sectors: string[] = []
+    let fieldsGrid: string[] = []
+    let fieldsSubGridFirst: string[] = []
+    let fieldsSubGridSecond: string[] = []
+
+    sectorsKeys.map((key) => sectors.push(sectorsIntl(key)) )
+    fieldsGridKeys.map((key) => fieldsGrid.push(fieldsGridValuesIntl(key)) )
+    fieldsSubGridFirstKeys.map((key) => fieldsSubGridFirst.push(fieldsSubGridFirstValuesIntl(key)) )
+    fieldsSubGridSecondKeys.map((key) => fieldsSubGridSecond.push(fieldsSubGridSecondValuesIntl(key)) )
+
+    return {
+        pageTitle: t('pageTitle'),
+        searchBar: t('searchBar'),
+        createVerificationButton: t('createVerificationButton'),
+        sectors: sectors,
+        fieldGridTitle: t('fields.grid.title'),
+        fieldGridValues: fieldsGrid,
+        fieldsubGridFirstTitle: t('fields.subGridFirst.title'),
+        fieldsubGridFirstValues: fieldsSubGridFirst,
+        fieldsubGridSecondTitle: t('fields.subGridSecond.title'),
+        fieldsubGridSecondValues: fieldsSubGridSecond
     }
 }

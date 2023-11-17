@@ -1,11 +1,11 @@
 'use client'
 
-import {MouseEventHandler, useEffect, useState} from "react";
-import {useAccount } from "wagmi";
-import {getVerifierAddedToCompanyEventsv2, writeContractByFunctionName} from "@/utils";
-import { useToast } from "@chakra-ui/react";
-import {useIdentityContext} from "@/contexts/Identity";
-import {IVerifierAddedToCompany} from "@/interfaces/company";
+import { useToast } from "@chakra-ui/react"
+import { MouseEventHandler, useEffect, useState } from "react"
+import { useAccount } from "wagmi"
+import { useIdentityContext } from "@/contexts/Identity"
+import { IVerifierAddedToCompany } from "@/interfaces/verifier"
+import { getVerifierAddedToCompanyEventsv2, writeContractByFunctionName } from "@/utils"
 
 
 export const VerifierToCompanyModalForm = ({closeModal}: {closeModal:  MouseEventHandler<HTMLDivElement | HTMLButtonElement> } ) => {
@@ -109,5 +109,5 @@ export const VerifierToCompanyModalForm = ({closeModal}: {closeModal:  MouseEven
                 >X</button>
             </div>
         </>
-    );
-};
+    )
+}

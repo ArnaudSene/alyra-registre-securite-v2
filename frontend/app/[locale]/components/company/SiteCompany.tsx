@@ -1,10 +1,10 @@
 'use client'
 
-import { SiteCompanyButton } from "@/app/[locale]/components/company/SiteCompanyButton";
-import { getRegisterCreatedEvents } from "@/utils";
-import { useEffect, useState } from "react";
-import { useIdentityContext } from "@/contexts/Identity";
-import { IRegisterCreated } from "@/interfaces/company";
+import { useEffect, useState } from "react"
+import { useIdentityContext } from "@/contexts/Identity"
+import { IRegisterCreated } from "@/interfaces/registers"
+import { getRegisterCreatedEvents } from "@/utils"
+import { SiteCompanyButton } from "@/app/[locale]/components/company/SiteCompanyButton"
 
 export const SiteCompany = () => {
     const { addSiteRefresh } = useIdentityContext()
@@ -67,5 +67,5 @@ export const SiteCompany = () => {
                 </div>
             </div>
         </div>
-    );
-};
+    )
+}

@@ -73,6 +73,16 @@
                 "title": "Error",
                 "description": "Unable to create company!"
             }
+        },
+        "createVerificationTask": {
+            "ok": {
+                "title": "Success",
+                "description": "Verification task successfully created!"
+            },
+            "error": {
+                "title": "Error",
+                "description": "Unable to create the verification task!"
+            }
         }
     },
     "layout": {
@@ -99,10 +109,17 @@
                 "address": "Company address",
                 "siret": "Siret",
                 "approval": "Approval number"                
+            },
+            "createVerificationTask": {
+                "title": "New verification task",
+                "description": "By creating a new verification task you will save it into the blockchain, and allow the verifier to update the status once the verification has been done. ",
+                "selectSite": "Select a site",
+                "selectSector": "Select a sector",
+                "selectVerificationType": "Provide a verification type"
             }
         },
         "eventLog": {
-            "linkTitle": "Show event log",
+            "linkTitle": "Event log",
             "blockTitle": "Transaction log",
             "smartContractAddress": "Smart contract address",
             "blockHash": "Block hash",
@@ -110,6 +127,80 @@
             "blockNumber": "Block number",
             "publicKeyAddress": "Public key address",
             "title": "Saved data"
+        },
+        "grid": {
+            "verificationTasks" : {
+                "grid": {
+                    "pageTitle": "Verification tasks",
+                    "searchBar": "Search ",
+                    "createVerificationButton" : "Create task",
+                    "sectors": {
+                        "Ventilation": "Ventilation - ventilation installation",
+                        "Pressure": "Pressure equipment",
+                        "Elevators": "Elevators, goods lifts",
+                        "Noise": "Noise",
+                        "Light": "Light",
+                        "Electricity": "Electricity",
+                        "Fire": "Fire",
+                        "Refrigeration": "Refrigeration installations",
+                        "Thermal": "Thermal installations",
+                        "Doors": "Doors and gates",
+                        "Ionizing": "Ionizing radiation",
+                        "Optical": "Optical radiation",
+                        "Chemical": "Chemical radiation",
+                        "Signaling": "Signaling",
+                        "Air": "Air conditioning systems and reversible heat pump"
+                    },
+                    "fields": {
+                        "grid": {
+                            "title": "Task",
+                            "values": {
+                                "0": "", 
+                                "1": "Task id",
+                                "2": "Status",
+                                "3": "Sector",
+                                "4": "Type",
+                                "5": "Company",
+                                "6": "Site",
+                                "7": "Site Address",
+                                "8": "Verifier",
+                                "9": "Date"
+                            }
+                        },
+                        "subGridFirst": {
+                            "title": "Verifier",
+                            "values": {
+                                "0": "Account",
+                                "1": "Address",
+                                "2": "Company name",
+                                "3": "FirstName",
+                                "4": "Name",
+                                "5": "Siret",
+                                "6": "Approval Number"
+                            }
+                        },
+                        "subGridSecond": {
+                            "title": "Company",
+                            "values": {
+                                "0": "Account",
+                                "1": "Company Account",
+                                "2": "FirstName",
+                                "3": "Name",
+                                "4": "Address",
+                                "5": "Siret"
+                            }
+                        }
+                    }
+                },
+                "filters" : {
+                    "title": "Filters",
+                    "pendingApproval": "Pending approval",
+                    "validated": "Validated",
+                    "approved": "Approved",
+                    "rejected": "Rejected",
+                    "conditionallyApproved": "Conditionally Approved"
+                }
+            }
         }
     }
 }

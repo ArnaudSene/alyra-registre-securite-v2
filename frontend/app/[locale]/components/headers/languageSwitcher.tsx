@@ -2,9 +2,9 @@
 
 import Link from "next/link"
 import React, { useState } from 'react'
-import { useLocale } from 'next-intl';
-import { usePathname } from 'next/navigation';
-import { useAccount } from 'wagmi';
+import { useLocale } from 'next-intl'
+import { usePathname } from 'next/navigation'
+import { useAccount } from 'wagmi'
 
 const LanguageSwitcher = () => {
     const [toggle, setToggle] = useState(false)

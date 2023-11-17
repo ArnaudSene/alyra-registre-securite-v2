@@ -1,5 +1,5 @@
-import Headers from "@/app/[locale]/components/headers/headers";
-import Footer from "@/app/[locale]/components/footers/footer";
+import Headers from "@/app/[locale]/components/headers/headers"
+import Footer from "@/app/[locale]/components/footers/footer"
 
 const FAQ = () => {
     return (
@@ -14,4 +14,4 @@ const FAQ = () => {
   )
 }
 
-export default FAQ;
+export default FAQ

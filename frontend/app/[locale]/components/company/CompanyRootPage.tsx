@@ -1,17 +1,14 @@
 'use client'
 
-import {getRegisterCreatedEvents} from "@/utils";
-import {useEffect, useState} from "react";
-import {useAccount} from "wagmi";
-import {useRouter} from "next/navigation";
-import Loader from "@/app/[locale]/components/Loader";
-import {useIdentityContext} from "@/contexts/Identity";
-
-import {SiteCompany} from "@/app/[locale]/components/company/SiteCompany";
-import {AccountCompany} from "@/app/[locale]/components/company/AccountCompany";
-import {VerifierToCompany} from "@/app/[locale]/components/company/VerifierToCompany";
-import {VerificationTask} from "@/app/[locale]/components/company/VerificationTask";
-import {VerificationTaskMenu} from "@/app/[locale]/components/company/VerificationTaskMenu";
+import { useEffect, useState } from "react"
+import { useAccount } from "wagmi"
+import { useRouter } from "next/navigation"
+import { useIdentityContext } from "@/contexts/Identity"
+import { getRegisterCreatedEvents } from "@/utils"
+import { SiteCompany } from "@/app/[locale]/components/company/SiteCompany"
+import { AccountCompany } from "@/app/[locale]/components/company/AccountCompany"
+import { VerifierToCompany } from "@/app/[locale]/components/company/VerifierToCompany"
+import { VerificationTaskMenu } from "@/app/[locale]/components/company/VerificationTaskMenu"
 
 export const CompanyRootPage = () => {
     const { address, isConnected } = useAccount()
@@ -156,13 +153,13 @@ export const CompanyRootPage = () => {
                     </div>
 
                     {/*Verification*/}
-                    <div className={`flex flex-col mx-auto ${toggleVerification}`}>
+                    {/* <div className={`flex flex-col mx-auto ${toggleVerification}`}>
 
                         <VerificationTask />
-                    </div>
+                    </div> */}
                 </div>
 
             </div>
         </div>
-    );
-};
+    )
+}

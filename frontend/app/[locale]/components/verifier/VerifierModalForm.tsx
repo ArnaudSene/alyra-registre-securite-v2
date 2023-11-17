@@ -1,10 +1,10 @@
 'use client'
 
-import { MouseEventHandler, useEffect, useState} from "react";
-import { useAccount } from "wagmi";
-import { getVerifierCreatedEvents, writeContractByFunctionName} from "@/utils";
-import { useToast } from "@chakra-ui/react";
-import {useIdentityContext} from "@/contexts/Identity";
+import { useToast } from "@chakra-ui/react"
+import { MouseEventHandler, useEffect, useState} from "react"
+import { useAccount } from "wagmi"
+import { useIdentityContext } from "@/contexts/Identity"
+import { getVerifierCreatedEvents, writeContractByFunctionName} from "@/utils"
 
 export const VerifierModalForm = ({closeModal}: {closeModal:  MouseEventHandler<HTMLDivElement | HTMLButtonElement> } ) => {
     const {address, isConnected} = useAccount()
@@ -114,5 +114,5 @@ export const VerifierModalForm = ({closeModal}: {closeModal:  MouseEventHandler<
                 >X</button>
             </div>
         </>
-    );
-};
+    )
+}

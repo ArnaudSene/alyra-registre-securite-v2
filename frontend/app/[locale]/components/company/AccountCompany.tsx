@@ -1,15 +1,15 @@
 'use client'
 
+import { useToast } from "@chakra-ui/react"
+import { useEffect, useState } from "react"
+import { useAccount } from "wagmi"
+import { useIdentityContext } from "@/contexts/Identity"
+import { ICompanyAccountUpdated } from "@/interfaces/registers"
 import {
     getCompanyAccountUpdatedEventsv2,
     writeContractByFunctionName
-} from "@/utils";
-import { useEffect, useState } from "react";
-import { useAccount } from "wagmi";
-import { AccountCompanyButton } from "@/app/[locale]/components/company/AccountCompanyButton";
-import { useToast } from "@chakra-ui/react";
-import { useIdentityContext } from "@/contexts/Identity";
-import { ICompanyAccountUpdated } from "@/interfaces/company";
+} from "@/utils"
+import { AccountCompanyButton } from "@/app/[locale]/components/company/AccountCompanyButton"
 
 export const AccountCompany = () => {
     const { address} = useAccount()
@@ -22,7 +22,7 @@ export const AccountCompany = () => {
 
     useEffect(() => {
         getCompanyAccountUpdatedEventsv2().then(data => {
-            const companyAccountsUpdated: Map<`0x${string}`, ICompanyAccountUpdated> = new Map();
+            const companyAccountsUpdated: Map<`0x${string}`, ICompanyAccountUpdated> = new Map()
 
             for (let i = 0; i < data.length; i++) {
                 const companyAccountUpdated: ICompanyAccountUpdated = data[i]
@@ -144,5 +144,5 @@ export const AccountCompany = () => {
                 </div>
             </div>
         </div>
-    );
-};
+    )
+}

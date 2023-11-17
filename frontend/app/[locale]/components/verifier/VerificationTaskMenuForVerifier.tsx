@@ -1,7 +1,7 @@
-import {useIdentityContext} from "@/contexts/Identity";
-import {useEffect, useState} from "react";
-import {writeContractByFunctionName} from "@/utils";
-import {useToast} from "@chakra-ui/react";
+import { useIdentityContext } from "@/contexts/Identity"
+import { useEffect, useState } from "react"
+import { writeContractByFunctionName } from "@/utils"
+import { useToast } from "@chakra-ui/react"
 
 export const VerificationTaskMenuForVerifier = () => {
 
@@ -64,5 +64,5 @@ export const VerificationTaskMenuForVerifier = () => {
                 </div>
             }
         </div>
-    );
-};
+    )
+}

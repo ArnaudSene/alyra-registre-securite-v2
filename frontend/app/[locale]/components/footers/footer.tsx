@@ -1,9 +1,9 @@
 "use client"
 
 import Link from 'next/link'
-import { IHeaderFooter } from '@/interfaces/intl';
-import { headerFooterIntl } from '@/utils/intl';
-import { useHeaderFooterContext } from '@/contexts/HeaderFooter';
+import { IHeaderFooter } from '@/interfaces/intl'
+import { headerFooterIntl } from '@/utils/intl'
+import { useHeaderFooterContext } from '@/contexts/HeaderFooter'
 
 
 const Footer = () => {
@@ -99,4 +99,4 @@ const Footer = () => {
         </footer>
     )
 }
-export default Footer;
+export default Footer

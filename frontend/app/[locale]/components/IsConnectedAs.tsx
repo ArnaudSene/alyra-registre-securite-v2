@@ -1,14 +1,13 @@
-'use client'
+"use client"
 
-import Loader from "./Loader"
-import { getRegisterCreatedEvents, getVerifierCreatedEvents} from "@/utils"
+import { useToast } from "@chakra-ui/react"
+import { ReactNode, useEffect } from "react"
 import { useRouter, usePathname } from "next/navigation"
-import { ReactNode, useEffect, useState } from "react"
 import { useAccount } from "wagmi"
-import { useIdentityContext } from "@/contexts/Identity";
-import { useToast } from "@chakra-ui/react";
-import { toasterMessages } from "@/utils/intl"
+import { useIdentityContext } from "@/contexts/Identity"
 import { IToasterMessages } from "@/interfaces/intl"
+import { toasterMessages } from "@/utils/intl"
+import { getRegisterCreatedEvents, getVerifierCreatedEvents} from "@/utils"
 
 
 const IsConnectedAs = ({ children, asVerifier, asCompany }: {
@@ -21,16 +20,16 @@ const IsConnectedAs = ({ children, asVerifier, asCompany }: {
     const { push } = useRouter()
     const toast = useToast()
     const toasterMessagesIntl: IToasterMessages = toasterMessages()
-    const [loading, setLoading] = useState(true)
     const pathName = usePathname()
 
     useEffect(() => {
-        setLoading(true)
-        setCompany(false)
-        setVerifier(false)
+        handleIsConnected()
+    }, [address, isConnected])
 
+    const handleIsConnected = () => {
         if (isConnected) {
             if(asCompany) {
+                console.log('Company checking')
                 getRegisterCreatedEvents()
                     .then(data => {
                         const index = data.findIndex((d) => d.account === address )
@@ -41,7 +40,6 @@ const IsConnectedAs = ({ children, asVerifier, asCompany }: {
 
                     })
                     .catch(() => push('/'))
-                    .finally(() => setLoading(false))
             }
             else if (asVerifier) {
                 console.log('Verifier checking')
@@ -54,11 +52,14 @@ const IsConnectedAs = ({ children, asVerifier, asCompany }: {
                         }
                     })
                     .catch(() => push('/'))
-                    .finally(() => setLoading(false))
             }
-            else setLoading(false)
+            else {
+                setCompany(false)
+                setVerifier(false)
+            }
 
         } else if (pathName !== '/') {
+            push('/')
             toast({
                 title: toasterMessagesIntl.notConnectedTitle,
                 description: toasterMessagesIntl.notConnectedDescription,
@@ -66,28 +67,13 @@ const IsConnectedAs = ({ children, asVerifier, asCompany }: {
                 duration: 5000,
                 isClosable: true,
             })
-            push('/')
-        }
-        else {
-            setLoading(false)
-        }
-    }, [address, isConnected])
+        } 
+    }
 
     return (
-        <Loader isLoading={loading}>
-            {isConnected ? children :
-                <div className="flex flex-row">
-                    <div className="border-t border-t-rose-500 text-center w-1/2 mt-10 p-5
-                        bg-gradient-to-t from-gray-700 to-gray-800 
-                        text-slate-100
-                        rounded mx-auto
-                     ">
-                        <p>Ho, n'oublies pas de te connecter à ton wallet1</p>
-
-                    </div>
-                </div>
-            }
-        </Loader>
+        <>
+            {children}
+        </>
     )
 }
 export default IsConnectedAs

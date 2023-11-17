@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from "react"
-import Loader from "@/app/[locale]/components/Loader";
-import IsConnectedAs from "@/app/[locale]/components/IsConnectedAs";
+import Loader from "@/app/[locale]/components/Loader"
+import IsConnectedAs from "@/app/[locale]/components/IsConnectedAs"
 
 const VisitorPage = () => {
     const [loading, setLoading] = useState(false)
@@ -24,4 +24,4 @@ const VisitorPage = () => {
   )
 }
 
-export default VisitorPage;
+export default VisitorPage

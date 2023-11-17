@@ -1,8 +1,8 @@
 'use client'
 
-import {useAccount} from "wagmi";
-import {useEffect} from "react";
-import {SubscribeCompanyButton} from "@/app/[locale]/components/company/SubscribeCompanyButton";
+import { useAccount } from "wagmi"
+import { useEffect } from "react"
+import { SubscribeCompanyButton } from "@/app/[locale]/components/company/SubscribeCompanyButton"
 
 
 export const SubscribeCompany = () => {
@@ -48,5 +48,5 @@ export const SubscribeCompany = () => {
                 <SubscribeCompanyButton />
             </div>
         </div>
-    );
-};
+    )
+}

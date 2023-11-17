@@ -1,15 +1,12 @@
 'use client'
 
-import {
-    getVerifierAccountUpdatedEvents, getVerifierAccountUpdatedEventsv2,
-    getVerifierAddedToCompanyEvents,
-    getVerifierAddedToCompanyEventsv2, getVerifierCreatedEvents
-} from "@/utils";
-import { useEffect, useState } from "react";
-import { useAccount } from "wagmi";
-import { VerifierToCompanyButton } from "@/app/[locale]/components/company/VerifierToCompanyButton";
-import {useIdentityContext} from "@/contexts/Identity";
-import {IVerifierAccountUpdated, IVerifierAddedToCompany, IVerifierCreated} from "@/interfaces/company";
+import { useEffect, useState } from "react"
+import { useAccount } from "wagmi"
+import { useIdentityContext } from "@/contexts/Identity"
+import { IVerifierAddedToCompany } from "@/interfaces/verifier"
+import { IVerifierCreated } from "@/interfaces/verifier"
+import { getVerifierAddedToCompanyEventsv2, getVerifierCreatedEvents } from "@/utils"
+import { VerifierToCompanyButton } from "@/app/[locale]/components/company/VerifierToCompanyButton"
 
 export const VerifierToCompany = () => {
     const { address} = useAccount()
@@ -123,5 +120,5 @@ export const VerifierToCompany = () => {
                 </div>
             </div>
         </div>
-    );
-};
+    )
+}

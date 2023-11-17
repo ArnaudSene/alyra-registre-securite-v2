@@ -1,156 +1,242 @@
 'use client'
 
-import {MouseEventHandler, useEffect, useState} from "react";
-import {useAccount } from "wagmi";
-import {
-    getRegisterCreatedEvents, getRegisterVerifications,
-    writeContractByFunctionName
-} from "@/utils";
-import { useToast } from "@chakra-ui/react";
-import {useIdentityContext} from "@/contexts/Identity";
-import {IRegisterCreated} from "@/interfaces/company";
+import { useToast } from "@chakra-ui/react"
+import { useEffect, useState } from "react"
+import { Log } from "viem"
+import { useAccount } from "wagmi"
+import { useRegisterSecurityEventContext } from "@/contexts/registerSecurityEvent"
+import { ICreateVerificationTaskForm, ILayoutButton, ILayoutEventLog, IToasterMessages } from "@/interfaces/intl"
+import { IEventLog, IFormSelectData, ILayoutEventLogMapping, IhandleEventsResponse } from "@/interfaces/layout"
+import { IRegisterCreated } from "@/interfaces/registers"
+import { IVerificationTaskModalFormNew, IVerificationTaskGrid } from "@/interfaces/verificationTasks"
+import { SubmitButtonLayout } from "../layout/ButtonLink"
+import { EventLogLayoutMin2 } from "../layout/EventFieldLayout"
+import { FormLayout } from "../layout/formLayout"
+import { FormInputLayout2, FormSelectLayout } from "../layout/FormInputLayout"
+import { writeContractByFunctionName } from "@/utils"
+import { 
+    createVerificationTaskFormIntl, 
+    layoutButtonIntl, 
+    layoutEventLogIntl, 
+    toasterMessages, 
+    verificationTaskGridIntl 
+} from "@/utils/intl"
 
 
-export const VerificationTaskModalFormNew = ({closeModal}: {closeModal:  MouseEventHandler<HTMLDivElement | HTMLButtonElement> } ) => {
-    const {address, isConnected} = useAccount()
-    const {setRefreshScreen, refreshScreen, setCreateVerificationTaskRefresh } = useIdentityContext()
-
-    const toast = useToast()
-    const [loading, setLoading] = useState(true)
-    const [messageHeaderForm, setMessageHeaderForm] = useState("invisible")
-    const [refresh, setRefresh] = useState(0)
-
-    const [sites, setSites] = useState<IRegisterCreated[]>([])
-    const [siteSelected, setSiteSelected] = useState("")
-
-    const [securitySelectorSelected, setSecuritySelectorSelected] = useState<BigInt>(BigInt("0"))
-    const [securityType, setSecurityType] = useState("")
-
-
-    useEffect(() => {
-        setLoading(true)
-        setMessageHeaderForm("invisible")
-        setCreateVerificationTaskRefresh(false)
-        getSites()
-    }, [isConnected, address, refresh, loading, refreshScreen])
-
-
-    const getSites = async () => {
-        let _sites: IRegisterCreated[] = []
-
-        getRegisterCreatedEvents()
-            .then(
-                data => {
-                    for (let i = 0; i < data.length; i++) {
-                        const registerCreated = data[i]
-
-                        if(registerCreated.account !== address) {
-                            continue
-                        }
-
-                        _sites.push(registerCreated)
-                    }
-                })
-            .finally(() => {
-                setSites(_sites)
-                setLoading(false)
-            })
+const handleEvents = (
+    layoutEventLog: ILayoutEventLog,
+    eventLogs: Iterable<Log>, 
+    mapping: ILayoutEventLogMapping
+): IhandleEventsResponse => {
+    
+    let handleEventsResponse: IhandleEventsResponse = {
+        eventLog: undefined,
+        ok: false
     }
 
-    const submitCreateVerificationTask = () => {
-        writeContractByFunctionName("createVerificationTask", siteSelected, securityType, securitySelectorSelected)
-            .then(() => {
-                setLoading(true)
+    for (const log of eventLogs as Iterable<Log>) {
+        // @ts-expect-error
+        const logArgs: any = log.args
+
+        if (logArgs[mapping.addressAttribute] === mapping.addressValue) {
+            const eventLog: IEventLog  = {
+                blockTitle: layoutEventLog.blockTitle,
+                blockData: [
+                    {
+                        title: layoutEventLog.smartContractAddress,
+                        value: log.address
+                    },
+                    {
+                        title: layoutEventLog.blockHash,
+                        value: log.blockHash
+                    },
+                    {
+                        title: layoutEventLog.transactionHash,
+                        value: log.transactionHash
+                    },
+                    {
+                        title: layoutEventLog.blockNumber,
+                        value: log.blockNumber?.toString()
+                    },
+                ],
+                title: layoutEventLog.title,
+                data: []
+            }
+            
+            handleEventsResponse = {eventLog: eventLog, ok: true}
+            return handleEventsResponse
+        }
+    }
+    return handleEventsResponse
+}
+
+export const VerificationTaskModalFormNew = ({ props }: { props: IVerificationTaskModalFormNew } ) => {
+    const toast = useToast()
+    const { address } = useAccount()
+    const { verificationTaskCreatedEventLogs } = useRegisterSecurityEventContext()
+    const [loading, setLoading] = useState(false)
+    const [sitesSelect, setSitesSelect] = useState<IFormSelectData[]>([])
+    const [sectorsSelect, setSectorsSelect] = useState<IFormSelectData[]>([])
+    const [siteSelected, setSiteSelected] = useState("")
+    const [sectorSelected, setSectorSelected] = useState("")
+    const [eventLog, setEventLog] = useState<IEventLog | undefined>()
+    // Internallization
+    const createVerificationTaskForm: ICreateVerificationTaskForm = createVerificationTaskFormIntl()
+    const layoutButton: ILayoutButton = layoutButtonIntl()
+    const verificationTaskGrid: IVerificationTaskGrid = verificationTaskGridIntl()
+    const layoutEventLog: ILayoutEventLog = layoutEventLogIntl()
+    const tostMessage: IToasterMessages = toasterMessages()
+    const actionName = 'createVerificationTask'
+    const mapping: ILayoutEventLogMapping = {
+        addressAttribute: '_company',
+        addressValue: address as `0x${string}`,
+    }
+
+    useEffect(() => {
+        getSites()
+        getSectors()
+    }, [])
+
+    // handle events
+    useEffect(() => {
+        if(loading) {
+            const handleEventsResponse: IhandleEventsResponse = handleEvents(layoutEventLog, verificationTaskCreatedEventLogs, mapping)
+
+            if (handleEventsResponse.ok) {
+                setEventLog(handleEventsResponse.eventLog)
                 toast({
-                    title: "Création d'une tâche.",
-                    description: `Tâche créée avec succès`,
+                    title: tostMessage.createVerificationTaskOkTitle,
+                    description: tostMessage.createVerificationTaskOkDescription,
                     status: 'success',
                     duration: 5000,
                     isClosable: true,
                 })
-            })
+            }
+            setLoading(false)
+        }
+    }, [verificationTaskCreatedEventLogs])
+
+    const getSites = async () => {
+        let formSelectData: IFormSelectData[] = []
+
+        props.verificationTaskModalForm.registersCreated.map((d: IRegisterCreated, index: number) => {
+            formSelectData.push({
+                id: index.toString(),
+                value: d.siteName,
+                label: d.siteName
+            } as IFormSelectData)
+        })
+        
+        setSitesSelect(formSelectData)
+    }
+
+    const getSectors = async () => {
+        let formSelectData: IFormSelectData[] = []
+
+        verificationTaskGrid.sectors.map((sector: string, index: number) => {
+            formSelectData.push({
+                id: index.toString(),
+                value: index.toString(),
+                label: sector
+            } as IFormSelectData)
+        })
+        
+        setSectorsSelect(formSelectData)
+    }
+    
+    // Handle form
+    interface FormDataLayout {
+        site: string
+        verificationType: string
+        sector: string
+    }
+
+    const [formData, setFormData] = useState<FormDataLayout>({
+        site: "",
+        verificationType: "",
+        sector: "",
+    })
+  
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault()
+        let result: string[] = []
+        Object.entries(formData).map(([key, value]) => result.push(value))
+        
+        writeContractByFunctionName(actionName, ...result)
+            .then(() => {setLoading(true)})
             .catch(err => {
-                console.log("Add new verification task error => " + err)
+                console.log(`writeContractByFunctionName(${actionName}) error => ` + err)
                 toast({
-                    title: 'Erreur',
-                    description: "Impossible de créer une tâche!",
+                    title: tostMessage.createVerificationTaskErrorTitle,
+                    description: tostMessage.createVerificationTaskErrorDescription,
                     status: 'error',
                     duration: 5000,
                     isClosable: true,
                 })
             })
-            .finally(() => {
-                setLoading(false)
-                setCreateVerificationTaskRefresh(true)
-                setRefresh(Math.random())
-                setRefreshScreen(Math.random())
-            })
     }
 
-    const handleSiteOnChange = (event: any) => {
-        setSiteSelected(event.target.value)
-    }
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        if (e.target.name === 'site') setSiteSelected(e.target.value) 
+        if (e.target.name === 'sector') setSectorSelected(e.target.value) 
 
-    const handleSecuritySelectorOnChange = (event: any) => {
-        setSecuritySelectorSelected(BigInt(event.target.value))
+        setFormData({ ...formData, [e.target.name]: e.target.value })
     }
-
 
     return (
         <>
-            {/*Close form modal*/}
-            <div onClick={closeModal} className="fixed inset-0 backdrop-blur-sm bg-black/50"></div>
+            {props.isModalOpen && 
+                <div className="pt-0 z-10">
+                    <FormLayout props={{
+                        title: createVerificationTaskForm.title,
+                        onModalClose: props.closeModal, 
+                        onSubmit: handleSubmit
+                    }}>
+                        <div className="my-2">
+                            <EventLogLayoutMin2 props={{
+                                title: layoutEventLog.linkTitle,
+                                description: "",
+                                events: eventLog
+                            }}/>
+                        </div>
 
-            {/*Form add site*/}
-            <div className="text-sm fixed z-10 top-1/3 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-gray-900 rounded border border-gray-800 shadow-md shadow-black/50
-                w-full md:w-1/2 p-2 md:p-10 text-sm md:text-base">
-                <p className="font-bold text-base">Créer une tâche de vérification</p>
+                        <div className="grid grid-cols-1 gap-x-6 gap-y-6">
+                            <FormSelectLayout props={{
+                                id: "site",
+                                label: createVerificationTaskForm.selectSite,
+                                defaultSelected: {value: "-1", label: createVerificationTaskForm.selectSite},
+                                selected: {value: siteSelected, label: siteSelected},
+                                data: sitesSelect,
+                                onChange: handleChange
+                            }}/>
 
-                {/*Message header*/}
-                <div className={`text-xs pt-2 text-cyan-400 ${messageHeaderForm}`}>
-                    Le tâche a été créée avec succès.<br />
-                    Vous pouvez fermer la fenêtre ou ajouter un autre site!
+                            <FormSelectLayout props={{
+                                id: "sector",
+                                label: createVerificationTaskForm.selectSector,
+                                defaultSelected: {value: "-1", label: createVerificationTaskForm.selectSector},
+                                selected: {value: sectorSelected, label: sectorSelected},
+                                data: sectorsSelect,
+                                onChange: handleChange
+                            }}/>
+
+                            <FormInputLayout2 props={{
+                                id: "verificationType",
+                                label: createVerificationTaskForm.selectVerificationType,
+                                placeholder: createVerificationTaskForm.selectVerificationType,
+                                autoComplete: "typeVerification",
+                                onChange: handleChange
+                            }}/>
+
+                        </div>
+
+                        <SubmitButtonLayout props={{
+                            loading: loading,
+                            spinnerSize: 'sm',
+                            buttonName: layoutButton.save
+                        }}/>
+                    </FormLayout>   
                 </div>
-
-                <div className="flex flex-col">
-
-                    {/*Input fields*/}
-                    <form className="flex flex-col my-1">
-
-                        <select
-                            className="text-gray-900"
-                            value={siteSelected} onChange={handleSiteOnChange}>
-                            <option value="">Sélectionner un site</option>
-                            {sites.map((data, index) => (
-                                <option key={index} value={data.siteName}>{data.siteName}</option>
-                            ))}
-                        </select>
-                        <select
-                            className="text-gray-900"
-                            value={Number(securitySelectorSelected)} onChange={handleSecuritySelectorOnChange}>
-                            <option value="">Sélectionner un sector</option>
-                            {getRegisterVerifications().map((data, index) => (
-                                <option key={index} value={index}>{data}</option>
-                            ))}
-                        </select>
-                        <input onChange={e => setSecurityType(e.target.value)}
-                               placeholder="Type de vérification" type="text"
-                               className="py-1 mb-0.5 rounded text-gray-900"/>
-
-                    </form>
-
-                    <button
-                        className="mx-auto py-2 px-3.5 box-border h-10 rounded bg-rose-500 text-slate-50 font-bold w-full"
-                        onClick={() => submitCreateVerificationTask()}>Ajouter
-                    </button>
-                </div>
-
-                {/*Close form modal*/}
-                <button
-                    className="absolute top-1 right-1 w-7 h-7 bg-rose-600 text-gray-50 rounded"
-                    onClick={closeModal}
-                >X</button>
-            </div>
+            }            
         </>
-    );
-};
+    )
+}

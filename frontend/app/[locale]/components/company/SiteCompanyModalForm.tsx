@@ -1,13 +1,13 @@
 'use client'
 
-import {MouseEventHandler, useEffect, useState} from "react";
-import {useAccount } from "wagmi";
+import { useToast } from "@chakra-ui/react"
+import { MouseEventHandler, useEffect, useState } from "react"
+import { useAccount } from "wagmi"
+import { useIdentityContext } from "@/contexts/Identity"
 import {
     getRegisterCreatedEvents,
     writeContractByFunctionName
-} from "@/utils";
-import { useToast } from "@chakra-ui/react";
-import {useIdentityContext} from "@/contexts/Identity";
+} from "@/utils"
 
 
 export const SiteCompanyModalForm = ({closeModal}: {closeModal:  MouseEventHandler<HTMLDivElement | HTMLButtonElement> } ) => {
@@ -133,5 +133,5 @@ export const SiteCompanyModalForm = ({closeModal}: {closeModal:  MouseEventHandl
                 >X</button>
             </div>
         </>
-    );
-};
+    )
+}

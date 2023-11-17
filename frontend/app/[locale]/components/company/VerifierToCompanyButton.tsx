@@ -1,8 +1,8 @@
 'use client'
 
-import { createPortal } from "react-dom";
-import {useState} from "react";
-import {VerifierToCompanyModalForm} from "@/app/[locale]/components/company/VerifierToCompanyModalForm";
+import { createPortal } from "react-dom"
+import { useState } from "react"
+import { VerifierToCompanyModalForm } from "@/app/[locale]/components/company/VerifierToCompanyModalForm"
 
 export const VerifierToCompanyButton = () => {
 
@@ -20,5 +20,5 @@ export const VerifierToCompanyButton = () => {
                 <VerifierToCompanyModalForm closeModal={() => setShowModal(false)}/>,
                 document.body)}
         </div>
-    );
-};
+    )
+}

@@ -73,6 +73,16 @@
                 "title": "Erreur",
                 "description": "Impossible de créer la compagnie!"
             }
+        },
+        "createVerificationTask": {
+            "ok": {
+                "title": "Succès",
+                "description": "Vérification créée avec succès!"
+            },
+            "error": {
+                "title": "Erreur",
+                "description": "Impossible de créer la Vérification!"
+            }
         }
     },
     "layout": {
@@ -99,10 +109,17 @@
                 "address": "Adresse de la compagnie",
                 "siret": "Siret",
                 "approval": "Numéro d'aggrément"
+            },
+            "createVerificationTask": {
+                "title": "Nouvelle tâche de vérification",
+                "description": "Créer une nouvelle vérification va l'enregistrer dans la blockchain et permettre au vérificateur de mettre à jour le statut une fois la vérification effectuée.",
+                "selectSite": "Sélectionner un site",
+                "selectSector": "Sélectionner un scteur",
+                "selectVerificationType": "Indiquer un type de vérification"
             }
         },
         "eventLog": {
-            "linkTitle": "Voir les logs d'événement",
+            "linkTitle": "Logs",
             "blockTitle": "Log de transaction",
             "smartContractAddress": "Adresse du Smart contract",
             "blockHash": "Hash du block",
@@ -110,6 +127,80 @@
             "blockNumber": "Numéro du block",
             "publicKeyAddress": "Adresse de clé publique",
             "title": "Données enregistrées"
+        },
+        "grid": {
+            "verificationTasks" : {
+                "grid": {
+                    "pageTitle": "Tâches de vérification",
+                    "searchBar": "Recherche",
+                    "createVerificationButton" : "Créer une tâche",
+                    "sectors": {
+                        "Ventilation": "Aération - installation de ventilation",
+                        "Pressure": "Équipement sous pression",
+                        "Elevators": "Ascenseurs, monte-charges",
+                        "Noise": "Bruit",
+                        "Light": "Éclairage",
+                        "Electricity": "Électricité",
+                        "Fire": "Incendie",
+                        "Refrigeration": "Installations frigorifiques",
+                        "Thermal": "Installations thermiques",
+                        "Doors": "Portes et portails",
+                        "Ionizing": "Rayonnements ionisants",
+                        "Optical": "Rayonnements optiques",
+                        "Chemical": "Rayonnements chimiques",
+                        "Signaling": "Signalisation",
+                        "Air": "Systèmes de climatisation et pompte à chaleur réversible"
+                    },
+                    "fields": {
+                        "grid": {
+                            "title": "Tâches",
+                            "values": {
+                                "0": "",
+                                "1": "Tâche ID",
+                                "2": "Statut",
+                                "3": "Secteur",
+                                "4": "Type",
+                                "5": "Compagnie",
+                                "6": "Site",
+                                "7": "Adresse du site",
+                                "8": "Vérificateur",
+                                "9": "Date"
+                            }
+                        },
+                        "subGridFirst": {
+                            "title": "Vérificateur",
+                            "values": {
+                                "0": "Compte",
+                                "1": "Adresse",
+                                "2": "Nom de compagnie",
+                                "3": "Prénom",
+                                "4": "Nom",
+                                "5": "Siret",
+                                "6": "Numéro d'approbation"
+                            }
+                        },
+                        "subGridSecond": {
+                            "title": "Compagnie",
+                            "values": {
+                                "0": "Compte",
+                                "1": "Compte de compagnie",
+                                "2": "Prénom",
+                                "3": "Nom",
+                                "4": "Adresse",
+                                "5": "Siret"
+                            }
+                        }
+                    }
+                },
+                "filters" : {
+                    "title": "Filtres",
+                    "pendingApproval": "En attente d'approbation",
+                    "validated": "Validée par le vérificateur",
+                    "approved": "Approuvée",
+                    "rejected": "Rejetée",
+                    "conditionallyApproved": "Approuvée sous réserve"
+                }
+            }
         }
     }
 }

@@ -1,32 +1,32 @@
 "use client"
 
-import {createContext, ReactNode, useContext, useState} from "react";
+import { createContext, ReactNode, useContext, useState } from "react"
 
 interface IIdentityProps {
-    company: boolean;
-    setCompany: (company: boolean) => void;
-    verifier: boolean;
-    setVerifier: (verifier: boolean) => void;
-    accountRefresh: boolean;
-    setAccountRefresh: (accountRefresh: boolean) => void;
-    verifierToCompanyRefresh: boolean;
-    setVerifierToCompanyRefresh: (verifierToCompanyRefresh: boolean) => void;
-    addSiteRefresh: boolean;
-    setAddSiteRefresh: (addSiteRefresh: boolean) => void;
-    verificationTaskRefresh: boolean;
-    setVerificationTaskRefresh: (verificationTaskRefresh: boolean) => void;
-    createVerificationTaskRefresh: boolean;
-    setCreateVerificationTaskRefresh: (createVerificationTaskRefresh: boolean) => void;
-    approveVerificationTaskRefresh: boolean;
-    setApproveVerificationTaskRefresh: (approveVerificationTaskRefresh: boolean) => void;
-    selectedVerificationTask: number;
-    setSelectedVerificationTask: (selectedVerificationTask: number) => void;
-    selectedScreen: string;
-    setSelectedScreen: (selectedScreen: string) => void;
-    verificationTaskStatus: boolean;
-    setVerificationTaskStatus: (verificationTaskStatus: boolean) => void;
-    refreshScreen: number;
-    setRefreshScreen: (refreshScreen: number) => void;
+    company: boolean
+    setCompany: (company: boolean) => void
+    verifier: boolean
+    setVerifier: (verifier: boolean) => void
+    accountRefresh: boolean
+    setAccountRefresh: (accountRefresh: boolean) => void
+    verifierToCompanyRefresh: boolean
+    setVerifierToCompanyRefresh: (verifierToCompanyRefresh: boolean) => void
+    addSiteRefresh: boolean
+    setAddSiteRefresh: (addSiteRefresh: boolean) => void
+    verificationTaskRefresh: boolean
+    setVerificationTaskRefresh: (verificationTaskRefresh: boolean) => void
+    createVerificationTaskRefresh: boolean
+    setCreateVerificationTaskRefresh: (createVerificationTaskRefresh: boolean) => void
+    approveVerificationTaskRefresh: boolean
+    setApproveVerificationTaskRefresh: (approveVerificationTaskRefresh: boolean) => void
+    selectedVerificationTask: number
+    setSelectedVerificationTask: (selectedVerificationTask: number) => void
+    selectedScreen: string
+    setSelectedScreen: (selectedScreen: string) => void
+    verificationTaskStatus: boolean
+    setVerificationTaskStatus: (verificationTaskStatus: boolean) => void
+    refreshScreen: number
+    setRefreshScreen: (refreshScreen: number) => void
 }
 
 

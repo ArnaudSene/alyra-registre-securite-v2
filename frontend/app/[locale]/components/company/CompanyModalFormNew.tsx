@@ -1,19 +1,20 @@
 'use client'
 
-import { useToast } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { writeContractByFunctionName } from "@/utils";
-import { IFormSubscriptionCompany, ILayoutButton, ILayoutEventLog, IToasterMessages } from "@/interfaces/intl";
-import { formSubscriptionCompanyIntl, layoutButtonIntl, layoutEventLogIntl, toasterMessages } from "@/utils/intl";
+// @ts-expect-error
 import { experimental_useFormState as useFormState } from 'react-dom'
-import { experimental_useFormStatus as useFormStatus } from 'react-dom'
-import { useAccount, useContractEvent } from "wagmi";
-import { abi, contractAddress } from "@/constants";
-import { Log } from "viem";
-import { IEventLog } from "@/interfaces/layout";
-import { EventLogLayout } from "../layout/EventFieldLayout";
-import { SubmitButtonLayout } from "../layout/ButtonLink";
-import FormInputLayout from "../layout/FormInputLayout";
+import { useToast } from "@chakra-ui/react"
+import { useEffect, useState } from "react"
+import { Log } from "viem"
+import { useAccount, useContractEvent } from "wagmi"
+import { abi, contractAddress } from "@/constants"
+import { IEventLog } from "@/interfaces/layout"
+import { IFormSubscriptionCompany, ILayoutButton, ILayoutEventLog, IToasterMessages } from "@/interfaces/intl"
+import { writeContractByFunctionName } from "@/utils"
+import { formSubscriptionCompanyIntl, layoutButtonIntl, layoutEventLogIntl, toasterMessages } from "@/utils/intl"
+import { EventLogLayout } from "../layout/EventFieldLayout"
+import { SubmitButtonLayout } from "../layout/ButtonLink"
+import { FormInputLayout } from "../layout/FormInputLayout"
+import IsConnectedAs from "../IsConnectedAs"
 
 const initialState = {
     message: null,
@@ -34,6 +35,7 @@ export const CompanyModalFormNew = () => {
     useEffect(() => {
         if(loading) {
             for (const log of eventLogs as Iterable<Log>) {
+                // @ts-expect-error
                 const logArgs: any = log.args
 
                 if (logArgs._addr === address) {
@@ -111,15 +113,13 @@ export const CompanyModalFormNew = () => {
 
     const submitCreateCompany = async (prevState: any, formData: FormData) => {
         const indexIntl = (formData: FormData): string[] => {
-            const mapping: {
-                [key: string]: number;
-              } = {
+            const mapping: {[key: string]: number} = {
                 name: 0,
                 address: 1,
                 siret: 2,
                 siteName: 3,
                 siteAddress: 4,
-              };
+              }
               
             let result: string[] = []
     
@@ -149,73 +149,75 @@ export const CompanyModalFormNew = () => {
     const layoutButton: ILayoutButton = layoutButtonIntl()
 
     return (
-        <form action={formAction}>
-            <div className=" flex flex-col md:mx-20">
-                <div className="rounded backdrop-blur-sm shadow-2xl 
-                    bg-gradient-to-b from-neutral-300/30 to-neutral-200/50
-                    p-6 md:w-1/2 md:mx-auto w-full">
+        <IsConnectedAs>
+            <form action={formAction}>
+                <div className="flex flex-col lg:mx-10 md:mx-20">
+                    <div className="rounded backdrop-blur-sm shadow-2xl 
+                        bg-gradient-to-b from-neutral-300/30 to-neutral-200/50
+                        p-6 lg:w-1/2 md:w-full md:mx-auto w-full">
 
-                    <h2 className="text-base font-semibold leading-7 text-gray-900">
-                        {formSubscriptionCompany.title}
-                    </h2>
-                    <p className="my-2  text-sm leading-6 text-gray-600">
-                        {formSubscriptionCompany.description}
-                    </p>
+                        <h2 className="text-base font-semibold leading-7 text-gray-900">
+                            {formSubscriptionCompany.title}
+                        </h2>
+                        <p className="my-2  text-sm leading-6 text-gray-600">
+                            {formSubscriptionCompany.description}
+                        </p>
 
-                    {/* Form inputs */}
-                    <div className="grid grid-cols-1 sm:grid-cols-6 gap-x-6 gap-y-6 ">
-                        <FormInputLayout params={{
-                            id: "siret",
-                            label: formSubscriptionCompany.siret,
-                            placeholder: formSubscriptionCompany.siret,
-                            autoComplete: "siret"
-                        }}/>
-                        
-                        <FormInputLayout params={{
-                            id: "name",
-                            label: formSubscriptionCompany.name,
-                            placeholder: formSubscriptionCompany.name,
-                            autoComplete: "name"
-                        }}/>
+                        {/* Form inputs */}
+                        <div className="grid grid-cols-1 sm:grid-cols-6 gap-x-6 gap-y-6 ">
+                            <FormInputLayout props={{
+                                id: "siret",
+                                label: formSubscriptionCompany.siret,
+                                placeholder: formSubscriptionCompany.siret,
+                                autoComplete: "siret"
+                            }}/>
+                            
+                            <FormInputLayout props={{
+                                id: "name",
+                                label: formSubscriptionCompany.name,
+                                placeholder: formSubscriptionCompany.name,
+                                autoComplete: "name"
+                            }}/>
 
-                        <FormInputLayout params={{
-                            id: "address",
-                            label: formSubscriptionCompany.address,
-                            placeholder: formSubscriptionCompany.address,
-                            autoComplete: "address"
-                        }}/>
+                            <FormInputLayout props={{
+                                id: "address",
+                                label: formSubscriptionCompany.address,
+                                placeholder: formSubscriptionCompany.address,
+                                autoComplete: "address"
+                            }}/>
 
-                        <FormInputLayout params={{
-                            id: "siteName",
-                            label: formSubscriptionCompany.siteName,
-                            placeholder: formSubscriptionCompany.siteName,
-                            autoComplete: "siteName"
-                        }}/>
+                            <FormInputLayout props={{
+                                id: "siteName",
+                                label: formSubscriptionCompany.siteName,
+                                placeholder: formSubscriptionCompany.siteName,
+                                autoComplete: "siteName"
+                            }}/>
 
-                        <FormInputLayout params={{
-                            id: "siteAddress",
-                            label: formSubscriptionCompany.siteAddress,
-                            placeholder: formSubscriptionCompany.siteAddress,
-                            autoComplete: "siteAddress"
+                            <FormInputLayout props={{
+                                id: "siteAddress",
+                                label: formSubscriptionCompany.siteAddress,
+                                placeholder: formSubscriptionCompany.siteAddress,
+                                autoComplete: "siteAddress"
+                            }}/>
+                        </div>
+
+                        {/* Submit button */}
+                        <SubmitButtonLayout props={{
+                            loading: loading,
+                            spinnerSize: 'sm',
+                            buttonName: layoutButton.save
                         }}/>
+                        {/* <SubmitButton /> */}
                     </div>
 
-                    {/* Submit button */}
-                    <SubmitButtonLayout params={{
-                        loading: loading,
-                        spinnerSize: 'sm',
-                        buttonName: layoutButton.save
+                    {/* Event Logs */}
+                    <EventLogLayout props={{
+                        title: layoutEventLog.linkTitle,
+                        description: "",
+                        events: eventLog
                     }}/>
-                    {/* <SubmitButton /> */}
                 </div>
-
-                {/* Event Logs */}
-                <EventLogLayout params={{
-                    title: layoutEventLog.linkTitle,
-                    description: "",
-                    events: eventLog
-                }}/>
-            </div>
-        </form>
-    );
+            </form>
+        </IsConnectedAs>
+    )
 }

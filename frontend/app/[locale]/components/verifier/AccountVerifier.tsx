@@ -1,14 +1,14 @@
 'use client'
 
+import { useToast } from "@chakra-ui/react"
+import { useEffect, useState } from "react"
+import { useAccount } from "wagmi"
+import { useIdentityContext } from "@/contexts/Identity"
+import { AccountVerifierButton } from "@/app/[locale]/components/verifier/AccountVerifierButton"
 import {
     getVerifierAccountUpdatedEvents,
     writeContractByFunctionName
-} from "@/utils";
-import { useEffect, useState } from "react";
-import { useAccount } from "wagmi";
-import {useToast} from "@chakra-ui/react";
-import {useIdentityContext} from "@/contexts/Identity";
-import {AccountVerifierButton} from "@/app/[locale]/components/verifier/AccountVerifierButton";
+} from "@/utils"
 
 
 export const AccountVerifier = () => {
@@ -24,8 +24,8 @@ export const AccountVerifier = () => {
     useEffect(() => {
 
         getVerifierAccountUpdatedEvents().then(data => {
-            const _accounts: Map<`0x${string}`, string> = new Map();
-            const _accounts2: Map<`0x${string}`, string[]> = new Map();
+            const _accounts: Map<`0x${string}`, string> = new Map()
+            const _accounts2: Map<`0x${string}`, string[]> = new Map()
 
             for (let i = 0; i < data.length; i++) {
                 const _address: `0x${string}` = data[i][0]
@@ -153,5 +153,5 @@ export const AccountVerifier = () => {
                 </div>
             </div>
         </div>
-    );
-};
+    )
+}

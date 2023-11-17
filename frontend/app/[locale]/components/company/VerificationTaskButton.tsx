@@ -1,8 +1,8 @@
 'use client'
 
-import { createPortal } from "react-dom";
-import {useState} from "react";
-import {VerificationTaskModalForm} from "@/app/[locale]/components/company/VerificationTaskModalForm";
+import { createPortal } from "react-dom"
+import { useState } from "react"
+import { VerificationTaskModalForm } from "@/app/[locale]/components/company/VerificationTaskModalForm"
 
 export const VerificationTaskButton = () => {
 
@@ -20,5 +20,5 @@ export const VerificationTaskButton = () => {
                 <VerificationTaskModalForm closeModal={() => setShowModal(false)}/>,
                 document.body)}
         </div>
-    );
-};
+    )
+}
