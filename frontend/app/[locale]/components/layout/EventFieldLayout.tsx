@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { IEventFieldLayout, IEventLogLayout } from "@/interfaces/layout"
 
 const EventFieldLayout = ({ props }: {props: IEventFieldLayout }) => {

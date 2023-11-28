@@ -1,6 +1,6 @@
 'use client'
 
-import { MouseEventHandler, useEffect, useState } from "react"
+import React, { MouseEventHandler, useEffect, useState } from "react"
 import { useAccount } from "wagmi"
 import {
     getVerifierAccountUpdatedEvents,

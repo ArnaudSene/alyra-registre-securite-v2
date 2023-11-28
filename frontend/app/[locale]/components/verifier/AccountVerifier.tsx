@@ -1,7 +1,7 @@
 'use client'
 
+import React, { useEffect, useState } from "react"
 import { useToast } from "@chakra-ui/react"
-import { useEffect, useState } from "react"
 import { useAccount } from "wagmi"
 import { useIdentityContext } from "@/contexts/Identity"
 import { AccountVerifierButton } from "@/app/[locale]/components/verifier/AccountVerifierButton"

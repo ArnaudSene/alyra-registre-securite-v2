@@ -2,7 +2,7 @@
 
 import '@rainbow-me/rainbowkit/styles.css'
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
-import { ReactNode, useEffect, useState } from "react"
+import React, { ReactNode, useEffect, useState } from "react"
 import { connectorsForWallets, Theme, getDefaultWallets, RainbowKitProvider, lightTheme } from '@rainbow-me/rainbowkit'
 import { argentWallet, ledgerWallet, trustWallet } from '@rainbow-me/rainbowkit/wallets'
 import { configureChains, createConfig, WagmiConfig } from 'wagmi'

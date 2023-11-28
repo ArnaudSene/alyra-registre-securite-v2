@@ -1,9 +1,9 @@
 'use client'
 
+import React, { useEffect, useState } from "react"
 import { useDisclosure } from "@chakra-ui/hooks"
 import { Button } from "@chakra-ui/button"
 import { Collapse } from "@chakra-ui/react"
-import { useEffect, useState } from "react"
 import { Log } from "viem"
 import { useContractEvent } from "wagmi"
 import { abi, contractAddress } from "@/constants"

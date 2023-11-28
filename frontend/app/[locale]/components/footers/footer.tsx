@@ -1,5 +1,6 @@
 "use client"
 
+import React from "react"
 import Link from 'next/link'
 import { IHeaderFooter } from '@/interfaces/intl'
 import { headerFooterIntl } from '@/utils/intl'
@@ -13,45 +14,121 @@ const Footer = () => {
     return (
         <footer>
             {footerOn && (
-                <div className="bottom-0 w-full">
+                <div className="bottom-0 w-full text-sm">
                     <nav className="flex flex-col mx-auto justify-between text-center p-4 text-gray-600">
-                        <div className='flex flex-col md:flex-row mb-2'>
-                            <div className='flex flex-col md:flex-row justify-between w-full'>
-                                
-                                <div className='basis-1/3 p-2 m-2'>
-                                    <h1 className='font-bold text-lg border-b border-gray-900/10 pb-2 mb-2'>{footerIntl.products}</h1>
-                                    <ul className='text-center'>
-                                        <li><Link href="/subscriptionCompany">{footerIntl.companySubscription}</Link></li>
-                                        <li><Link href="/subscriptionVerifier">{footerIntl.verifierSubscription}</Link></li>
-                                        <li><Link href="/register">{footerIntl.register}</Link></li>
-                                        <li><Link href="/company">{footerIntl.company}</Link></li>
-                                        <li><Link href="/verifier">{footerIntl.verifier}</Link></li>
-                                    </ul>
-                                </div>
+                        <div className={`lg:grid grid-cols-3 p-1 my-2`}>
+                            <div>
+                                <div className={`font-bold text-base py-2`}>{footerIntl.products}</div>
+                                <div className={`flex flex-col border-t border-slate-500`}>
+                                    {/*Register*/}
+                                    <div className={`p-1.5 lg:ml-5 lg:text-left`}>
+                                        <div className={`flex rounded hover:italic hover:bg-indigo-200/50 hover:transition ease-in-out delay-50 duration-50`}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
+                                                 className="w-5 h-7">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" />
+                                            </svg>
+                                            <span className={`p-1`}><Link href="/register">{footerIntl.register}</Link></span>
+                                        </div>
+                                    </div>
 
-                                <div className='basis-1/3 p-2 m-2'>
-                                    <h1 className='font-bold text-lg border-b border-gray-900/10 pb-2 mb-2'>{footerIntl.support}</h1>
-                                    
-                                    <ul className='text-center'>
-                                        <li><a href="mailto:arnaud.sene@pm.me">{footerIntl.contact}</a></li>
-                                        <li><Link href="/faq">{footerIntl.faq}</Link></li>
-                                    </ul>
-                                </div>
+                                    {/*Company*/}
+                                    <div className={`p-1.5 lg:ml-5 lg:text-left`}>
+                                        <div className={`flex rounded hover:italic hover:bg-indigo-200/50 hover:transition ease-in-out delay-50 duration-50`}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
+                                                 className="w-5 h-7">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
+                                            </svg>
+                                            <span className={`p-1`}><Link href="/subscriptionCompany">{footerIntl.companySubscription}</Link></span>
+                                        </div>
 
-                                <div className='basis-1/3 p-2 m-2'>
-                                    <h1 className='font-bold text-lg border-b border-gray-900/10 pb-2 mb-2'>{footerIntl.developer}</h1>
-                                    <ul className='text-center'>
-                                        <li><Link href="/helper">{footerIntl.helper}</Link></li>
-                                    </ul>
+                                        <div className={`flex rounded hover:italic hover:bg-indigo-200/50 hover:transition ease-in-out delay-50 duration-50`}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
+                                                 className="w-5 h-7">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z" />
+                                            </svg>
+                                            <span className={`p-1`}><Link href="/company">{footerIntl.company}</Link></span>
+                                        </div>
+                                    </div>
+
+                                    <div className={`p-1.5 lg:ml-5 lg:text-left`}>
+                                        <div className={`flex rounded hover:italic hover:bg-indigo-200/50 hover:transition ease-in-out delay-50 duration-50`}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
+                                                 className="w-5 h-7">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
+                                            </svg>
+                                            <span className={`p-1`}><Link href="/subscriptionVerifier">{footerIntl.verifierSubscription}</Link></span>
+                                        </div>
+
+                                        <div className={`flex rounded hover:italic hover:bg-indigo-200/50 hover:transition ease-in-out delay-50 duration-50`}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
+                                                 className="w-5 h-7">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+                                            </svg>
+                                            <span className={`p-1`}><Link href="/verifier">{footerIntl.verifier}</Link></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div className={`font-bold text-base py-2`}>{footerIntl.support}</div>
+                                <div className={`flex flex-col border-t border-slate-500`}>
+                                    <div className={`p-1.5 lg:ml-5 lg:text-left`}>
+                                        <div className={`flex rounded hover:italic hover:bg-indigo-200/50 hover:transition ease-in-out delay-50 duration-50`}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
+                                                 className="w-5 h-7">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                                            </svg>
+                                            <span className={`p-1`}><a href="mailto:arnaud.sene@pm.me">{footerIntl.support}</a></span>
+                                        </div>
+                                    </div>
+
+                                    <div className={`p-1.5 lg:ml-5 lg:text-left`}>
+                                        <div className={`flex rounded hover:italic hover:bg-indigo-200/50 hover:transition ease-in-out delay-50 duration-50`}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
+                                                 className="w-5 h-7">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
+                                            </svg>
+                                            <span className={`p-1`}><Link href="/faq"><span>{footerIntl.faq}</span></Link></span>
+                                        </div>
+                                    </div>
+
+                                    <div className={`p-1.5 lg:ml-5 lg:text-left`}>
+                                        <div className={`flex rounded hover:italic hover:bg-indigo-200/50 hover:transition ease-in-out delay-50 duration-50`}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
+                                                 className="w-5 h-7">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                                            </svg>
+                                            <span className={`p-1`}><Link href="/documentation"><span>{footerIntl.documentation}</span></Link></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div className={`font-bold text-base py-2`}>{footerIntl.developer}</div>
+                                <div className={`flex flex-col border-t border-slate-500`}>
+
+                                    <div className={`p-1.5 lg:ml-5 lg:text-left`}>
+                                        <div className={`flex rounded hover:italic hover:bg-indigo-200/50 hover:transition ease-in-out delay-50 duration-50`}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
+                                                 className="w-5 h-7">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z" />
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 18a3.75 3.75 0 00.495-7.467 5.99 5.99 0 00-1.925 3.546 5.974 5.974 0 01-2.133-1A3.75 3.75 0 0012 18z" />
+                                            </svg>
+                                            <span className={`p-1`}><Link href="/helper">{footerIntl.helper}</Link></span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
 
                         <div className='flex flex-col md:flex-row md:justify-between'>
                             <div className="flex flex-row mx-auto md:justify-center mb-2 md:mb-0 md:w-1/2">
                                 <a className='px-1' href='https://github.com/ArnaudSene/alyra-registre-securite'>
                                     
-                                    <svg className='w-[35px] h-[35px]' viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" 
+                                    <svg className='w-[35px] h-[35px] ' viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg"
                                         fill="#000000">
 
                                         <g id="SVGRepo_bgCarrier" strokeWidth="0" />
@@ -61,7 +138,7 @@ const Footer = () => {
                                         <g id="SVGRepo_iconCarrier"> <title>github [#142]</title> <desc>Created with Sketch.</desc> <defs> </defs> 
                                         <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd"> 
                                             <g id="Dribbble-Light-Preview" transform="translate(-140.000000, -7559.000000)" 
-                                                fill="#000000" className='fill-slate-900/30'> 
+                                                fill="#000000" className='fill-slate-900/30'>
                                             <g id="icons" transform="translate(56.000000, 160.000000)"> <path d="M94,7399 C99.523,7399 104,7403.59 104,7409.253 C104,7413.782 101.138,7417.624 97.167,7418.981 C96.66,7419.082 96.48,7418.762 96.48,7418.489 C96.48,7418.151 96.492,7417.047 96.492,7415.675 C96.492,7414.719 96.172,7414.095 95.813,7413.777 C98.04,7413.523 100.38,7412.656 100.38,7408.718 C100.38,7407.598 99.992,7406.684 99.35,7405.966 C99.454,7405.707 99.797,7404.664 99.252,7403.252 C99.252,7403.252 98.414,7402.977 96.505,7404.303 C95.706,7404.076 94.85,7403.962 94,7403.958 C93.15,7403.962 92.295,7404.076 91.497,7404.303 C89.586,7402.977 88.746,7403.252 88.746,7403.252 C88.203,7404.664 88.546,7405.707 88.649,7405.966 C88.01,7406.684 87.619,7407.598 87.619,7408.718 C87.619,7412.646 89.954,7413.526 92.175,7413.785 C91.889,7414.041 91.63,7414.493 91.54,7415.156 C90.97,7415.418 89.522,7415.871 88.63,7414.304 C88.63,7414.304 88.101,7413.319 87.097,7413.247 C87.097,7413.247 86.122,7413.234 87.029,7413.87 C87.029,7413.87 87.684,7414.185 88.139,7415.37 C88.139,7415.37 88.726,7417.2 91.508,7416.58 C91.513,7417.437 91.522,7418.245 91.522,7418.489 C91.522,7418.76 91.338,7419.077 90.839,7418.982 C86.865,7417.627 84,7413.783 84,7409.253 C84,7403.59 88.478,7399 94,7399" id="github-[#142]"> </path> </g> </g> </g> </g>
                                     </svg>
 

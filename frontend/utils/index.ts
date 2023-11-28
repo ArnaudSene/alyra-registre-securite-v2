@@ -15,9 +15,10 @@ import {
     VerificationTaskCreatedsDocument, VerificationTaskUpdatedsDocument, 
     VerificationTaskValidatedsDocument, VerifierAccountUpdatedsDocument, 
     VerifierAddedToCompaniesDocument, VerifierCreatedsDocument,
-    execute, 
-    VerificationTaskCreatedByIDDocument
-} from './../.graphclient/index'
+    execute,
+    VerificationTaskCreatedsByCompanyDocument,
+    VerificationTaskCreatedsByVerifierDocument
+} from '@/.graphclient'
 import { abi, contractAddress, genesisBlock, httpTransport, network } from "@/constants"
 import {
     CompanyAccountUpdated,
@@ -32,7 +33,8 @@ import {
 import {
     ICompanyAccountUpdated,
     IRegisters,
-    IRegisterCreated
+    IRegisterCreated,
+    ICompanyProfile
 } from "@/interfaces/registers"
 import { IVerifierAddedToCompany } from "@/interfaces/verifier"
 import { IVerifierAccountUpdated, IVerifierCreated, IVerifierProfile } from "@/interfaces/verifier"
@@ -123,13 +125,6 @@ export const readEvents = async (signature: string): Promise<GetLogsReturnType<a
 export const readEventsDev = async (signature: string): Promise<GetLogsReturnType<any>> => {
     const blockNumber = await client.getBlockNumber()
 
-    console.log("client.transport: " + client.transport.url)
-    console.log("client.chain: " + client.chain.name)
-    console.log(JSON.stringify(client))
-    console.log("contractAddress: " + contractAddress)
-    console.log("signature: " + signature)
-    console.log("fromBlock: " + BigInt(genesisBlock))
-
     const event = {
         "anonymous": false,
         "inputs": [
@@ -210,8 +205,11 @@ export const TestReadEvent = async () => {
 }
 
 // The Graph (GraphQL)
-
-export const getRegisterCreateds = async () => {
+/**
+ * Get the registers (companies) created from events (TheGraphQl)
+ * @returns {Promise<IRegisterCreated[]>} The list of registers (companies) created
+ */
+export const getRegisterCreateds = async (): Promise<IRegisterCreated[]> => {
     return execute(RegisterCreatedsDocument, {})
         .then((result)=> {
             let data: IRegisterCreated[] = []
@@ -234,7 +232,11 @@ export const getRegisterCreateds = async () => {
         })
 }
 
-export const getCompanyAccountUpdateds = async () => {
+/**
+ * Get the company accounts updated from events (TheGraphQl)
+ * @returns {Promise<ICompanyAccountUpdated[]>} The list of company accounts updated
+ */
+export const getCompanyAccountUpdateds = async (): Promise<ICompanyAccountUpdated[]> => {
     return execute(CompanyAccountUpdatedsDocument, {})
         .then((result)=> {
             let data: ICompanyAccountUpdated[] = []
@@ -256,7 +258,11 @@ export const getCompanyAccountUpdateds = async () => {
         })
 }
 
-export const getVerifierCreateds = async () => {
+/**
+ * Get the verifers created from events (TheGraphQl)
+ * @returns {Promise<IVerifierCreated[]>} The list of verifiers created
+ */
+export const getVerifierCreateds = async (): Promise<IVerifierCreated[]> => {
     return execute(VerifierCreatedsDocument, {})
         .then((result)=> {
             let data: IVerifierCreated[] = []
@@ -278,7 +284,11 @@ export const getVerifierCreateds = async () => {
         })
 }
 
-export const getVerifierAccountUpdateds = async () => {
+/**
+ * Get the verifer account updated from events (TheGraphQl)
+ * @returns {Promise<IVerifierAccountUpdated[]>} The list of verifiers account updated
+ */
+export const getVerifierAccountUpdateds = async (): Promise<IVerifierAccountUpdated[]> => {
     return execute(VerifierAccountUpdatedsDocument, {})
         .then((result)=> {
             let data: IVerifierAccountUpdated[] = []
@@ -300,8 +310,11 @@ export const getVerifierAccountUpdateds = async () => {
         })
 }
 
-
-export const getVerifierAddedToCompanies = async () => {
+/**
+ * Get the verifer added to company from events (TheGraphQl)
+ * @returns {Promise<IVerifierAddedToCompany[]>} The list of verifiers added to company
+ */
+export const getVerifierAddedToCompanies = async (): Promise<IVerifierAddedToCompany[]> => {
     return execute(VerifierAddedToCompaniesDocument, {})
         .then((result)=> {
             let data: IVerifierAddedToCompany[] = []
@@ -320,14 +333,183 @@ export const getVerifierAddedToCompanies = async () => {
         })
 }
 
+/**
+ * Get the verification tasks validated from events (TheGraphQl)
+ * @returns {Promise<IVerificationTaskValidated[]>} The list of verification tasks validated
+ */
+export const getVerificationTaskValidateds = async (): Promise<IVerificationTaskValidated[]> => {
+    return execute(VerificationTaskValidatedsDocument, {})
+        .then((result)=> {
+            let data: IVerificationTaskValidated[] = []
 
+            for (let i = 0; i < result?.data.verificationTaskValidateds.length; i++) {
+
+                const e: any = result?.data.verificationTaskValidateds[i]
+                const o: IVerificationTaskValidated = {
+                    verifier: e._verifier as `0x${string}`,
+                    taskId: e._taskId,
+                    taskStatus: e._taskStatus
+                }
+                data.push(o)
+            }
+            
+            return data
+        })
+}
+
+/**
+ * Get the verification tasks updated from events (TheGraphQl)
+ * @returns {Promise<IVerificationTaskUpdated[]>} The list of verification tasks updated
+ */
+export const getVerificationTaskUpdateds = async (): Promise<IVerificationTaskUpdated[]> => {
+    return execute(VerificationTaskUpdatedsDocument, {})
+        .then((result)=> {
+            let data: IVerificationTaskUpdated[] = []
+
+            for (let i = 0; i < result?.data.verificationTaskUpdateds.length; i++) {
+
+                const e: any = result?.data.verificationTaskUpdateds[i]
+                const o: IVerificationTaskUpdated = {
+                    company: e._company as `0x${string}`,
+                    taskId: e._taskId,
+                    taskStatus: e._taskStatus
+                }
+                data.push(o)
+            }
+            
+            return data
+        })
+}
+
+/**
+ * Get the account profiles for a company.
+ * @param {IRegisterCreated[]} registerCreateds The list of companies
+ * @param {ICompanyAccountUpdated[]} companyAccounts The list of company accounts
+ * @returns {ICompanyProfile[]} The list of company account profiles
+ */
+const getCompanyAccounts = (
+    registerCreateds: IRegisterCreated[], 
+    companyAccounts: ICompanyAccountUpdated[]
+): ICompanyProfile[] => {
+    let companiesProfile: ICompanyProfile[] = []
+
+    companyAccounts.map((companyAccount) => {
+        
+        const i = registerCreateds.findIndex(
+            (registerCompany) => registerCompany.account === companyAccount.company
+        )
+
+        if (i !== -1) {
+            companiesProfile.push({
+                company: companyAccount.company,
+                account: companyAccount.account,
+                name: companyAccount.name,
+                firstName: companyAccount.firstName,
+                nameCompany: registerCreateds[i].name,
+                addressName: registerCreateds[i].addressName,
+                siret: registerCreateds[i].siret,
+            })
+        }
+    })
+
+    return companiesProfile
+}
+
+/**
+ * Get the account profiles for a verifier company.
+ * @param {IVerifierCreated[]} verifierCreateds The list of verifier companies
+ * @param {IVerifierAccountUpdated[]} verifierAccounts The list of verifier accounts
+ * @returns {IVerifierProfile[]} The list of verifier account profiles
+ */
+const getVerifierAccounts = (
+    verifierCreateds: IVerifierCreated[], 
+    verifierAccounts: IVerifierAccountUpdated[]
+): IVerifierProfile[] => {
+    let verifiersProfile: IVerifierProfile[] = []
+
+    verifierAccounts.map((verifierAccount) => {
+        
+        const i = verifierCreateds.findIndex(
+            (verifierAsAccount) => verifierAsAccount.verifier === verifierAccount.verifier
+        )
+
+        if (i !== -1) {
+            verifiersProfile.push({
+                verifier: verifierAccount.verifier,
+                account: verifierAccount.account,
+                name: verifierAccount.name,
+                firstName: verifierAccount.firstName,
+                nameCompany: verifierCreateds[i].name,
+                addressName: verifierCreateds[i].addressName,
+                siret: verifierCreateds[i].siret,
+                approvalNumber: verifierCreateds[i].approvalNumber
+            })
+        }
+    })
+
+    return verifiersProfile
+}
+
+
+/**
+ * Identify the profile account based on ID or address 
+ * @param {IRegisterCreated[]} registerCreateds The registers (or companies) created
+ * @param {ICompanyAccountUpdated[]} companyAccounts The company accounts
+ * @param {IVerifierCreated[]} verifierCreateds The verifier companies created
+ * @param {IVerifierAccountUpdated[]} verifierAccounts The verifier accounts
+ * @param {`0x${string}`} id The account address
+ * @returns {string | undefined} The profile account
+ */
+const getAccountProfile = (
+    registerCreateds: IRegisterCreated[],
+    companyAccounts: ICompanyAccountUpdated[],
+    verifierCreateds: IVerifierCreated[],
+    verifierAccounts: IVerifierAccountUpdated[],
+    id?: `0x${string}`, 
+): string | undefined => {
+    if ( !id ) return undefined
+
+    // Identify company
+    for ( const registerCreated of registerCreateds ) {
+        if( registerCreated.account.toLowerCase() === id.toLowerCase() )
+            return 'company'
+    }
+    
+    for ( const companyAccount of companyAccounts ) {
+        if( companyAccount.account.toLowerCase() === id.toLowerCase() )
+            return 'company'
+    }
+    
+    // Identify verifer
+    for ( const verifierCreated of verifierCreateds ) {
+        if( verifierCreated.verifier.toLowerCase() === id.toLowerCase() )
+            return 'verifier'
+    }
+    
+    for ( const verifierAccount of verifierAccounts ) {
+        if( verifierAccount.account.toLowerCase() === id.toLowerCase() )
+            return 'verifier'
+    }
+}
+
+
+/**
+ * Get the verification tasks events from GraphQl.
+ * @param {number} first The first 'n' elements to retrieve 
+ * @param {number} skip The number of elements to skip
+ * @param {`0x${string}`} id The account address
+ * @param {string} accountProfile The account profile
+ * @returns {Promise<IVerificationTaskCreated[]>} The verification tasks events
+ */
 export const getVerificationTaskCreateds = async (
     first: number,
     skip: number,
-    company?: `0x${string}`,
-) => {
+    id?: `0x${string}`,
+    accountProfile?: string
+): Promise<IVerificationTaskCreated[]> => {
     interface IParams {
         _company?: `0x${string}`,
+        _verifier?: `0x${string}`,
         first: number,
         skip: number
     }
@@ -337,12 +519,17 @@ export const getVerificationTaskCreateds = async (
         skip: skip
     }
 
-    if ( company ) params._company = company
+    let query: Promise<any> 
 
-    console.log(params)
-
-    const query = company ? execute(VerificationTaskCreatedByIDDocument, params) : execute(VerificationTaskCreatedsDocument, params)
-    console.log(query)
+    if ( id && accountProfile === 'company' ) {
+        params._company = id
+        query = execute(VerificationTaskCreatedsByCompanyDocument, params)
+    } else if ( id && accountProfile === 'verifier' ) {
+        params._verifier = id
+        query = execute(VerificationTaskCreatedsByVerifierDocument, params)
+    } else {
+        query = execute(VerificationTaskCreatedsDocument, params)
+    }
 
     return query
         .then((result)=> {
@@ -368,96 +555,42 @@ export const getVerificationTaskCreateds = async (
         })
 }
 
-export const getVerificationTaskValidateds = async () => {
-    return execute(VerificationTaskValidatedsDocument, {})
-        .then((result)=> {
-            let data: IVerificationTaskValidated[] = []
 
-            for (let i = 0; i < result?.data.verificationTaskValidateds.length; i++) {
-
-                const e: any = result?.data.verificationTaskValidateds[i]
-                const o: IVerificationTaskValidated = {
-                    verifier: e._verifier as `0x${string}`,
-                    taskId: e._taskId,
-                    taskStatus: e._taskStatus
-                }
-                data.push(o)
-            }
-            
-            return data
-        })
-}
-
-export const getVerificationTaskUpdateds = async () => {
-    return execute(VerificationTaskUpdatedsDocument, {})
-        .then((result)=> {
-            let data: IVerificationTaskUpdated[] = []
-
-            for (let i = 0; i < result?.data.verificationTaskUpdateds.length; i++) {
-
-                const e: any = result?.data.verificationTaskUpdateds[i]
-                const o: IVerificationTaskUpdated = {
-                    company: e._company as `0x${string}`,
-                    taskId: e._taskId,
-                    taskStatus: e._taskStatus
-                }
-                data.push(o)
-            }
-            
-            return data
-        })
-}
-
-
-const defaultFirst = 10
-
+const DEFAULT_GRAPHQL_PAGINATION_FIRST = 10
+/**
+ * Get verification tasks from events.
+ * Consolidate data to a Register object: @IRegisters
+ * @param {number} first The GraphQl pagination first attribute
+ * @param {number} skip The GraphQl pagination skip attribute
+ * @param {`0x${string}`} id The address ID or account
+ * @returns {Promise<IRegisters>} The verification tasks consolidated
+ */
 export const getVerificationTasksFromEvents = async (
-    id?: `0x${string}`,
-    first: number = defaultFirst,
+    first: number = DEFAULT_GRAPHQL_PAGINATION_FIRST,
     skip: number = 0,
+    id?: `0x${string}`,
 ): Promise<IRegisters> => {
+    const registerCreateds: IRegisterCreated[] = await getRegisterCreateds()
+    const companyAccounts: ICompanyAccountUpdated[] = await getCompanyAccountUpdateds()
+    const verifierCreateds: IVerifierCreated[] = await getVerifierCreateds()
+    const verifierAccounts: IVerifierAccountUpdated[] = await getVerifierAccountUpdateds()
+    const accountProfile: string | undefined = getAccountProfile(registerCreateds, companyAccounts, verifierCreateds, verifierAccounts, id)
+    const verificationTaskCreateds: IVerificationTaskCreated[] =  await getVerificationTaskCreateds(first, skip, id, accountProfile)
+    const verificationTaskValidateds: IVerificationTaskValidated[] = await getVerificationTaskValidateds()
+    const verificationTaskUpdateds: IVerificationTaskUpdated[] = await getVerificationTaskUpdateds()
 
-    const verificationTaskCreateds = await getVerificationTaskCreateds(first, skip, id)
-    console.log(`verificationTaskCreateds:`)
-    console.log(verificationTaskCreateds)
-    const registerCreated = await getRegisterCreateds()
-    const verificationTaskValidated = await getVerificationTaskValidateds()
-    const verificationTaskUpdated = await getVerificationTaskUpdateds()
-    const companyAccount = await getCompanyAccountUpdateds()
-    const verifiersAsCompany = await getVerifierCreateds()
-    const verifiersAsAccount = await getVerifierAccountUpdateds()
-    let verifiersProfile: IVerifierProfile[] = []
-
-    verifiersAsAccount.map((verifierAccount) => {
-
-        const i = verifiersAsCompany.findIndex(
-            (verifierAsAccount) => verifierAsAccount.verifier === verifierAccount.verifier)
-
-        if (i !== -1) {
-            verifiersProfile.push({
-                verifier: verifierAccount.verifier,
-                account: verifierAccount.account,
-                name: verifierAccount.name,
-                firstName: verifierAccount.firstName,
-                nameCompany: verifiersAsCompany[i].name,
-                addressName: verifiersAsCompany[i].addressName,
-                siret: verifiersAsCompany[i].siret,
-                approvalNumber: verifiersAsCompany[i].approvalNumber
-            })
-        }
-    })
-
-    const data: IRegisters = {
+    return {
         verificationTasks: verificationTaskCreateds,
-        verifiersProfile: verifiersProfile,
-        registerCreated: registerCreated,
-        verificationTaskValidated: verificationTaskValidated,
-        verificationTaskUpdated: verificationTaskUpdated,
-        companyAccount: companyAccount
+        verificationTaskValidateds: verificationTaskValidateds,
+        verificationTaskUpdateds: verificationTaskUpdateds,
+        registerCreateds: registerCreateds,
+        companyAccounts: companyAccounts,
+        verifierProfiles: getVerifierAccounts(verifierCreateds, verifierAccounts),
+        companyProfiles: getCompanyAccounts(registerCreateds, companyAccounts),
+        accountProfile: accountProfile,
     }
-
-    return data
 }
+
 
 
 

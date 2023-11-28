@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useIdentityContext } from "@/contexts/Identity"
 import { IRegisterCreated } from "@/interfaces/registers"
 import { getRegisterCreatedEvents } from "@/utils"

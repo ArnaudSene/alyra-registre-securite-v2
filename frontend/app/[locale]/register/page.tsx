@@ -1,9 +1,11 @@
-import { VerificationTaskNewTest } from "../components/company/VerificationTaskNewTest"
+import React from 'react'
+
+import { VerificationTask } from "../components/registers/VerificationTask"
 
 const SecurityRegister = () => {
-	return (
-		<VerificationTaskNewTest />
-	)
+    return (
+        <VerificationTask/>
+    )
 }
 
 export default SecurityRegister

@@ -2,6 +2,9 @@ export const contractAddress = `${process.env.NEXT_PUBLIC_CONTRACT_ADDRESS}` as 
 export const genesisBlock = `${process.env.NEXT_PUBLIC_GENESIS_BLOCK}`
 export const network = `${process.env.NEXT_PUBLIC_NETWORK}`
 export const httpTransport = `${process.env.NEXT_PUBLIC_HTTP_TRANSPORT}`
+export const PINATA_API_KEY = `${process.env.NEXT_PUBLIC_PINATA_API_KEY}`
+export const PINATA_SECRET_API_KEY = `${process.env.NEXT_PUBLIC_PINATA_SECRET_API_KEY}`
+export const IPFS_BASE_URL: string = "https://ipfs.io/ipfs/"
 export const abi = [
     {
         "inputs": [],

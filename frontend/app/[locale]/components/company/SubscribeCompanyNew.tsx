@@ -1,4 +1,4 @@
-
+import React from "react"
 import { SubscribeCompanyButton } from "@/app/[locale]/components/company/SubscribeCompanyButton"
 
 

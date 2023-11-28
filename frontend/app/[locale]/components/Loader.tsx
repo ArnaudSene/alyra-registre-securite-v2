@@ -1,7 +1,7 @@
 'use client'
 
+import React, { ReactNode } from "react"
 import { Progress } from "@chakra-ui/react"
-import { ReactNode } from "react"
 
 const Loader = ({ children, isLoading }: { children: ReactNode, isLoading: boolean }) => {
     return (!isLoading ? children :

@@ -1,7 +1,7 @@
 'use client'
 
+import React, { useState } from "react"
 import { createPortal } from "react-dom"
-import { useState } from "react"
 import { SiteCompanyModalForm } from "@/app/[locale]/components/company/SiteCompanyModalForm"
 
 export const SiteCompanyButton = () => {

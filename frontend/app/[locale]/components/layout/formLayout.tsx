@@ -1,11 +1,9 @@
-import { ReactNode, useEffect } from "react"
+import React, { ReactNode, useEffect } from "react"
 import { useHeaderFooterContext } from "@/contexts/HeaderFooter"
 import { IFormLayout } from "@/interfaces/layout"
 
 
-const FormLayout = (
-    { children, props }: { children: ReactNode, props: IFormLayout}
-) => {
+const FormLayout = ({ children, props }: { children: ReactNode, props: IFormLayout}) => {
     const { setHeaderOn, setFooterOn } = useHeaderFooterContext()
     
     useEffect(() => {

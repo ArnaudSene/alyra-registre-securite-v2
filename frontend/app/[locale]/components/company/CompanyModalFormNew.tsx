@@ -1,117 +1,75 @@
 'use client'
 
-// @ts-expect-error
+// @ts-expect-error experimental
 import { experimental_useFormState as useFormState } from 'react-dom'
+import React, { useEffect, useState } from "react"
 import { useToast } from "@chakra-ui/react"
-import { useEffect, useState } from "react"
-import { Log } from "viem"
-import { useAccount, useContractEvent } from "wagmi"
-import { abi, contractAddress } from "@/constants"
-import { IEventLog } from "@/interfaces/layout"
-import { IFormSubscriptionCompany, ILayoutButton, ILayoutEventLog, IToasterMessages } from "@/interfaces/intl"
+import { useAccount } from "wagmi"
+import {
+    IEventLog,
+    IhandleEventsResponse,
+    ILayoutEventLogMapping
+} from "@/interfaces/layout"
+import {
+    IFormSubscriptionCompany,
+    IGeneral,
+    ILayoutButton,
+    ILayoutEventLog,
+    IToasterMessages
+} from "@/interfaces/intl"
 import { writeContractByFunctionName } from "@/utils"
-import { formSubscriptionCompanyIntl, layoutButtonIntl, layoutEventLogIntl, toasterMessages } from "@/utils/intl"
+import {
+    formSubscriptionCompanyIntl,
+    generalIntl,
+    layoutButtonIntl,
+    layoutEventLogIntl,
+    toasterMessages
+} from "@/utils/intl"
 import { EventLogLayout } from "../layout/EventFieldLayout"
-import { SubmitButtonLayout } from "../layout/ButtonLink"
+import { SubmitButtonLayout2 } from "../layout/ButtonLink"
 import { FormInputLayout } from "../layout/FormInputLayout"
 import IsConnectedAs from "../IsConnectedAs"
+import { SubscribeEvent } from "@/app/[locale]/components/base/SubscribeEvent"
+import { handleEvents } from "@/utils/events"
+import { useRegisterSecurityEventContext } from "@/contexts/registerSecurityEvent"
 
 const initialState = {
     message: null,
 }
 
 export const CompanyModalFormNew = () => {
+    // Contexts
     const { address } = useAccount()
-    const toast = useToast()
+    const { setReloadPage, subscribeEventLogs, setSubscribeEventLogs } = useRegisterSecurityEventContext()
+
+    // states
     const [loading, setLoading] = useState(false)
-    const [eventLogs, setEventLogs] = useState<Log[]>([])
     const [eventLog, setEventLog] = useState<IEventLog | undefined>()
-    const tostMessage: IToasterMessages = toasterMessages()
+    const [eventWaiting, setEventWaiting] = useState(false)
+
+    // Utils
+    const toast = useToast()
+    const toastMessage: IToasterMessages = toasterMessages()
     const layoutEventLog: ILayoutEventLog = layoutEventLogIntl()
     const formSubscriptionCompany: IFormSubscriptionCompany = formSubscriptionCompanyIntl()
+    const layoutButton: ILayoutButton = layoutButtonIntl()
+    const general: IGeneral = generalIntl()
+
+    // Constants
     const eventName = 'RegisterCreated'
-    const actionName = 'createRegister'
-    
-    useEffect(() => {
-        if(loading) {
-            for (const log of eventLogs as Iterable<Log>) {
-                // @ts-expect-error
-                const logArgs: any = log.args
+    const componentName = "CompanyModalFormNew"
+    const layoutEventLogMapping: ILayoutEventLogMapping = {
+        addressAttribute: '_addr',
+        addressValue: address as `0x${string}`,
+    }
 
-                if (logArgs._addr === address) {
-                    setEventLog({
-                        blockTitle: layoutEventLog.blockTitle,
-                        blockData: [
-                            {
-                                title: layoutEventLog.smartContractAddress,
-                                value: log.address
-                            },
-                            {
-                                title: layoutEventLog.blockHash,
-                                value: log.blockHash
-                            },
-                            {
-                                title: layoutEventLog.transactionHash,
-                                value: log.transactionHash
-                            },
-                            {
-                                title: layoutEventLog.blockNumber,
-                                value: log.blockNumber?.toString()
-                            },
-                        ],
-                        title: layoutEventLog.title,
-                        data: [
-                            {
-                                title: layoutEventLog.publicKeyAddress,
-                                value: logArgs._addr
-                            },
-                            {
-                                title: formSubscriptionCompany.name,
-                                value: logArgs._name
-                            },
-                            {
-                                title: formSubscriptionCompany.address,
-                                value: logArgs._addressName
-                            },
-                            {
-                                title: formSubscriptionCompany.siret,
-                                value: logArgs._siret
-                            },
-                            {
-                                title: formSubscriptionCompany.siteName,
-                                value: logArgs._siteName
-                            },
-                            {
-                                title: formSubscriptionCompany.siteAddress,
-                                value: logArgs._siteAddressName
-                            }
-                        ]
-                    })
-                    setLoading(false)
-                    toast({
-                        title: tostMessage.subscribeCompanyOkTitle,
-                        description: tostMessage.subscribeCompanyOkDescription,
-                        status: 'success',
-                        duration: 5000,
-                        isClosable: true,
-                    })
-                    break
-                }
-            }
-        }
-    }, [eventLogs])
-
-    useContractEvent({
-        address: contractAddress,
-        abi: abi,
-        eventName: eventName,
-        listener(logs) {
-            setEventLogs(logs)
-            console.log(logs)
-        }
-    })
-
+    /**
+     * Handle submit to create a company.
+     * @param prevState
+     * @param formData
+     */
     const submitCreateCompany = async (prevState: any, formData: FormData) => {
+        const actionName = 'createRegister'
         const indexIntl = (formData: FormData): string[] => {
             const mapping: {[key: string]: number} = {
                 name: 0,
@@ -132,13 +90,14 @@ export const CompanyModalFormNew = () => {
     
         writeContractByFunctionName(actionName, ...indexIntl(formData))
             .then(() => {
-                setLoading(true)                
+                setLoading(true)
+                setEventWaiting(true)
             })
             .catch(err => {
-                console.log(`writeContractByFunctionName(${actionName}) error => ` + err)
+                console.log(`${componentName} (${actionName}) error => ` + err)
                 toast({
-                    title: tostMessage.subscribeCompanyErrorTitle,
-                    description: tostMessage.subscribeCompanyErrorDescription,
+                    title: toastMessage.subscribeCompanyErrorTitle,
+                    description: toastMessage.subscribeCompanyErrorDescription,
                     status: 'error',
                     duration: 5000,
                     isClosable: true,
@@ -146,10 +105,33 @@ export const CompanyModalFormNew = () => {
             })
     }
     const [state, formAction] = useFormState(submitCreateCompany, initialState)
-    const layoutButton: ILayoutButton = layoutButtonIntl()
+
+    useEffect(() => {
+        if ( subscribeEventLogs.id === componentName && subscribeEventLogs.eventLog.length > 0 ) {
+            const handleEventsResponse: IhandleEventsResponse = handleEvents(
+                layoutEventLog, subscribeEventLogs.eventLog, layoutEventLogMapping)
+
+            if (handleEventsResponse.ok) {
+                setEventLog(handleEventsResponse.eventLog)
+                toast({
+                    title: toastMessage.subscribeCompanyOkTitle,
+                    description: toastMessage.subscribeCompanyOkDescription,
+                    status: 'success',
+                    duration: 5000,
+                    isClosable: true,
+                })
+            }
+            setEventWaiting(false)
+            setLoading(false)
+            setSubscribeEventLogs({id: componentName, eventLog: []})
+            setReloadPage(true)
+        }
+    }, [subscribeEventLogs])
 
     return (
         <IsConnectedAs>
+            {eventWaiting && <SubscribeEvent props={{taskId: componentName, eventName: eventName}} />}
+
             <form action={formAction}>
                 <div className="flex flex-col lg:mx-10 md:mx-20">
                     <div className="rounded backdrop-blur-sm shadow-2xl 
@@ -201,12 +183,16 @@ export const CompanyModalFormNew = () => {
                             }}/>
                         </div>
 
-                        {/* Submit button */}
-                        <SubmitButtonLayout props={{
-                            loading: loading,
-                            spinnerSize: 'sm',
-                            buttonName: layoutButton.save
-                        }}/>
+                        <div className="mt-6 pt-6 flex items-center justify-end gap-x-6 border-t border-gray-900/10">
+                            <SubmitButtonLayout2 props={{
+                                loading: loading,
+                                spinnerSize: 'sm',
+                                buttonName: layoutButton.save,
+                                loadingName: general.inProgress,
+                                width: 'px-3 lg:px6',
+                                height: 'py-2 lg:py-3'
+                            }}/>
+                        </div>
                         {/* <SubmitButton /> */}
                     </div>
 

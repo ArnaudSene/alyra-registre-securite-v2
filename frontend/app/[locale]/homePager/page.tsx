@@ -1,3 +1,6 @@
+
+import React from 'react'
+
 import Image from 'next/image'
 import { CubeFinalOpt, MetadataNFT3 } from "@/assets"
 import { indexIntl, homePagerIntl, headerFooterIntl } from '@/utils/intl'
@@ -13,8 +16,8 @@ const HomePager = () => {
         <div className="">
 
             {/* Introduction */}
-            <div className="flex flex-col md:flex-row justify-between md:mb-5 pt-16 px-2 z-10">
-                <div className='p-2 md:w-1/2 z-10'>
+            <div className="flex flex-col md:flex-row justify-between md:mb-5 pt-16 px-2 ">
+                <div className='p-2 md:w-1/2 '>
                     <div className='text-slate-700'>
                         <h1 className='md:pt-20 pb-2 md:pb-3 md:pl-10 font-extrabold text-3xl md:text-6xl text-slate-800'>{indexIntlData.title}</h1>
                         <h2 className='md:pl-10 pb-2 md:pb-5 text-xl md:text-2xl'>{indexIntlData.title}</h2>
@@ -28,13 +31,13 @@ const HomePager = () => {
                 </div>
             </div>
 
-            {/* Explication */}
-            <div className="flex flex-col-reverse md:flex-row justify-between md:mb-5 pt-2 px-2 z-10">
+            {/* Description */}
+            <div className="flex flex-col-reverse md:flex-row justify-between md:mb-5 pt-2 px-2 ">
                 <div className="mt-[-0px] md:mt-40 md:p-2">
                     <Image src={MetadataNFT3} alt='CubeSvg'/>
                 </div>
 
-                <div className='p-2 md:w-1/2 z-10'>
+                <div className='p-2 md:w-1/2 '>
                     <div className='text-slate-700'>
                         <h1 className='md:pt-0 pb-2 md:pb-3 md:pl-10 font-extrabold text-3xl md:text-6xl text-slate-800'>{homePagerIntlData.descTitle}</h1>
                         <h2 className='md:pl-10 pb-2 md:pb-5 text-xl md:text-2xl'>{homePagerIntlData.descSubTitle}</h2>
@@ -70,8 +73,8 @@ const HomePager = () => {
 
 
             {/* Usage */}
-            <div className="flex flex-col md:flex-col justify-between  pt-16 px-2 z-10">
-                <div className='p-2 z-10'>
+            <div className="flex flex-col md:flex-col justify-between  pt-16 px-2 ">
+                <div className='p-2'>
                     <div className='text-slate-700'>
                         <h1 className='md:pt-0 pb-2 md:pb-3 md:pl-10 font-extrabold text-3xl md:text-6xl text-slate-800'>
                         {headerFooterIntlData.products}
@@ -140,7 +143,7 @@ const HomePager = () => {
 
                     <div className='p-2 md:m-2 mb-4 basis-1/3 rounded 
                         bg-gradient-to-b from-indigo-300 via-teal-200/70 to-fuchsia-200
-                        shadow-2xl'>
+                        shadow-2xl hover:drop-shadow-2xl ease-in-out delay-100'>
                         <div className='flex flex-col'>
                             <div className='flex flex-col border-b border-slate-400 w-full mb-4 lg:h-72 md:h-96'>
                                 <p className='p-2 mx-auto text-center font-bold text-xl'>{homePagerIntlData.cpyVGPTitle}</p>
@@ -176,7 +179,7 @@ const HomePager = () => {
 
                     <div className='p-2 md:m-2 mb-4 basis-1/3 rounded 
                         bg-gradient-to-b from-indigo-300 via-teal-200/70 to-fuchsia-200
-                        shadow-2xl'>
+                        shadow-2xl hover:drop-shadow-2xl ease-in-out delay-100'>
                         <div className='flex flex-col'>
                             <div className='flex flex-col border-b border-slate-400 w-full mb-4 lg:h-72 md:h-96'>
                                 <p className='p-2 mx-auto text-center font-bold text-xl'>{homePagerIntlData.consultRegisterTitle}</p>

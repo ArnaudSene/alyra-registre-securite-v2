@@ -1,9 +1,9 @@
 'use client'
 
-// @ts-expect-error
+// @ts-expect-error experimental
 import { experimental_useFormState as useFormState } from 'react-dom'
+import React, { useEffect, useState } from "react"
 import { useToast } from "@chakra-ui/react"
-import { useEffect, useState } from "react"
 import { Log } from "viem"
 import { useAccount, useContractEvent } from "wagmi"
 import { abi, contractAddress } from "@/constants"
@@ -35,7 +35,7 @@ export const VerifierModalFormNew = () => {
     useEffect(() => {
         if(loading) {
             for (const log of eventLogs as Iterable<Log>) {
-                // @ts-expect-error
+                // @ts-expect-error Experimental
                 const logArgs: any = log.args
 
                 if (logArgs._verifier === address) {
@@ -143,7 +143,7 @@ export const VerifierModalFormNew = () => {
                 })
             })
     }
-    const [state, formAction] = useFormState(submitCreateVerifier, initialState)
+    const [formAction] = useFormState(submitCreateVerifier, initialState)
     const layoutButton: ILayoutButton = layoutButtonIntl()
 
     return (

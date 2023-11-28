@@ -20,16 +20,29 @@ export interface CompanyAccount {
     company: `0x${string}`
     active: boolean
 }
+
+export interface ICompanyProfile {
+    company: `0x${string}`
+    account: `0x${string}`
+    name: string
+    firstName: string
+    nameCompany: string
+    addressName: string
+    siret: string
+}
+
 export interface Register {
     siteName: string
     securitySector: string
 }
 export interface IRegisters {
     verificationTasks:  IVerificationTaskCreated[]
-    verifiersProfile: IVerifierProfile[]
-    registerCreated:  IRegisterCreated[]
-    verificationTaskValidated:  IVerificationTaskValidated[]
-    verificationTaskUpdated:  IVerificationTaskUpdated[]
-    companyAccount: ICompanyAccountUpdated[]
+    verifierProfiles: IVerifierProfile[]
+    companyProfiles: ICompanyProfile[]
+    registerCreateds:  IRegisterCreated[]
+    verificationTaskValidateds:  IVerificationTaskValidated[]
+    verificationTaskUpdateds:  IVerificationTaskUpdated[]
+    companyAccounts: ICompanyAccountUpdated[]
+    accountProfile: string | undefined
 }
 
