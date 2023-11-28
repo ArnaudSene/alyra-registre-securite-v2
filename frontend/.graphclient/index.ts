@@ -2658,11 +2658,23 @@ const merger = new(BareMerger as any)({
         },
         location: 'RegisterCreatedsDocument.graphql'
       },{
+        document: RegisterCreatedsPaginationDocument,
+        get rawSDL() {
+          return printWithCache(RegisterCreatedsPaginationDocument);
+        },
+        location: 'RegisterCreatedsPaginationDocument.graphql'
+      },{
         document: CompanyAccountUpdatedsDocument,
         get rawSDL() {
           return printWithCache(CompanyAccountUpdatedsDocument);
         },
         location: 'CompanyAccountUpdatedsDocument.graphql'
+      },{
+        document: CompanyAccountUpdatedsPaginationDocument,
+        get rawSDL() {
+          return printWithCache(CompanyAccountUpdatedsPaginationDocument);
+        },
+        location: 'CompanyAccountUpdatedsPaginationDocument.graphql'
       },{
         document: VerifierCreatedsDocument,
         get rawSDL() {
@@ -2670,11 +2682,23 @@ const merger = new(BareMerger as any)({
         },
         location: 'VerifierCreatedsDocument.graphql'
       },{
+        document: VerifierCreatedsPaginationDocument,
+        get rawSDL() {
+          return printWithCache(VerifierCreatedsPaginationDocument);
+        },
+        location: 'VerifierCreatedsPaginationDocument.graphql'
+      },{
         document: VerifierAccountUpdatedsDocument,
         get rawSDL() {
           return printWithCache(VerifierAccountUpdatedsDocument);
         },
         location: 'VerifierAccountUpdatedsDocument.graphql'
+      },{
+        document: VerifierAccountUpdatedsPaginationDocument,
+        get rawSDL() {
+          return printWithCache(VerifierAccountUpdatedsPaginationDocument);
+        },
+        location: 'VerifierAccountUpdatedsPaginationDocument.graphql'
       },{
         document: VerifierAddedToCompaniesDocument,
         get rawSDL() {
@@ -2682,11 +2706,29 @@ const merger = new(BareMerger as any)({
         },
         location: 'VerifierAddedToCompaniesDocument.graphql'
       },{
+        document: VerifierAddedToCompaniesByCompanyDocument,
+        get rawSDL() {
+          return printWithCache(VerifierAddedToCompaniesByCompanyDocument);
+        },
+        location: 'VerifierAddedToCompaniesByCompanyDocument.graphql'
+      },{
+        document: VerifierAddedToCompaniesByVerifierDocument,
+        get rawSDL() {
+          return printWithCache(VerifierAddedToCompaniesByVerifierDocument);
+        },
+        location: 'VerifierAddedToCompaniesByVerifierDocument.graphql'
+      },{
         document: VerificationTaskValidatedsDocument,
         get rawSDL() {
           return printWithCache(VerificationTaskValidatedsDocument);
         },
         location: 'VerificationTaskValidatedsDocument.graphql'
+      },{
+        document: VerificationTaskValidatedsPaginationDocument,
+        get rawSDL() {
+          return printWithCache(VerificationTaskValidatedsPaginationDocument);
+        },
+        location: 'VerificationTaskValidatedsPaginationDocument.graphql'
       },{
         document: VerificationTaskUpdatedsDocument,
         get rawSDL() {
@@ -2694,17 +2736,29 @@ const merger = new(BareMerger as any)({
         },
         location: 'VerificationTaskUpdatedsDocument.graphql'
       },{
+        document: VerificationTaskUpdatedsPaginationDocument,
+        get rawSDL() {
+          return printWithCache(VerificationTaskUpdatedsPaginationDocument);
+        },
+        location: 'VerificationTaskUpdatedsPaginationDocument.graphql'
+      },{
         document: VerificationTaskCreatedsDocument,
         get rawSDL() {
           return printWithCache(VerificationTaskCreatedsDocument);
         },
         location: 'VerificationTaskCreatedsDocument.graphql'
       },{
-        document: VerificationTaskCreatedByIdDocument,
+        document: VerificationTaskCreatedsByCompanyDocument,
         get rawSDL() {
-          return printWithCache(VerificationTaskCreatedByIdDocument);
+          return printWithCache(VerificationTaskCreatedsByCompanyDocument);
         },
-        location: 'VerificationTaskCreatedByIdDocument.graphql'
+        location: 'VerificationTaskCreatedsByCompanyDocument.graphql'
+      },{
+        document: VerificationTaskCreatedsByVerifierDocument,
+        get rawSDL() {
+          return printWithCache(VerificationTaskCreatedsByVerifierDocument);
+        },
+        location: 'VerificationTaskCreatedsByVerifierDocument.graphql'
       }
     ];
     },
@@ -2748,35 +2802,107 @@ export type RegisterCreatedsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type RegisterCreatedsQuery = { registerCreateds: Array<Pick<RegisterCreated, 'id' | '_siteName' | '_siteAddressName' | '_siret' | '_name' | '_addressName' | '_addr'>> };
 
+export type RegisterCreatedsPaginationQueryVariables = Exact<{
+  _addr?: InputMaybe<Scalars['Bytes']>;
+  first?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type RegisterCreatedsPaginationQuery = { registerCreateds: Array<Pick<RegisterCreated, 'id' | '_siteName' | '_siteAddressName' | '_siret' | '_name' | '_addressName' | '_addr'>> };
+
 export type CompanyAccountUpdatedsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type CompanyAccountUpdatedsQuery = { companyAccountUpdateds: Array<Pick<CompanyAccountUpdated, 'id' | '_company' | '_account' | '_name' | '_firstName' | '_action'>> };
+
+export type CompanyAccountUpdatedsPaginationQueryVariables = Exact<{
+  _company?: InputMaybe<Scalars['Bytes']>;
+  first?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type CompanyAccountUpdatedsPaginationQuery = { companyAccountUpdateds: Array<Pick<CompanyAccountUpdated, 'id' | '_company' | '_account' | '_name' | '_firstName' | '_action'>> };
 
 export type VerifierCreatedsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type VerifierCreatedsQuery = { verifierCreateds: Array<Pick<VerifierCreated, 'id' | '_verifier' | '_name' | '_addressName' | '_siret' | '_approvalNumber'>> };
 
+export type VerifierCreatedsPaginationQueryVariables = Exact<{
+  _verifier?: InputMaybe<Scalars['Bytes']>;
+  first?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type VerifierCreatedsPaginationQuery = { verifierCreateds: Array<Pick<VerifierCreated, 'id' | '_verifier' | '_name' | '_addressName' | '_siret' | '_approvalNumber'>> };
+
 export type VerifierAccountUpdatedsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type VerifierAccountUpdatedsQuery = { verifierAccountUpdateds: Array<Pick<VerifierAccountUpdated, 'id' | '_verifier' | '_account' | '_name' | '_firstName' | '_action'>> };
+
+export type VerifierAccountUpdatedsPaginationQueryVariables = Exact<{
+  _verifier?: InputMaybe<Scalars['Bytes']>;
+  first?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type VerifierAccountUpdatedsPaginationQuery = { verifierAccountUpdateds: Array<Pick<VerifierAccountUpdated, 'id' | '_verifier' | '_account' | '_name' | '_firstName' | '_action'>> };
 
 export type VerifierAddedToCompaniesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type VerifierAddedToCompaniesQuery = { verifierAddedToCompanies: Array<Pick<VerifierAddedToCompany, 'id' | '_verifier' | '_company'>> };
 
+export type VerifierAddedToCompaniesByCompanyQueryVariables = Exact<{
+  _company?: InputMaybe<Scalars['Bytes']>;
+  first?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type VerifierAddedToCompaniesByCompanyQuery = { verifierAddedToCompanies: Array<Pick<VerifierAddedToCompany, 'id' | '_verifier' | '_company'>> };
+
+export type VerifierAddedToCompaniesByVerifierQueryVariables = Exact<{
+  _verifier?: InputMaybe<Scalars['Bytes']>;
+  first?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type VerifierAddedToCompaniesByVerifierQuery = { verifierAddedToCompanies: Array<Pick<VerifierAddedToCompany, 'id' | '_verifier' | '_company'>> };
+
 export type VerificationTaskValidatedsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type VerificationTaskValidatedsQuery = { verificationTaskValidateds: Array<Pick<VerificationTaskValidated, 'id' | '_verifier' | '_taskId' | '_taskStatus'>> };
 
+export type VerificationTaskValidatedsPaginationQueryVariables = Exact<{
+  _verifier?: InputMaybe<Scalars['Bytes']>;
+  first?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type VerificationTaskValidatedsPaginationQuery = { verificationTaskValidateds: Array<Pick<VerificationTaskValidated, 'id' | '_verifier' | '_taskId' | '_taskStatus'>> };
+
 export type VerificationTaskUpdatedsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type VerificationTaskUpdatedsQuery = { verificationTaskUpdateds: Array<Pick<VerificationTaskUpdated, 'id' | '_company' | '_taskId' | '_taskStatus'>> };
+
+export type VerificationTaskUpdatedsPaginationQueryVariables = Exact<{
+  _company?: InputMaybe<Scalars['Bytes']>;
+  first?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type VerificationTaskUpdatedsPaginationQuery = { verificationTaskUpdateds: Array<Pick<VerificationTaskUpdated, 'id' | '_company' | '_taskId' | '_taskStatus'>> };
 
 export type VerificationTaskCreatedsQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']>;
@@ -2786,14 +2912,23 @@ export type VerificationTaskCreatedsQueryVariables = Exact<{
 
 export type VerificationTaskCreatedsQuery = { verificationTaskCreateds: Array<Pick<VerificationTaskCreated, 'id' | '_company' | '_verifier' | '_registerId' | '_securityType' | '_taskId' | '_taskStatus' | '_siteName' | '_timestamp'>> };
 
-export type VerificationTaskCreatedByIDQueryVariables = Exact<{
+export type VerificationTaskCreatedsByCompanyQueryVariables = Exact<{
   _company?: InputMaybe<Scalars['Bytes']>;
   first?: InputMaybe<Scalars['Int']>;
   skip?: InputMaybe<Scalars['Int']>;
 }>;
 
 
-export type VerificationTaskCreatedByIDQuery = { verificationTaskCreateds: Array<Pick<VerificationTaskCreated, 'id' | '_company' | '_verifier' | '_registerId' | '_securityType' | '_taskId' | '_taskStatus' | '_siteName' | '_timestamp'>> };
+export type VerificationTaskCreatedsByCompanyQuery = { verificationTaskCreateds: Array<Pick<VerificationTaskCreated, 'id' | '_company' | '_verifier' | '_registerId' | '_securityType' | '_taskId' | '_taskStatus' | '_siteName' | '_timestamp'>> };
+
+export type VerificationTaskCreatedsByVerifierQueryVariables = Exact<{
+  _verifier?: InputMaybe<Scalars['Bytes']>;
+  first?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type VerificationTaskCreatedsByVerifierQuery = { verificationTaskCreateds: Array<Pick<VerificationTaskCreated, 'id' | '_company' | '_verifier' | '_registerId' | '_securityType' | '_taskId' | '_taskStatus' | '_siteName' | '_timestamp'>> };
 
 
 export const RegisterCreatedsDocument = gql`
@@ -2809,6 +2944,19 @@ export const RegisterCreatedsDocument = gql`
   }
 }
     ` as unknown as DocumentNode<RegisterCreatedsQuery, RegisterCreatedsQueryVariables>;
+export const RegisterCreatedsPaginationDocument = gql`
+    query RegisterCreatedsPagination($_addr: Bytes, $first: Int, $skip: Int) {
+  registerCreateds(first: $first, skip: $skip, where: {_addr: $_addr}) {
+    id
+    _siteName
+    _siteAddressName
+    _siret
+    _name
+    _addressName
+    _addr
+  }
+}
+    ` as unknown as DocumentNode<RegisterCreatedsPaginationQuery, RegisterCreatedsPaginationQueryVariables>;
 export const CompanyAccountUpdatedsDocument = gql`
     query CompanyAccountUpdateds {
   companyAccountUpdateds {
@@ -2821,6 +2969,18 @@ export const CompanyAccountUpdatedsDocument = gql`
   }
 }
     ` as unknown as DocumentNode<CompanyAccountUpdatedsQuery, CompanyAccountUpdatedsQueryVariables>;
+export const CompanyAccountUpdatedsPaginationDocument = gql`
+    query CompanyAccountUpdatedsPagination($_company: Bytes, $first: Int, $skip: Int) {
+  companyAccountUpdateds(first: $first, skip: $skip, where: {_company: $_company}) {
+    id
+    _company
+    _account
+    _name
+    _firstName
+    _action
+  }
+}
+    ` as unknown as DocumentNode<CompanyAccountUpdatedsPaginationQuery, CompanyAccountUpdatedsPaginationQueryVariables>;
 export const VerifierCreatedsDocument = gql`
     query VerifierCreateds {
   verifierCreateds {
@@ -2833,6 +2993,18 @@ export const VerifierCreatedsDocument = gql`
   }
 }
     ` as unknown as DocumentNode<VerifierCreatedsQuery, VerifierCreatedsQueryVariables>;
+export const VerifierCreatedsPaginationDocument = gql`
+    query VerifierCreatedsPagination($_verifier: Bytes, $first: Int, $skip: Int) {
+  verifierCreateds(first: $first, skip: $skip, where: {_verifier: $_verifier}) {
+    id
+    _verifier
+    _name
+    _addressName
+    _siret
+    _approvalNumber
+  }
+}
+    ` as unknown as DocumentNode<VerifierCreatedsPaginationQuery, VerifierCreatedsPaginationQueryVariables>;
 export const VerifierAccountUpdatedsDocument = gql`
     query VerifierAccountUpdateds {
   verifierAccountUpdateds {
@@ -2845,6 +3017,22 @@ export const VerifierAccountUpdatedsDocument = gql`
   }
 }
     ` as unknown as DocumentNode<VerifierAccountUpdatedsQuery, VerifierAccountUpdatedsQueryVariables>;
+export const VerifierAccountUpdatedsPaginationDocument = gql`
+    query VerifierAccountUpdatedsPagination($_verifier: Bytes, $first: Int, $skip: Int) {
+  verifierAccountUpdateds(
+    first: $first
+    skip: $skip
+    where: {_verifier: $_verifier}
+  ) {
+    id
+    _verifier
+    _account
+    _name
+    _firstName
+    _action
+  }
+}
+    ` as unknown as DocumentNode<VerifierAccountUpdatedsPaginationQuery, VerifierAccountUpdatedsPaginationQueryVariables>;
 export const VerifierAddedToCompaniesDocument = gql`
     query VerifierAddedToCompanies {
   verifierAddedToCompanies {
@@ -2854,6 +3042,32 @@ export const VerifierAddedToCompaniesDocument = gql`
   }
 }
     ` as unknown as DocumentNode<VerifierAddedToCompaniesQuery, VerifierAddedToCompaniesQueryVariables>;
+export const VerifierAddedToCompaniesByCompanyDocument = gql`
+    query VerifierAddedToCompaniesByCompany($_company: Bytes, $first: Int, $skip: Int) {
+  verifierAddedToCompanies(
+    first: $first
+    skip: $skip
+    where: {_company: $_company}
+  ) {
+    id
+    _verifier
+    _company
+  }
+}
+    ` as unknown as DocumentNode<VerifierAddedToCompaniesByCompanyQuery, VerifierAddedToCompaniesByCompanyQueryVariables>;
+export const VerifierAddedToCompaniesByVerifierDocument = gql`
+    query VerifierAddedToCompaniesByVerifier($_verifier: Bytes, $first: Int, $skip: Int) {
+  verifierAddedToCompanies(
+    first: $first
+    skip: $skip
+    where: {_verifier: $_verifier}
+  ) {
+    id
+    _verifier
+    _company
+  }
+}
+    ` as unknown as DocumentNode<VerifierAddedToCompaniesByVerifierQuery, VerifierAddedToCompaniesByVerifierQueryVariables>;
 export const VerificationTaskValidatedsDocument = gql`
     query VerificationTaskValidateds {
   verificationTaskValidateds {
@@ -2864,9 +3078,23 @@ export const VerificationTaskValidatedsDocument = gql`
   }
 }
     ` as unknown as DocumentNode<VerificationTaskValidatedsQuery, VerificationTaskValidatedsQueryVariables>;
+export const VerificationTaskValidatedsPaginationDocument = gql`
+    query VerificationTaskValidatedsPagination($_verifier: Bytes, $first: Int, $skip: Int) {
+  verificationTaskValidateds(
+    first: $first
+    skip: $skip
+    where: {_verifier: $_verifier}
+  ) {
+    id
+    _verifier
+    _taskId
+    _taskStatus
+  }
+}
+    ` as unknown as DocumentNode<VerificationTaskValidatedsPaginationQuery, VerificationTaskValidatedsPaginationQueryVariables>;
 export const VerificationTaskUpdatedsDocument = gql`
     query VerificationTaskUpdateds {
-  verificationTaskUpdateds {
+  verificationTaskUpdateds(orderBy: _taskId, orderDirection: desc) {
     id
     _company
     _taskId
@@ -2874,6 +3102,22 @@ export const VerificationTaskUpdatedsDocument = gql`
   }
 }
     ` as unknown as DocumentNode<VerificationTaskUpdatedsQuery, VerificationTaskUpdatedsQueryVariables>;
+export const VerificationTaskUpdatedsPaginationDocument = gql`
+    query VerificationTaskUpdatedsPagination($_company: Bytes, $first: Int, $skip: Int) {
+  verificationTaskUpdateds(
+    first: $first
+    skip: $skip
+    where: {_company: $_company}
+    orderBy: _taskId
+    orderDirection: desc
+  ) {
+    id
+    _company
+    _taskId
+    _taskStatus
+  }
+}
+    ` as unknown as DocumentNode<VerificationTaskUpdatedsPaginationQuery, VerificationTaskUpdatedsPaginationQueryVariables>;
 export const VerificationTaskCreatedsDocument = gql`
     query VerificationTaskCreateds($first: Int, $skip: Int) {
   verificationTaskCreateds(
@@ -2894,8 +3138,8 @@ export const VerificationTaskCreatedsDocument = gql`
   }
 }
     ` as unknown as DocumentNode<VerificationTaskCreatedsQuery, VerificationTaskCreatedsQueryVariables>;
-export const VerificationTaskCreatedByIDDocument = gql`
-    query VerificationTaskCreatedByID($_company: Bytes, $first: Int, $skip: Int) {
+export const VerificationTaskCreatedsByCompanyDocument = gql`
+    query VerificationTaskCreatedsByCompany($_company: Bytes, $first: Int, $skip: Int) {
   verificationTaskCreateds(
     first: $first
     skip: $skip
@@ -2914,7 +3158,37 @@ export const VerificationTaskCreatedByIDDocument = gql`
     _timestamp
   }
 }
-    ` as unknown as DocumentNode<VerificationTaskCreatedByIDQuery, VerificationTaskCreatedByIDQueryVariables>;
+    ` as unknown as DocumentNode<VerificationTaskCreatedsByCompanyQuery, VerificationTaskCreatedsByCompanyQueryVariables>;
+export const VerificationTaskCreatedsByVerifierDocument = gql`
+    query VerificationTaskCreatedsByVerifier($_verifier: Bytes, $first: Int, $skip: Int) {
+  verificationTaskCreateds(
+    first: $first
+    skip: $skip
+    where: {_verifier: $_verifier}
+    orderBy: _timestamp
+    orderDirection: desc
+  ) {
+    id
+    _company
+    _verifier
+    _registerId
+    _securityType
+    _taskId
+    _taskStatus
+    _siteName
+    _timestamp
+  }
+}
+    ` as unknown as DocumentNode<VerificationTaskCreatedsByVerifierQuery, VerificationTaskCreatedsByVerifierQueryVariables>;
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2931,29 +3205,56 @@ export function getSdk<C, E>(requester: Requester<C, E>) {
     RegisterCreateds(variables?: RegisterCreatedsQueryVariables, options?: C): Promise<RegisterCreatedsQuery> {
       return requester<RegisterCreatedsQuery, RegisterCreatedsQueryVariables>(RegisterCreatedsDocument, variables, options) as Promise<RegisterCreatedsQuery>;
     },
+    RegisterCreatedsPagination(variables?: RegisterCreatedsPaginationQueryVariables, options?: C): Promise<RegisterCreatedsPaginationQuery> {
+      return requester<RegisterCreatedsPaginationQuery, RegisterCreatedsPaginationQueryVariables>(RegisterCreatedsPaginationDocument, variables, options) as Promise<RegisterCreatedsPaginationQuery>;
+    },
     CompanyAccountUpdateds(variables?: CompanyAccountUpdatedsQueryVariables, options?: C): Promise<CompanyAccountUpdatedsQuery> {
       return requester<CompanyAccountUpdatedsQuery, CompanyAccountUpdatedsQueryVariables>(CompanyAccountUpdatedsDocument, variables, options) as Promise<CompanyAccountUpdatedsQuery>;
+    },
+    CompanyAccountUpdatedsPagination(variables?: CompanyAccountUpdatedsPaginationQueryVariables, options?: C): Promise<CompanyAccountUpdatedsPaginationQuery> {
+      return requester<CompanyAccountUpdatedsPaginationQuery, CompanyAccountUpdatedsPaginationQueryVariables>(CompanyAccountUpdatedsPaginationDocument, variables, options) as Promise<CompanyAccountUpdatedsPaginationQuery>;
     },
     VerifierCreateds(variables?: VerifierCreatedsQueryVariables, options?: C): Promise<VerifierCreatedsQuery> {
       return requester<VerifierCreatedsQuery, VerifierCreatedsQueryVariables>(VerifierCreatedsDocument, variables, options) as Promise<VerifierCreatedsQuery>;
     },
+    VerifierCreatedsPagination(variables?: VerifierCreatedsPaginationQueryVariables, options?: C): Promise<VerifierCreatedsPaginationQuery> {
+      return requester<VerifierCreatedsPaginationQuery, VerifierCreatedsPaginationQueryVariables>(VerifierCreatedsPaginationDocument, variables, options) as Promise<VerifierCreatedsPaginationQuery>;
+    },
     VerifierAccountUpdateds(variables?: VerifierAccountUpdatedsQueryVariables, options?: C): Promise<VerifierAccountUpdatedsQuery> {
       return requester<VerifierAccountUpdatedsQuery, VerifierAccountUpdatedsQueryVariables>(VerifierAccountUpdatedsDocument, variables, options) as Promise<VerifierAccountUpdatedsQuery>;
+    },
+    VerifierAccountUpdatedsPagination(variables?: VerifierAccountUpdatedsPaginationQueryVariables, options?: C): Promise<VerifierAccountUpdatedsPaginationQuery> {
+      return requester<VerifierAccountUpdatedsPaginationQuery, VerifierAccountUpdatedsPaginationQueryVariables>(VerifierAccountUpdatedsPaginationDocument, variables, options) as Promise<VerifierAccountUpdatedsPaginationQuery>;
     },
     VerifierAddedToCompanies(variables?: VerifierAddedToCompaniesQueryVariables, options?: C): Promise<VerifierAddedToCompaniesQuery> {
       return requester<VerifierAddedToCompaniesQuery, VerifierAddedToCompaniesQueryVariables>(VerifierAddedToCompaniesDocument, variables, options) as Promise<VerifierAddedToCompaniesQuery>;
     },
+    VerifierAddedToCompaniesByCompany(variables?: VerifierAddedToCompaniesByCompanyQueryVariables, options?: C): Promise<VerifierAddedToCompaniesByCompanyQuery> {
+      return requester<VerifierAddedToCompaniesByCompanyQuery, VerifierAddedToCompaniesByCompanyQueryVariables>(VerifierAddedToCompaniesByCompanyDocument, variables, options) as Promise<VerifierAddedToCompaniesByCompanyQuery>;
+    },
+    VerifierAddedToCompaniesByVerifier(variables?: VerifierAddedToCompaniesByVerifierQueryVariables, options?: C): Promise<VerifierAddedToCompaniesByVerifierQuery> {
+      return requester<VerifierAddedToCompaniesByVerifierQuery, VerifierAddedToCompaniesByVerifierQueryVariables>(VerifierAddedToCompaniesByVerifierDocument, variables, options) as Promise<VerifierAddedToCompaniesByVerifierQuery>;
+    },
     VerificationTaskValidateds(variables?: VerificationTaskValidatedsQueryVariables, options?: C): Promise<VerificationTaskValidatedsQuery> {
       return requester<VerificationTaskValidatedsQuery, VerificationTaskValidatedsQueryVariables>(VerificationTaskValidatedsDocument, variables, options) as Promise<VerificationTaskValidatedsQuery>;
+    },
+    VerificationTaskValidatedsPagination(variables?: VerificationTaskValidatedsPaginationQueryVariables, options?: C): Promise<VerificationTaskValidatedsPaginationQuery> {
+      return requester<VerificationTaskValidatedsPaginationQuery, VerificationTaskValidatedsPaginationQueryVariables>(VerificationTaskValidatedsPaginationDocument, variables, options) as Promise<VerificationTaskValidatedsPaginationQuery>;
     },
     VerificationTaskUpdateds(variables?: VerificationTaskUpdatedsQueryVariables, options?: C): Promise<VerificationTaskUpdatedsQuery> {
       return requester<VerificationTaskUpdatedsQuery, VerificationTaskUpdatedsQueryVariables>(VerificationTaskUpdatedsDocument, variables, options) as Promise<VerificationTaskUpdatedsQuery>;
     },
+    VerificationTaskUpdatedsPagination(variables?: VerificationTaskUpdatedsPaginationQueryVariables, options?: C): Promise<VerificationTaskUpdatedsPaginationQuery> {
+      return requester<VerificationTaskUpdatedsPaginationQuery, VerificationTaskUpdatedsPaginationQueryVariables>(VerificationTaskUpdatedsPaginationDocument, variables, options) as Promise<VerificationTaskUpdatedsPaginationQuery>;
+    },
     VerificationTaskCreateds(variables?: VerificationTaskCreatedsQueryVariables, options?: C): Promise<VerificationTaskCreatedsQuery> {
       return requester<VerificationTaskCreatedsQuery, VerificationTaskCreatedsQueryVariables>(VerificationTaskCreatedsDocument, variables, options) as Promise<VerificationTaskCreatedsQuery>;
     },
-    VerificationTaskCreatedByID(variables?: VerificationTaskCreatedByIDQueryVariables, options?: C): Promise<VerificationTaskCreatedByIDQuery> {
-      return requester<VerificationTaskCreatedByIDQuery, VerificationTaskCreatedByIDQueryVariables>(VerificationTaskCreatedByIDDocument, variables, options) as Promise<VerificationTaskCreatedByIDQuery>;
+    VerificationTaskCreatedsByCompany(variables?: VerificationTaskCreatedsByCompanyQueryVariables, options?: C): Promise<VerificationTaskCreatedsByCompanyQuery> {
+      return requester<VerificationTaskCreatedsByCompanyQuery, VerificationTaskCreatedsByCompanyQueryVariables>(VerificationTaskCreatedsByCompanyDocument, variables, options) as Promise<VerificationTaskCreatedsByCompanyQuery>;
+    },
+    VerificationTaskCreatedsByVerifier(variables?: VerificationTaskCreatedsByVerifierQueryVariables, options?: C): Promise<VerificationTaskCreatedsByVerifierQuery> {
+      return requester<VerificationTaskCreatedsByVerifierQuery, VerificationTaskCreatedsByVerifierQueryVariables>(VerificationTaskCreatedsByVerifierDocument, variables, options) as Promise<VerificationTaskCreatedsByVerifierQuery>;
     }
   };
 }

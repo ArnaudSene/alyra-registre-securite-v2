@@ -1,3 +1,5 @@
+import React from "react";
+
 export interface IButtonLink {
     title: string
     href: string | object
@@ -6,9 +8,13 @@ export interface IButtonLink {
 
 export interface ISubmitButtonLayout {
     loading: boolean
-    spinnerSize: string
-    buttonName: string
+    spinnerSize?: string
+    buttonName?: string
+    loadingName?: string
     onClick?: () => void
+    height? : string
+    width? : string
+    rounded?: string
 }
 
 export interface IFormLayout {
@@ -32,20 +38,15 @@ export interface IFormInputLayout2 {
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-export interface IFormSelectData {
-    id: string
-    value: string
-    label: string
-}
-
 export interface IFormSelectLayout {
     id: string
     label?: string
-    defaultSelected: {value: string, label: string}
-    selected: {value: string, label: string}
-    data: IFormSelectData[]
-    onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
+    selected: IValueLabelId
+    data: IValueLabelId[]
+    onChange: (e: React.ChangeEvent<HTMLSelectElement>, data?: any) => void
+    onBlur?: () => void
     inline?: boolean
+    defaultSelected?: IValueLabelId
 }
 
 export interface IEventFieldLayout {

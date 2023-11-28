@@ -9,9 +9,37 @@ query RegisterCreateds {
         _addr
     }
 }
-
+query RegisterCreatedsPagination($_addr: Bytes, $first: Int, $skip: Int) {
+    registerCreateds(
+        first: $first,
+        skip: $skip,
+        where: {_addr: $_addr},
+    ) {
+        id
+        _siteName
+        _siteAddressName
+        _siret
+        _name
+        _addressName
+        _addr
+    }
+}
 query CompanyAccountUpdateds {
     companyAccountUpdateds {
+        id
+        _company
+        _account
+        _name
+        _firstName
+        _action
+    }
+}
+query CompanyAccountUpdatedsPagination($_company: Bytes, $first: Int, $skip: Int) {
+    companyAccountUpdateds(
+        first: $first,
+        skip: $skip,
+        where: {_company: $_company},
+    )  {
         id
         _company
         _account
@@ -30,7 +58,20 @@ query VerifierCreateds {
         _approvalNumber
     }
 }
-
+query VerifierCreatedsPagination($_verifier: Bytes, $first: Int, $skip: Int) {
+    verifierCreateds(
+        first: $first,
+        skip: $skip,
+        where: {_verifier: $_verifier},
+    ) {
+        id
+        _verifier
+        _name
+        _addressName
+        _siret
+        _approvalNumber
+    }
+}
 query VerifierAccountUpdateds {
     verifierAccountUpdateds {
         id
@@ -41,7 +82,20 @@ query VerifierAccountUpdateds {
         _action
     }
 }
-
+query VerifierAccountUpdatedsPagination($_verifier: Bytes, $first: Int, $skip: Int) {
+    verifierAccountUpdateds (
+        first: $first,
+        skip: $skip,
+        where: {_verifier: $_verifier},
+    ) {
+        id
+        _verifier
+        _account
+        _name
+        _firstName
+        _action
+    }
+}
 query VerifierAddedToCompanies {
     verifierAddedToCompanies {
         id
@@ -49,9 +103,28 @@ query VerifierAddedToCompanies {
         _company
     }     
 }
-
-
-
+query VerifierAddedToCompaniesByCompany($_company: Bytes, $first: Int, $skip: Int) {
+    verifierAddedToCompanies(
+        first: $first,
+        skip: $skip,
+        where: {_company: $_company},
+    ) {
+        id
+        _verifier
+        _company
+    }
+}
+query VerifierAddedToCompaniesByVerifier($_verifier: Bytes, $first: Int, $skip: Int) {
+    verifierAddedToCompanies(
+        first: $first,
+        skip: $skip,
+        where: {_verifier: $_verifier},
+    ) {
+        id
+        _verifier
+        _company
+    }
+}
 query VerificationTaskValidateds {
     verificationTaskValidateds {
         id
@@ -61,18 +134,51 @@ query VerificationTaskValidateds {
     }
 
 }
+query VerificationTaskValidatedsPagination($_verifier: Bytes, $first: Int, $skip: Int) {
+    verificationTaskValidateds(
+        first: $first,
+        skip: $skip,
+        where: {_verifier: $_verifier},
+    ) {
+        id
+        _verifier
+        _taskId
+        _taskStatus
+    }
 
+}
 query VerificationTaskUpdateds {
-    verificationTaskUpdateds {
+    verificationTaskUpdateds(
+        orderBy: _taskId,
+        orderDirection: desc
+    ) {
         id
         _company
         _taskId
         _taskStatus
     }
 }
-
-query VerificationTaskCreateds($first: Int, $skip: Int){
-    verificationTaskCreateds(first: $first, skip: $skip, orderBy: _timestamp, orderDirection: desc) {
+query VerificationTaskUpdatedsPagination($_company: Bytes, $first: Int, $skip: Int) {
+    verificationTaskUpdateds(
+        first: $first,
+        skip: $skip,
+        where: {_company: $_company},
+        orderBy: _taskId,
+        orderDirection: desc
+    ) {
+        id
+        _company
+        _taskId
+        _taskStatus
+    }
+}
+query VerificationTaskCreateds($first: Int, $skip: Int) {
+    verificationTaskCreateds(
+        first: $first,
+        skip: $skip,
+        orderBy: _timestamp,
+        orderDirection: desc
+    ) {
         id
         _company
         _verifier
@@ -85,11 +191,31 @@ query VerificationTaskCreateds($first: Int, $skip: Int){
     }
 }
 
-query VerificationTaskCreatedByID($_company: Bytes, $first: Int, $skip: Int) {
+query VerificationTaskCreatedsByCompany($_company: Bytes, $first: Int, $skip: Int) {
     verificationTaskCreateds(
         first: $first, 
         skip: $skip, 
-        where: { _company: $_company }, 
+        where: {_company: $_company}, 
+        orderBy: _timestamp, 
+        orderDirection: desc
+    ) {
+        id
+        _company
+        _verifier
+        _registerId
+        _securityType
+        _taskId
+        _taskStatus
+        _siteName
+        _timestamp
+    }
+}
+
+query VerificationTaskCreatedsByVerifier($_verifier: Bytes, $first: Int, $skip: Int) {
+    verificationTaskCreateds(
+        first: $first, 
+        skip: $skip, 
+        where: {_verifier: $_verifier}, 
         orderBy: _timestamp, 
         orderDirection: desc
     ) {

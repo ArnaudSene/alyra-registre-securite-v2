@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react"
+import React, { useState } from "react"
 import { createPortal } from "react-dom"
 import { VerifierModalForm } from "@/app/[locale]/components/verifier/VerifierModalForm"
 

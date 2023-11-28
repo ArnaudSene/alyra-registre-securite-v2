@@ -1,5 +1,6 @@
 "use client"
 
+import React from "react"
 import { Spinner } from "@chakra-ui/react"
 import Link from "next/link"
 import { IButtonLink, ISubmitButtonLayout } from "@/interfaces/layout"
@@ -12,11 +13,21 @@ const SubmitButtonLayout2 = ({ props }: { props: ISubmitButtonLayout }) => {
             onClick={props.onClick}
             aria-disabled={props.loading} 
             disabled={props.loading}
-            className="rounded p-2.5 w-fit
+            className={`
+                ${props.rounded? `${props.rounded}`: 'rounded'}
+                ${props.height? `${props.height} h-auto`: 'py-1.5 h-auto'}
+                ${props.width? `${props.width} lg:w-auto w-full`: 'px-1.5 lg:w-auto w-full'}
                 cursor-pointer transition ease-in-out delay-100 duration-100 hover:scale-105
                 bg-gradient-to-br from-indigo-700 to-indigo-500
-                text-slate-100 text-center font-bold">
-            {props.loading ? (<Spinner size={props.spinnerSize} />) : (props.buttonName)}
+                text-slate-100 text-center font-bold`}>
+            {props.loading ? (
+                <div className={`flex`}>
+                    <div><Spinner size={props.spinnerSize} /></div>
+                    <p className={`ml-3`}>{props.loadingName}</p>
+                </div>
+            ): (
+                <p>{props.buttonName}</p>
+            )}
         </button>
     )
 }

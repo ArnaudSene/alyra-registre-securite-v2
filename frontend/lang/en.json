@@ -2,6 +2,16 @@
     "Index": {
         "title": "Security Register"
     },
+    "General": {
+        "previous": "Previous",
+        "next": "Next",
+        "profile": "Profile",
+        "inProgress": "In progress",
+        "company": "Company",
+        "verifier": "Verifier",
+        "guest": "Guest",
+        "selectAction": "Select an action"
+    },
     "HomePager": {
         "homePagerTitle": "Decentralized application - (DAPPS)",
         "homePagerSubtitle1": "Manage your security register using all the power of blockchain.",
@@ -34,7 +44,8 @@
     },
     "HeaderFooter": {
         "title": "Security Register",
-        "register": "Show registers",
+        "register": "Security registers",
+        "showRegister": "Show security registers",
         "member": "Member",
         "companySubscription": "Company account subscription",
         "verifierSubscription": "Company VGP account subscription",
@@ -47,12 +58,17 @@
         "contact": "Contact",
         "developer": "Developer",
         "helper": "Helper",
-        "rights": "All rights reserved"
+        "rights": "All rights reserved",
+        "home": "Home"
     },
     "ToasterMessages": {
         "notConnected": {
             "title": "Permission denied",
             "description": "You are not connected!"
+        },
+        "unauthorized": {
+            "title": "Access restricted",
+            "description": "You are not authorized to access this section!"
         },
         "subscribeCompany": {
             "ok": {
@@ -82,6 +98,16 @@
             "error": {
                 "title": "Error",
                 "description": "Unable to create the verification task!"
+            }
+        },
+        "updateVerificationTaskStatus": {
+            "ok": {
+                "title": "Success",
+                "description": "Status successfully updated!"
+            },
+            "error": {
+                "title": "Error",
+                "description": "Unable to update task status!"
             }
         }
     },
@@ -189,6 +215,13 @@
                                 "4": "Address",
                                 "5": "Siret"
                             }
+                        },
+                        "subGridThird": {
+                            "title": "NFT & Metadata",
+                            "values": {
+                                "0": "Metadata URL",
+                                "1": "NFT Tx Hash"
+                            }
                         }
                     }
                 },
@@ -199,6 +232,18 @@
                     "approved": "Approved",
                     "rejected": "Rejected",
                     "conditionallyApproved": "Conditionally Approved"
+                },
+                "editStatus" : {
+                    "title": "Selection status",
+                    "validate": "Validate",
+                    "approve": "Approve",
+                    "reject": "Reject",
+                    "conditionallyApprove": "Conditionally Approve"
+                },
+                "finalStatus" : {
+                    "title": "Selection status",
+                    "approve": "Approved",
+                    "reject": "Rejected"
                 }
             }
         }

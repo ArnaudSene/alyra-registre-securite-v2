@@ -1,7 +1,7 @@
 'use client'
 
+import React, { useEffect } from "react"
 import { useAccount } from "wagmi"
-import { useEffect } from "react"
 import { SubscribeCompanyButton } from "@/app/[locale]/components/company/SubscribeCompanyButton"
 
 

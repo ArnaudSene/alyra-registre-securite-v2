@@ -1,6 +1,8 @@
 export interface IToasterMessages {
     notConnectedTitle: string,
     notConnectedDescription: string
+    unauthorizedTitle: string,
+    unauthorizedDescription: string
     subscribeCompanyOkTitle: string
     subscribeCompanyOkDescription: string
     subscribeCompanyErrorTitle: string
@@ -13,6 +15,11 @@ export interface IToasterMessages {
     createVerificationTaskOkDescription: string
     createVerificationTaskErrorTitle: string
     createVerificationTaskErrorDescription: string
+
+    updateVerificationTaskStatusOkTitle: string
+    updateVerificationTaskStatusOkDescription: string
+    updateVerificationTaskStatusErrorTitle: string
+    updateVerificationTaskStatusErrorDescription: string
 }
 
 export interface IIndex {
@@ -53,6 +60,7 @@ export interface IHomePager{
 export interface IHeaderFooter {
     title: string
     register: string
+    showRegister: string
     member: string
     companySubscription: string
     verifierSubscription: string
@@ -66,6 +74,7 @@ export interface IHeaderFooter {
     developer: string
     helper: string
     rights: string
+    home: string
 }
 
 export interface IFormSubscriptionCompany {
@@ -105,28 +114,6 @@ export interface ILayoutEventLog {
     publicKeyAddress: string
 }
 
-export interface ILog {
-    address: `0x${string}`
-    blockHash: `0x${string}` | null
-    blockNumber: bigint | null
-    transactionHash: `0x${string}` | null
-    transactionIndex: number | null
-    args?: any
-}
-
-export interface IVerificationTaskGrid {
-    pageTitle: string,
-    searchBar: string,
-    createVerificationButton: string,
-    sectors: string[],
-    fieldGridTitle: string,
-    fieldGridValues: string[],
-    fieldsubGridFirstTitle: string,
-    fieldsubGridFirstValues: string[],
-    fieldsubGridSecondTitle: string,
-    fieldsubGridSecondValues: string[]
-}
-
 export interface IVerificationTaskFilters {
     title: string,
     pendingApproval: string,
@@ -137,10 +124,20 @@ export interface IVerificationTaskFilters {
     status: string[]
 }
 
-export interface IVerificationTaskFields {
-    grid: string[],
-    subGridFirst: string[],
-    subGridSecond: string[],
+export interface IVerificationTaskEditStatus {
+    title: string,
+    validate: string,
+    approve: string,
+    reject: string,
+    conditionallyApprove: string
+    status: string[]
+}
+
+export interface IVerificationTaskFinalStatus {
+    title: string,
+    approve: string,
+    reject: string,
+    status: string[]
 }
 
 export interface ICreateVerificationTaskForm {
@@ -148,4 +145,17 @@ export interface ICreateVerificationTaskForm {
     selectSite: string
     selectSector: string
     selectVerificationType: string
+}
+
+export interface IProfile {
+    [key: string]: string
+}
+export interface IGeneral {
+    previous: string
+    next: string
+    profile: string
+    inProgress: string
+    profiles: string[]
+    profilesObj: IProfile
+    selectAction: string
 }

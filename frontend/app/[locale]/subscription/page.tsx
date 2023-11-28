@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 import { useSearchParams } from 'next/navigation' 
 import { SubscribeCompany } from "@/app/[locale]/components/company/SubscribeCompany"
 import { SubscribeVerifier } from "@/app/[locale]/components/verifier/SubscribeVerifier"

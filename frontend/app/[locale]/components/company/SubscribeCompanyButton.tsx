@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react"
+import React, { useState } from "react"
 import { createPortal } from "react-dom"
 import { CompanyModalForm } from "@/app/[locale]/components/company/CompanyModalForm"
 

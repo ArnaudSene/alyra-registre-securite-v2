@@ -1,7 +1,5 @@
-'use client'
-
-import { useState } from "react"
-import { IFormInputLayout, IFormInputLayout2, IFormSelectData, IFormSelectLayout } from "@/interfaces/layout"
+import React from 'react'
+import { IFormInputLayout, IFormInputLayout2, IFormSelectLayout } from "@/interfaces/layout"
 
 const FormInputLayout2 = ({ props }: {props: IFormInputLayout2 }) => {
 
@@ -18,7 +16,7 @@ const FormInputLayout2 = ({ props }: {props: IFormInputLayout2 }) => {
                     id={props.id}
                     required
                     placeholder={props.placeholder}
-                    autoComplete={`auto-complate-${props.autoComplete}`}
+                    autoComplete={`auto-complete-${props.autoComplete}`}
                     onChange={props.onChange}
                     className="block w-full rounded-md border-0 py-2.5
                     text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 
@@ -47,7 +45,7 @@ const FormInputLayout = ({ props }: {props: IFormInputLayout }) => {
                     id={props.id}
                     required
                     placeholder={props.placeholder}
-                    autoComplete={`auto-complate-${props.autoComplete}`}
+                    autoComplete={`auto-complete-${props.autoComplete}`}
                     className="block w-full rounded-md border-0 py-2.5
                     text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 
                     placeholder:text-gray-400
@@ -83,8 +81,10 @@ const FormSelectLayout = ({ props }: {props: IFormSelectLayout }) => {
                     text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 
                     focus:ring-1 focus:ring-inset focus:ring-indigo-600">
 
-                    <option value={props.defaultSelected.value}>{props.defaultSelected.label}</option>
-                    {props.data.map((data: IFormSelectData, index) => (
+                    {props.defaultSelected?.id &&
+                        <option key={props.defaultSelected.id} value={props.defaultSelected.value}>{props.defaultSelected.label}</option>
+                    }
+                    {props.data.map((data: IValueLabelId, index) => (
                         <option key={index} value={data.value}>{data.label}</option>
                     ))}
                 </select>

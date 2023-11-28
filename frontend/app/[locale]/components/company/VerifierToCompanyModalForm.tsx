@@ -1,7 +1,7 @@
 'use client'
 
+import React, { MouseEventHandler, useEffect, useState } from "react"
 import { useToast } from "@chakra-ui/react"
-import { MouseEventHandler, useEffect, useState } from "react"
 import { useAccount } from "wagmi"
 import { useIdentityContext } from "@/contexts/Identity"
 import { IVerifierAddedToCompany } from "@/interfaces/verifier"

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react"
+import React, {useState} from 'react'
 import Loader from "@/app/[locale]/components/Loader"
 import IsConnectedAs from "@/app/[locale]/components/IsConnectedAs"
 

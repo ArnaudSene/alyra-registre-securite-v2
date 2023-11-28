@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useAccount } from "wagmi"
 import { useIdentityContext } from "@/contexts/Identity"
 import { IVerifierAddedToCompany } from "@/interfaces/verifier"

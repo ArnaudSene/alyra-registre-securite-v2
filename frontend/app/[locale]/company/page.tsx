@@ -1,22 +1,13 @@
-'use client'
-
-import { useState } from "react"
-import Loader from "@/app/[locale]/components/Loader"
-import {CompanyRootPage} from "@/app/[locale]/components/company/CompanyRootPage";
-import IsConnectedAs from "@/app/[locale]/components/IsConnectedAs";
-import {useIdentityContext} from "@/contexts/Identity";
+import React from "react"
+import { CompanyRootPage } from "@/app/[locale]/components/company/CompanyRootPage"
+import IsConnectedAs from "@/app/[locale]/components/IsConnectedAs"
 
 const CompanyPage = () => {
-    const { company, verifier } = useIdentityContext()
-    const [loading] = useState(false)
-
     return (
-        <Loader isLoading={loading}>
-            <IsConnectedAs asCompany={true}>
-                <CompanyRootPage />
-            </IsConnectedAs>
-        </Loader>
-  )
+        <IsConnectedAs asCompany={true}>
+            <CompanyRootPage />
+        </IsConnectedAs>
+    )
 }
 
-export default CompanyPage;
+export default CompanyPage

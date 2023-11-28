@@ -1,25 +1,24 @@
 'use client'
 
 import { useToast } from "@chakra-ui/react"
-import { MouseEventHandler, useEffect, useState} from "react"
+import React, { MouseEventHandler, useEffect, useState} from "react"
 import { useAccount } from "wagmi"
 import { useIdentityContext } from "@/contexts/Identity"
 import { getVerifierCreatedEvents, writeContractByFunctionName} from "@/utils"
 
 export const VerifierModalForm = ({closeModal}: {closeModal:  MouseEventHandler<HTMLDivElement | HTMLButtonElement> } ) => {
     const {address, isConnected} = useAccount()
-    const {setRefreshScreen, refreshScreen, setVerifier} = useIdentityContext()
+    const {setRefreshScreen, setVerifier} = useIdentityContext()
 
     const [nameVerifier, setNameVerifier] = useState("")
     const [addressVerifier, setAddressVerifier] = useState("")
     const [siret, setSiret] = useState("")
     const [approvalNumber, setApprovalNumber] = useState("")
-    const [loading, setLoading] = useState(true)
     const [messageHeaderForm, setMessageHeaderForm] = useState("invisible")
     const toast = useToast()
-    const [refresh, setRefresh] = useState(0)
     const [verifierAdded, setVerifierAdded] = useState("")
     const [isVerifierAdded, setIsVerifierAdded] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         setMessageHeaderForm("invisible")
@@ -40,6 +39,7 @@ export const VerifierModalForm = ({closeModal}: {closeModal:  MouseEventHandler<
         writeContractByFunctionName("createVerifier", nameVerifier, addressVerifier, siret, approvalNumber)
             .then(() => {
                 setLoading(true)
+
                 toast({
                     title: "Création d'un vérificateur.",
                     description: `Vérificateur ${nameVerifier} créé avec succès`,
@@ -51,7 +51,7 @@ export const VerifierModalForm = ({closeModal}: {closeModal:  MouseEventHandler<
             .catch(err => {
                 toast({
                     title: 'Erreur',
-                    description: "Impossible de créer le vérificateur!",
+                    description: `Impossible de créer le vérificateur!, ${err}`,
                     status: 'error',
                     duration: 5000,
                     isClosable: true,
@@ -60,7 +60,6 @@ export const VerifierModalForm = ({closeModal}: {closeModal:  MouseEventHandler<
             .finally(() => {
                 setVerifier(true)
                 setVerifierAdded(nameVerifier)
-                // setRefresh(Math.random())
                 setRefreshScreen(Math.random())
                 setIsVerifierAdded(false)
                 setNameVerifier("")

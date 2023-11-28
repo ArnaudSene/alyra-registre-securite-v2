@@ -6,10 +6,4 @@ export interface IRegisterCreated {
     _name: string
     _addressName: string
     _addr: string
-  }
-
-export interface RegistersCreatedResponse {
-    data: {
-        registerCreateds: IRegisterCreated[]
-    }
 }
