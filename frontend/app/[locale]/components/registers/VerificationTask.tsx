@@ -25,8 +25,6 @@ import { convertTimestampToDate, getRegisterVerification, getVerificationTasksFr
 import { VerificationTaskGridMain } from "@/app/[locale]/components/registers/VerificationTaskGridMain"
 import { FilterByCheckbox } from "@/app/[locale]/components/registers/FilterByCheckbox"
 import { verificationTaskOrigin } from "@/utils/application"
-import { PinataPinListResponse } from "@pinata/sdk"
-import { getMetadataFromIPFS } from "@/utils/metadata"
 
 
 const VerificationTask = () => {
@@ -71,28 +69,6 @@ const VerificationTask = () => {
     const gridIntl: IVerificationTaskGrid = verificationTaskGridIntl()
     const verificationTaskFilters: IVerificationTaskFilters = verificationTaskFiltersIntl()
     const general: IGeneral = generalIntl()
-
-    /**
-     * Get verification tasks from events (TheGraph
-     */
-    const getRegisters = () => {
-        const id: `0x${string}` | undefined = address || undefined
-        setLoading(true)
-
-        getVerificationTasksFromEvents(first, skip, id)
-            .then(register => { setRegisters(register) })
-            .finally(() => { setLoading(false) })
-    }
-
-    const [metadata, setMetadata] = useState<PinataPinListResponse | undefined>()
-    const getMetadata = (taskId: string = "") => {
-        const fileName = `security-register-taskId-${taskId}`
-        getMetadataFromIPFS(fileName)
-            .then((response) => {
-                console.log('data', response)
-                setMetadata(response)
-            })
-    }
 
     /**
      * Get the task status name filter based on his index.
@@ -236,9 +212,21 @@ const VerificationTask = () => {
         setSkip(skip)
     }
 
+    /**
+     * Get verification tasks from events (TheGraph
+     */
+    const getRegisters = () => {
+        setReloadPage(false)
+        setLoading(true)
+        const id: `0x${string}` | undefined = address
+
+        getVerificationTasksFromEvents(first, skip, id)
+            .then(register => setRegisters(register))
+            .finally(() => { setLoading(false) })
+    }
+
     useEffect(() => {
-        if ( reloadPage ) setReloadPage(false)
-        else getRegisters()
+        getRegisters()
     }, [isConnected, address, reloadPage, skip, first])
 
     return (

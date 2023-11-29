@@ -62,7 +62,6 @@ export const VerificationTaskModalForm = ({ props }: { props: IVerificationTaskM
     }
     const componentName: string = "VerificationTaskModalForm"
 
-
     /**
      *
      */
@@ -154,8 +153,10 @@ export const VerificationTaskModalForm = ({ props }: { props: IVerificationTaskM
     }
 
     useEffect(() => {
-        getSites().then()
-        getSectors().then()
+        (async (): Promise<void> => {
+            await getSites()
+            await getSectors()
+        })()
     }, [])
 
     useEffect(() => {

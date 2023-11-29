@@ -9,11 +9,14 @@ export const FilterByCheckbox = ({props}: { props: IFilterByCheckbox }) => {
     const [toggleLog, setToggleLog] = useState(false)
     const [isSmallScreen, setIsSmallScreen] = useState(false)
     const verificationTaskFilters: IVerificationTaskFilters = verificationTaskFiltersIntl()
+    /**
+     * Handle screen size.
+     */
+    const handleResize = () => {
+        setIsSmallScreen(window.innerWidth <= 1024)
+    }
 
     useEffect(() => {
-        const handleResize = () => {
-            setIsSmallScreen(window.innerWidth <= 1024)
-        }
 
         window.addEventListener('resize', handleResize)
         handleResize()

@@ -14,26 +14,45 @@ import {
 } from "@/constants/enums"
 
 export const VerificationTaskGridMain = ({ props }: { props: IVerificationTaskGridMain }) => {
-    const [toggleLog, setToggleLog] = useState(false)
     const [selectedTask, setSelectedTask] = useState<IVerificationTaskConsolidated | undefined>()
     const [metadata, setMetadata] = useState<PinataPinListResponse | undefined>()
+
+    interface ISaveRowToggleStatus {
+        [key: number]: boolean
+    }
+    const [saveRowToggleStatus, setSaveRowToggleStatus] = useState<ISaveRowToggleStatus>({})
+
+
+    const updateSaveRowToggleStatus = (updatedData: ISaveRowToggleStatus) => {
+        setSaveRowToggleStatus(prevState => ({
+            ...prevState,
+            ...updatedData,
+        }))
+    }
+
+    const handleSaveRowToggleStatus = (taskId: BigInt, previousTaskId: BigInt | undefined): void => {
+        const mySaveRowToggleStatus: ISaveRowToggleStatus = {}
+
+        if (taskId === previousTaskId)
+            mySaveRowToggleStatus[Number(taskId)] = !saveRowToggleStatus[Number(taskId)]
+        else {
+            mySaveRowToggleStatus[Number(taskId)] = true
+            if (previousTaskId) mySaveRowToggleStatus[Number(previousTaskId)] = false
+        }
+
+        updateSaveRowToggleStatus(mySaveRowToggleStatus)
+    }
+
     const getMetadata = (data: IVerificationTaskConsolidated) => {
-        console.log("getMetadata", data.taskStatus)
         const fileName = `${IPFS_METADATA_PREFIX}${data.taskId}`
-        getMetadataFromIPFS(fileName).then((result: PinataPinListResponse) => {
-            setMetadata(result)
-        })
+        if(VALID_TASK_STATUS_ID_FOR_MINTING_NFT.includes(Number(data.taskStatus) || -1) && !saveRowToggleStatus[Number(data.taskId)])
+            getMetadataFromIPFS(fileName).then((result: PinataPinListResponse) => setMetadata(result))
     }
 
     const handleToggleRow = (data: IVerificationTaskConsolidated, selectedTask: IVerificationTaskConsolidated | undefined) => {
-        if (data.taskId !== selectedTask?.taskId)
-            setToggleLog(false)
-
-        if(VALID_TASK_STATUS_ID_FOR_MINTING_NFT.includes(Number(data.taskStatus) || -1))
-            getMetadata(data)
-
+        handleSaveRowToggleStatus(data.taskId, selectedTask?.taskId)
+        getMetadata(data)
         setSelectedTask(data)
-        setToggleLog((prevToggle) => !prevToggle)
     }
 
     // Custom header & column style
@@ -59,7 +78,7 @@ export const VerificationTaskGridMain = ({ props }: { props: IVerificationTaskGr
                 text-xs lg:text-sm text-center lg:text-center lg:py-3 lg:mb-0`}>
 
                 {/* Column fields */}
-                {headersGrid.map((field: headerGrid, index) => (
+                {headersGrid.map((field: headerGrid) => (
                     <div className={field.style} key={field.id}>{field.title}</div>
                 ))}
             </div>
@@ -73,7 +92,7 @@ export const VerificationTaskGridMain = ({ props }: { props: IVerificationTaskGr
                         <VerificationTaskGridRow
                             props={{
                                 index: index.toString(),
-                                toggleLog: toggleLog,
+                                toggleLog: saveRowToggleStatus[Number(data.taskId)],
                                 task: data,
                                 selectedTask: selectedTask,
                                 fieldsGrid: props.fieldsGrid,
@@ -87,17 +106,16 @@ export const VerificationTaskGridMain = ({ props }: { props: IVerificationTaskGr
                         <div className="lg:border-t lg:border-gray-400/10"></div>
 
                         {/* Verification task detail (onClick) */}
-                        {toggleLog &&
+                        <div>
                             <VerificationTaskDetail
                                 props={{
-                                    toggleLog: toggleLog,
+                                    toggleLog: saveRowToggleStatus[Number(data.taskId)],
                                     index: Number(data.taskId),
                                     selectedTask: selectedTask,
                                     fieldsGrid: props.fieldsGrid,
                                     metadata: metadata
                                 }}/>
-                        }
-
+                        </div>
                     </div>
                 )}
 
