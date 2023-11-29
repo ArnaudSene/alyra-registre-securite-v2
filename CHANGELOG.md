@@ -1,5 +1,50 @@
 # Changelog
 
+### fix: Load Metadata only while reading task detail
+
+- Issue: 
+  - fetch data on click to see task detail, open and close
+- Fix: 
+  - fetch data on click to see task detail only on open  
+- Code cleanup 
+
+### feat: Grid improvement
+
+- Grid:
+  - On status field, click, select and apply the new status
+  - Show url for Metadata and Transaction Hash for NFT 
+- On final status only for [approve | reject]
+  - create metadata
+  - mint NFT
+- TheGraph
+  - New queries
+
+### feat: Add theGraph & ui improvement
+
+- Get event from theGraph
+- New ui improvement
+- registers: new grid | new forms
+- subscribe: new forms
+
+---
+
+### feat: Refactoring UI #1
+
+- New UI design
+- Improve getting data from blockchain
+- Language internationalization [fr, en]
+- Refactoring context
+
+---
+
+### feat: Add scripts
+
+- Scripts for local and sepolia networks
+- deploy script
+- upload metadata to pinata
+
+---
+
 ## [0.2.2] (2023-07-23)
 
 ### fix: Sepolia RPC
