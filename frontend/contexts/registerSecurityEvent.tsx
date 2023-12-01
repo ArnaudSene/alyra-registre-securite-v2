@@ -11,15 +11,10 @@ interface ISubscribeEventLog {
 interface IRegisterSecurityEventProps {
     verificationTaskCreatedEventLogs: Log[]
     setVerificationTaskCreatedEventLogs: (eventLogs: Log[]) => void
-
     verificationTaskUpdatedEventLogs: Log[]
     setVerificationTaskUpdatedEventLogs: (eventLogs: Log[]) => void
-
     subscribeEventLogs: ISubscribeEventLog
     setSubscribeEventLogs: (eventLogs: ISubscribeEventLog) => void
-
-    reloadPage: boolean
-    setReloadPage: (reloadPage: boolean) => void
 }
 
 const RegisterSecurityEventContext = createContext<IRegisterSecurityEventProps>({
@@ -29,30 +24,23 @@ const RegisterSecurityEventContext = createContext<IRegisterSecurityEventProps>(
     setVerificationTaskUpdatedEventLogs: () => [],
     subscribeEventLogs: {id: "", eventLog: []},
     setSubscribeEventLogs: () => {},
-    reloadPage: false,
-    setReloadPage: () => false,
+
 })
 
 export const RegisterSecurityEventContextProvider = ({ children }: { children: ReactNode }) => {
     const [verificationTaskCreatedEventLogs, setVerificationTaskCreatedEventLogs] = useState<Log[]>([])
     const [verificationTaskUpdatedEventLogs, setVerificationTaskUpdatedEventLogs] = useState<Log[]>([])
     const [subscribeEventLogs, setSubscribeEventLogs] = useState<ISubscribeEventLog>({id: "", eventLog: []})
-    const [reloadPage, setReloadPage] = useState(false)
 
     return (
 
         <RegisterSecurityEventContext.Provider value={{
             verificationTaskCreatedEventLogs: verificationTaskCreatedEventLogs,
             setVerificationTaskCreatedEventLogs: setVerificationTaskCreatedEventLogs,
-            
             verificationTaskUpdatedEventLogs: verificationTaskUpdatedEventLogs,
             setVerificationTaskUpdatedEventLogs: setVerificationTaskUpdatedEventLogs,
-
             subscribeEventLogs: subscribeEventLogs,
             setSubscribeEventLogs: setSubscribeEventLogs,
-
-            reloadPage: reloadPage,
-            setReloadPage: setReloadPage,
         }}>
             {children}
         </RegisterSecurityEventContext.Provider>

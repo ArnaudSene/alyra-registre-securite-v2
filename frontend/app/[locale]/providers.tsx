@@ -12,6 +12,7 @@ import merge from 'lodash.merge'
 import { IdentityContextProvider } from "@/contexts/Identity"
 import { HeaderFooterContextProvider } from '@/contexts/HeaderFooter'
 import { RegisterSecurityEventContextProvider } from '@/contexts/registerSecurityEvent'
+import { GlobalContextProvider } from "@/contexts/Global"
 
 
 const customTheme = merge(lightTheme({
@@ -122,7 +123,9 @@ export function Providers({ children }: { children: ReactNode }) {
                         <IdentityContextProvider>
                             <HeaderFooterContextProvider>
                                 <RegisterSecurityEventContextProvider>
-                                    {mounted && children}
+                                    <GlobalContextProvider>
+                                        {mounted && children}
+                                    </GlobalContextProvider>
                                 </RegisterSecurityEventContextProvider>
                             </HeaderFooterContextProvider>
                         </IdentityContextProvider>

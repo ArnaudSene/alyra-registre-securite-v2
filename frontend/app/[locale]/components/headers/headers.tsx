@@ -21,7 +21,7 @@ const Headers = () => {
     // contexts
     const { address, isConnected } = useAccount()
     const { headerOn } = useHeaderFooterContext()
-    const { setCompany, setVerifier, verifier, company } = useIdentityContext()
+    const { setIsCompany, setIsVerifier, isVerifier, isCompany } = useIdentityContext()
 
     // states
     const [scrolling, setScrolling] = useState(false)
@@ -44,7 +44,7 @@ const Headers = () => {
         getRegisterCreatedsByCompany(address as `0x${string}`,)
             .then((registerCreated) => {
                 if (registerCreated.length > 0) {
-                    setCompany(true)
+                    setIsCompany(true)
                 }
             })
     }
@@ -53,14 +53,14 @@ const Headers = () => {
         getVerifierCreatedsByAddress([address as `0x${string}`],)
             .then((verifierCreated) => {
                 if (verifierCreated.length > 0) {
-                    setVerifier(true)
+                    setIsVerifier(true)
                 }
             })
     }
 
     useEffect(() => {
-        setCompany(false)
-        setVerifier(false)
+        setIsCompany(false)
+        setIsVerifier(false)
 
         if(isConnected) {
             handleCompanyAccount()
@@ -114,14 +114,14 @@ const Headers = () => {
                                     </Link>
             
                                     {/* Members link */}
-                                    {isConnected && company  && (
+                                    {isConnected && isCompany  && (
                                         <Link className="text-slate-700 p-2 font-medium hidden md:block 
                                             transition ease-in-out delay-100 duration-100
                                             border-b hover:border-gray-900/10 border-transparent" 
                                             href="/company"><span>{headerIntl.company}</span>
                                         </Link>
                                     )}
-                                    {isConnected && verifier  && (
+                                    {isConnected && isVerifier  && (
                                         <Link className="text-slate-700 p-2 font-medium hidden md:block
                                             transition ease-in-out delay-100 duration-100
                                             border-b hover:border-gray-900/10 border-transparent"

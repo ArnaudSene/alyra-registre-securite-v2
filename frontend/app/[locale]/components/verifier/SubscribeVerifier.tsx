@@ -8,7 +8,7 @@ import { SubscribeVerifierButton } from "@/app/[locale]/components/verifier/Subs
 
 export const SubscribeVerifier = () => {
     const {isConnected, address} = useAccount()
-    const {verifier } = useIdentityContext()
+    const {isVerifier } = useIdentityContext()
 
     useEffect(() => {
     }, [isConnected, address])

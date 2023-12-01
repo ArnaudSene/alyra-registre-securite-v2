@@ -2,11 +2,20 @@
 
 import { createContext, ReactNode, useContext, useState } from "react"
 
+export interface ICompany {
+    addr: string
+    name :string
+    addressName: string
+    siret: string
+}
+
 interface IIdentityProps {
-    company: boolean
-    setCompany: (company: boolean) => void
-    verifier: boolean
-    setVerifier: (verifier: boolean) => void
+    isCompany: boolean
+    setIsCompany: (company: boolean) => void
+    company: ICompany
+    setCompany: (company: ICompany) => void
+    isVerifier: boolean
+    setIsVerifier: (verifier: boolean) => void
     accountRefresh: boolean
     setAccountRefresh: (accountRefresh: boolean) => void
     verifierToCompanyRefresh: boolean
@@ -31,10 +40,17 @@ interface IIdentityProps {
 
 
 const IdentityContext = createContext<IIdentityProps>({
-    company: false,
-    setCompany: () => false,
-    verifier: false,
-    setVerifier: () => false,
+    isCompany: false,
+    setIsCompany: () => false,
+    company: {
+        addr: "",
+        name :"",
+        addressName: "",
+        siret: "",
+    },
+    setCompany: () => {},
+    isVerifier: false,
+    setIsVerifier: () => false,
     accountRefresh: false,
     setAccountRefresh: () => false,
     verifierToCompanyRefresh: false,
@@ -58,8 +74,14 @@ const IdentityContext = createContext<IIdentityProps>({
 })
 
 export const IdentityContextProvider = ({ children }: { children: ReactNode }) => {
-    const [company, setCompany] = useState(false)
-    const [verifier, setVerifier] = useState(false)
+    const [isCompany, setIsCompany] = useState(false)
+    const [company, setCompany] = useState<ICompany>({
+        addr: "",
+        name :"",
+        addressName: "",
+        siret: "",
+    })
+    const [isVerifier, setIsVerifier] = useState(false)
     const [accountRefresh, setAccountRefresh] = useState(false)
     const [verifierToCompanyRefresh, setVerifierToCompanyRefresh] = useState(false)
     const [addSiteRefresh, setAddSiteRefresh] = useState(false)
@@ -74,10 +96,12 @@ export const IdentityContextProvider = ({ children }: { children: ReactNode }) =
     return (
 
         <IdentityContext.Provider value={{
+            isCompany: isCompany,
+            setIsCompany: setIsCompany,
             company: company,
             setCompany: setCompany,
-            verifier: verifier,
-            setVerifier: setVerifier,
+            isVerifier: isVerifier,
+            setIsVerifier: setIsVerifier,
             accountRefresh: accountRefresh,
             setAccountRefresh: setAccountRefresh,
             verifierToCompanyRefresh: verifierToCompanyRefresh,

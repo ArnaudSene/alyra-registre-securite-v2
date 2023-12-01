@@ -1,11 +1,14 @@
 import { IVerificationTaskCreated, IVerificationTaskValidated, IVerificationTaskUpdated } from "./verificationTasks"
 import { IVerifierProfile } from "./verifier"
 
-export interface IRegisterCreated {
+export interface IRegisterBase {
     account: `0x${string}`
     name: string
     addressName: string
     siret: string
+}
+
+export interface IRegisterCreated  extends IRegisterBase {
     siteName: string
     siteAddressName: string
 }
@@ -16,6 +19,14 @@ export interface ICompanyAccountUpdated {
     firstName: string
     action: string
 }
+
+
+export interface ICreateSiteModalForm {
+    isModalOpen: boolean
+    closeModal: () => void
+}
+
+
 export interface CompanyAccount {
     company: `0x${string}`
     active: boolean

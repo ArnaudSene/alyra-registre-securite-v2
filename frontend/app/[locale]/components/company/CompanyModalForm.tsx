@@ -9,34 +9,33 @@ import {isCompanyFromContract, writeContractByFunctionName } from "@/utils"
 
 export const CompanyModalForm = ({closeModal}: {closeModal:  MouseEventHandler<HTMLDivElement | HTMLButtonElement> } ) => {
     const {address, isConnected} = useAccount()
-    const {setRefreshScreen, refreshScreen, setCompany} = useIdentityContext()
+    const {setRefreshScreen, isCompany} = useIdentityContext()
     const toast = useToast()
     const [nameCo, setNameCo] = useState("")
     const [addressCo, setAddressCo] = useState("")
     const [siretCo, setSiretCo] = useState("")
     const [siteCo, setSiteCo] = useState("")
     const [siteAddrCo, setSiteAddrCo] = useState("")
-    const [isCompany, setIsCompany] = useState(false)
+    // const [isCompany, setIsCompany] = useState(false)
     const [loading, setLoading] = useState(true)
     const [messageHeaderForm, setMessageHeaderForm] = useState("invisible")
     const [refresh, setRefresh] = useState(0)
     const [isCompanyAdded, setIsCompanyAdded] = useState(false)
 
     useEffect(() => {
-        setIsCompany(false)
-        isCompanyFromChain()
+        // isCompanyFromChain()
 
         if (isCompany && isCompanyAdded){
-            setCompany(true)
+            // setIsCompany(true)
             setMessageHeaderForm("visible")
         }
 
-    }, [isConnected, isCompany, refresh])
-
-    const isCompanyFromChain = () => {
-        isCompanyFromContract(address as `0x${string}`)
-            .then(value => setIsCompany(value))
-    }
+    }, [isConnected, address, isCompany, refresh])
+    //
+    // const isCompanyFromChain = () => {
+    //     isCompanyFromContract(address as `0x${string}`)
+    //         .then(value => setIsCompany(value))
+    // }
 
     const submitCreateCompany = () => {
 

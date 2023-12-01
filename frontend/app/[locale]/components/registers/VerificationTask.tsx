@@ -2,7 +2,6 @@
 
 import React, { ChangeEvent, useEffect, useState } from "react"
 import { useAccount } from "wagmi"
-import { useRegisterSecurityEventContext } from "@/contexts/registerSecurityEvent"
 import { IRegisters } from "@/interfaces/registers"
 import {
     IHeaderAttributes,
@@ -25,6 +24,7 @@ import { convertTimestampToDate, getRegisterVerification, getVerificationTasksFr
 import { VerificationTaskGridMain } from "@/app/[locale]/components/registers/VerificationTaskGridMain"
 import { FilterByCheckbox } from "@/app/[locale]/components/registers/FilterByCheckbox"
 import { verificationTaskOrigin } from "@/utils/application"
+import { useGlobalContext } from "@/contexts/Global"
 
 
 const VerificationTask = () => {
@@ -46,7 +46,7 @@ const VerificationTask = () => {
 
     // contexts
     const { address, isConnected } = useAccount()
-    const { reloadPage, setReloadPage } = useRegisterSecurityEventContext()
+    const { reloadPage, setReloadPage } = useGlobalContext()
 
     // states
     const [loading, setLoading] = useState(true)

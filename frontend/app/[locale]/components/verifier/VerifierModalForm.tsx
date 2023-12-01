@@ -8,7 +8,7 @@ import { getVerifierCreatedEvents, writeContractByFunctionName} from "@/utils"
 
 export const VerifierModalForm = ({closeModal}: {closeModal:  MouseEventHandler<HTMLDivElement | HTMLButtonElement> } ) => {
     const {address, isConnected} = useAccount()
-    const {setRefreshScreen, setVerifier} = useIdentityContext()
+    const {setRefreshScreen, setIsVerifier} = useIdentityContext()
 
     const [nameVerifier, setNameVerifier] = useState("")
     const [addressVerifier, setAddressVerifier] = useState("")
@@ -58,7 +58,7 @@ export const VerifierModalForm = ({closeModal}: {closeModal:  MouseEventHandler<
                 })
             })
             .finally(() => {
-                setVerifier(true)
+                setIsVerifier(true)
                 setVerifierAdded(nameVerifier)
                 setRefreshScreen(Math.random())
                 setIsVerifierAdded(false)

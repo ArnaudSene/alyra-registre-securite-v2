@@ -31,6 +31,7 @@ import { SubscribeEvent } from "@/app/[locale]/components/base/SubscribeEvent"
 import { saveMetadataToIPFS } from "@/utils/metadata"
 import { PinataPinResponse } from "@pinata/sdk"
 import { IPFS_BASE_URL } from "@/constants"
+import { useGlobalContext } from "@/contexts/Global"
 
 export const VerificationTaskGridRow = ({props}: { props: IVerificationTaskGridRow }) => {
     interface ITaskStatusEditAndUpdate {
@@ -83,8 +84,8 @@ export const VerificationTaskGridRow = ({props}: { props: IVerificationTaskGridR
 
     // context
     const { address, isConnected} = useAccount()
-    const { setReloadPage, subscribeEventLogs, setSubscribeEventLogs } = useRegisterSecurityEventContext()
-
+    const { subscribeEventLogs, setSubscribeEventLogs } = useRegisterSecurityEventContext()
+    const { setReloadPage } = useGlobalContext()
 
     // states
     const [loading, setLoading] = useState(true)

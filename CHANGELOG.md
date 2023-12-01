@@ -1,5 +1,20 @@
 # Changelog
 
+### feat: Add for adding new company site.
+
+- Add a simple modal form to add new site for a company `CompanyModalFormNew`
+- Update Identity context `useIdentityContext`
+  - to rename company and setCompany to isCompany and setIsCompany
+  - to rename verifier and setVerifier to isVerifier and setIsVerifier
+  - to add company and setCompany
+- Add a Global context `useGlobalContext`
+- Move reloadPage and setReloadPage to `useGlobalContext`
+- Remove reloadPage and setReloadPage from `useRegisterSecurityEventContext`
+- Add `GlobalContextProvider` to `provider.tsx`
+- set company context in `IsConnectedAs`
+
+---
+
 ### fix: Load Metadata only while reading task detail
 
 - Issue: 

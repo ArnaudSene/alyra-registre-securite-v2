@@ -40,6 +40,10 @@ export const toasterMessages = (): IToasterMessages => {
         updateVerificationTaskStatusOkDescription: t('updateVerificationTaskStatus.ok.description'),
         updateVerificationTaskStatusErrorTitle: t('updateVerificationTaskStatus.error.title'),
         updateVerificationTaskStatusErrorDescription: t('updateVerificationTaskStatus.error.description'),
+        addNewSiteToCompanyOkTitle: t('addNewSiteToCompany.ok.title'),
+        addNewSiteToCompanyOkDescription: t('addNewSiteToCompany.ok.description'),
+        addNewSiteToCompanyErrorTitle: t('addNewSiteToCompany.error.title'),
+        addNewSiteToCompanyErrorDescription: t('addNewSiteToCompany.error.description'),
     }
 }
 

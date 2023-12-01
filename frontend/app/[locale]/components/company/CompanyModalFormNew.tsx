@@ -32,6 +32,7 @@ import IsConnectedAs from "../IsConnectedAs"
 import { SubscribeEvent } from "@/app/[locale]/components/base/SubscribeEvent"
 import { handleEvents } from "@/utils/events"
 import { useRegisterSecurityEventContext } from "@/contexts/registerSecurityEvent"
+import { useGlobalContext } from "@/contexts/Global"
 
 const initialState = {
     message: null,
@@ -40,7 +41,8 @@ const initialState = {
 export const CompanyModalFormNew = () => {
     // Contexts
     const { address } = useAccount()
-    const { setReloadPage, subscribeEventLogs, setSubscribeEventLogs } = useRegisterSecurityEventContext()
+    const { subscribeEventLogs, setSubscribeEventLogs } = useRegisterSecurityEventContext()
+    const { setReloadPage } = useGlobalContext()
 
     // states
     const [loading, setLoading] = useState(false)

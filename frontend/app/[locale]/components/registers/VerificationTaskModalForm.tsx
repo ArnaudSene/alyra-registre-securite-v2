@@ -28,12 +28,14 @@ import {
 } from "@/utils/intl"
 import { handleEvents } from "@/utils/events"
 import { SubscribeEvent } from "@/app/[locale]/components/base/SubscribeEvent"
+import { useGlobalContext } from "@/contexts/Global"
 
 
 export const VerificationTaskModalForm = ({ props }: { props: IVerificationTaskModalForm } ) => {
     // contexts
     const { address } = useAccount()
-    const { setReloadPage, subscribeEventLogs, setSubscribeEventLogs } = useRegisterSecurityEventContext()
+    const { subscribeEventLogs, setSubscribeEventLogs } = useRegisterSecurityEventContext()
+    const { setReloadPage } = useGlobalContext()
 
     // states
     const [loading, setLoading] = useState(false)

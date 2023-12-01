@@ -15,11 +15,14 @@ export interface IToasterMessages {
     createVerificationTaskOkDescription: string
     createVerificationTaskErrorTitle: string
     createVerificationTaskErrorDescription: string
-
     updateVerificationTaskStatusOkTitle: string
     updateVerificationTaskStatusOkDescription: string
     updateVerificationTaskStatusErrorTitle: string
     updateVerificationTaskStatusErrorDescription: string
+    addNewSiteToCompanyOkTitle: string
+    addNewSiteToCompanyOkDescription: string
+    addNewSiteToCompanyErrorTitle: string
+    addNewSiteToCompanyErrorDescription: string
 }
 
 export interface IIndex {

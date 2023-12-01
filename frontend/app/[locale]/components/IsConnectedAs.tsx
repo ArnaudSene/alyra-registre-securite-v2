@@ -4,7 +4,7 @@ import { useToast } from "@chakra-ui/react"
 import React, { ReactNode, useEffect } from "react"
 import { useRouter, usePathname } from "next/navigation"
 import { useAccount } from "wagmi"
-import { useIdentityContext } from "@/contexts/Identity"
+import { ICompany, useIdentityContext } from "@/contexts/Identity"
 import { IToasterMessages } from "@/interfaces/intl"
 import { toasterMessages } from "@/utils/intl"
 import {
@@ -19,7 +19,7 @@ const IsConnectedAs = ({ children, asVerifier, asCompany }: {
 }) => {
     // context
     const { address, isConnected } = useAccount()
-    const { setCompany, setVerifier, verifier, company } = useIdentityContext()
+    const { setCompany, isCompany, setIsCompany, isVerifier, setIsVerifier } = useIdentityContext()
     const { push } = useRouter()
 
     // utils
@@ -40,7 +40,7 @@ const IsConnectedAs = ({ children, asVerifier, asCompany }: {
     }
 
     useEffect(() => {
-        console.log("useEffect verifier:", verifier, " company:", company)
+        console.log("useEffect verifier:", isVerifier, " company:", isCompany)
         handleIsConnected()
     }, [address, isConnected])
 
@@ -53,8 +53,14 @@ const IsConnectedAs = ({ children, asVerifier, asCompany }: {
                 getRegisterCreatedsByCompany(address as `0x${string}`,)
                     .then((registerCreated) => {
                         if (registerCreated.length > 0) {
-                            setCompany(true)
-                            console.log('company ok')
+                            setIsCompany(true)
+                            setCompany({
+                                addr: registerCreated[0].account,
+                                name : registerCreated[0].name,
+                                addressName: registerCreated[0].addressName,
+                                siret: registerCreated[0].siret,
+                            } as ICompany)
+                            console.log('company ok', )
                         }
                         else {
                             unauthorized(
@@ -74,7 +80,7 @@ const IsConnectedAs = ({ children, asVerifier, asCompany }: {
                     .then((verifierCreated) => {
                         console.log('verifierCreated', verifierCreated)
                         if (verifierCreated.length > 0) {
-                            setVerifier(true)
+                            setIsVerifier(true)
                             console.log('verifier ok')
                         }
                         else {
@@ -90,8 +96,8 @@ const IsConnectedAs = ({ children, asVerifier, asCompany }: {
                     ))
             }
             else {
-                setCompany(false)
-                setVerifier(false)
+                setIsCompany(false)
+                setIsVerifier(false)
             }
 
         } else if (pathName !== '/') {
