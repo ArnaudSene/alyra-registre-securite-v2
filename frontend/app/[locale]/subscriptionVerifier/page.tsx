@@ -1,9 +1,11 @@
 import React from 'react'
-import { VerifierModalFormNew } from '../components/verifier/VerifierModalFormNew'
+import {
+    SubscribeAsVerifier
+} from "@/app/[locale]/components/verifier/SubscribeAsVerifier"
 
 const SubscriptionVerifier = () => {
     return (
-        <VerifierModalFormNew />
+        <SubscribeAsVerifier />
   )
 }
 

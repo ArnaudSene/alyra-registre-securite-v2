@@ -70,14 +70,14 @@
             "title": "Access restricted",
             "description": "You are not authorized to access this section!"
         },
-        "addNewSiteToCompany": {
+        "addSiteToCompany": {
             "ok": {
                 "title": "Success",
-                "description": "Site has been successfully created!"
+                "description": "Site has been successfully added!"
             },
             "error": {
                 "title": "Error",
-                "description": "Unable to create a new site!"
+                "description": "Unable to add a site!"
             }
         },
         "subscribeCompany": {
@@ -129,9 +129,9 @@
             "cancel": "Cancel"
         },
         "form": {
-            "createSite": {
-                "title": "Create a new site",
-                "addSiteTitle": "Add site",
+            "addSiteToCompany": {
+                "title": "Add a site to your company",
+                "titleForButton": "Add site",
                 "siteName": "Site name",
                 "siteAddressName": "Site address"
             },
@@ -263,5 +263,8 @@
                 }
             }
         }
+    },
+    "CompanyRootPage": {
+        "title": "Company account"
     }
 }

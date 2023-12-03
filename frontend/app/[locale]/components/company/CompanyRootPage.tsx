@@ -1,25 +1,23 @@
 'use client'
 
 import React, { useState } from "react"
-import CreateSiteModalForm from "@/app/[locale]/components/company/CreateSiteModalForm"
 import { SubmitButtonLayout2 } from "@/app/[locale]/components/layout/ButtonLink"
-import { useIdentityContext } from "@/contexts/Identity"
-import { createSiteFormIntl, ICreateSiteForm } from "@/utils/siteIntl"
-import { layoutButtonIntl } from "@/utils/intl"
-import { ILayoutButton } from "@/interfaces/intl"
+import { addSiteToCompanyFormIntl, IAddSiteToCompanyForm } from "@/utils/siteIntl"
+import { companyRootPageIntl, layoutButtonIntl } from "@/utils/intl"
+import { ICompanyRootPageIntl, ILayoutButton } from "@/interfaces/intl"
+import RestrictArea from "@/app/[locale]/components/RestrictArea"
+import {
+    AddSiteToCompanyForm
+} from "@/app/[locale]/components/company/AddSiteToCompanyForm"
 
 export const CompanyRootPage = () => {
-    // context
-    const { company, isCompany } = useIdentityContext()
-
     // state
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const [loading, setLoading] = useState(false)
 
     // Utils
-    const createSiteForm: ICreateSiteForm = createSiteFormIntl()
+    const addSiteToCompany: IAddSiteToCompanyForm = addSiteToCompanyFormIntl()
     const layoutButton: ILayoutButton = layoutButtonIntl()
-
+    const companyRootPage: ICompanyRootPageIntl = companyRootPageIntl()
 
     /**
      * Open modal form.
@@ -44,31 +42,34 @@ export const CompanyRootPage = () => {
     }
 
     return (
-        <div>
-            <div>Company</div>
-            <p>Ajouter / supprimer des comptes utilisateurs</p>
-
-            <p>Ajouter des sites</p>
-            {/* Create verification task - Only for company */}
+        <RestrictArea asCompany={true}>
             <div>
+                <div>{companyRootPage.title}</div>
 
-                <SubmitButtonLayout2 props={{
-                    loading: false,
-                    buttonName: createSiteForm.addSiteTitle,
-                    // width: 'px-3 lg:px-6',
-                    // height: 'py-2 lg:py-3',
-                    onClick: openModal
-                }} />
+                <p>Ajouter / supprimer des comptes utilisateurs</p>
 
+                <p>{addSiteToCompany.title}</p>
+                {/* Create verification task - Only for company */}
+                <div>
+
+                    <SubmitButtonLayout2 props={{
+                        loading: false,
+                        buttonName: addSiteToCompany.titleForButton,
+                        width: 'px-3 lg:px-6',
+                        height: 'py-2 lg:py-2',
+                        onClick: openModal
+                    }} />
+
+                </div>
+                {isModalOpen &&
+                    <AddSiteToCompanyForm props={{
+                        isModalOpen: isModalOpen,
+                        closeModal: closeModal,
+                    }} />
+                }
+
+                <p>Ajouter des sites</p>
             </div>
-            {isModalOpen &&
-                <CreateSiteModalForm props={{
-                    isModalOpen: isModalOpen,
-                    closeModal: closeModal,
-                }} />
-            }
-
-            <p>Ajouter des sites</p>
-        </div>
+        </RestrictArea>
     )
 }

@@ -14,7 +14,6 @@ export function generateStaticParams() {
 }
 
 async function RootLayout({ children, params: {locale} }: { children: ReactNode, params: any }) {
-    
     let messages: AbstractIntlMessages
     try {
         messages = (await import(`../../lang/${locale}.json`)).default

@@ -15,14 +15,22 @@ export interface ISubmitButtonLayout {
     height? : string
     width? : string
     rounded?: string
+    disabled?: boolean
 }
 
 export interface IFormLayout {
     title: string
-    onModalClose: () => void
     onSubmit: (e: React.FormEvent) => void
+    description?: string
+    onModalClose?: () => void
+    message?: string
+    messageLevel?: string
 }
 
+export interface IBlockQuote {
+    message: string
+    level: string
+}
 
 export interface IFormInputLayout {
     id: string
