@@ -9,13 +9,24 @@ export interface ICompany {
     siret: string
 }
 
+export interface IVerifier {
+    addr: string
+    name :string
+    addressName: string
+    siret: string
+    approval: string
+}
+
 interface IIdentityProps {
     isCompany: boolean
     setIsCompany: (company: boolean) => void
-    company: ICompany
-    setCompany: (company: ICompany) => void
+    company: Partial<ICompany>
+    setCompany: (company: Partial<ICompany>) => void
     isVerifier: boolean
     setIsVerifier: (verifier: boolean) => void
+    verifier: Partial<IVerifier>
+    setVerifier: (verifier: Partial<IVerifier>) => void
+
     accountRefresh: boolean
     setAccountRefresh: (accountRefresh: boolean) => void
     verifierToCompanyRefresh: boolean
@@ -38,19 +49,15 @@ interface IIdentityProps {
     setRefreshScreen: (refreshScreen: number) => void
 }
 
-
 const IdentityContext = createContext<IIdentityProps>({
     isCompany: false,
     setIsCompany: () => false,
-    company: {
-        addr: "",
-        name :"",
-        addressName: "",
-        siret: "",
-    },
+    company: {},
     setCompany: () => {},
     isVerifier: false,
     setIsVerifier: () => false,
+    verifier: {},
+    setVerifier: () => {},
     accountRefresh: false,
     setAccountRefresh: () => false,
     verifierToCompanyRefresh: false,
@@ -75,13 +82,9 @@ const IdentityContext = createContext<IIdentityProps>({
 
 export const IdentityContextProvider = ({ children }: { children: ReactNode }) => {
     const [isCompany, setIsCompany] = useState(false)
-    const [company, setCompany] = useState<ICompany>({
-        addr: "",
-        name :"",
-        addressName: "",
-        siret: "",
-    })
+    const [company, setCompany] = useState<Partial<ICompany>>({})
     const [isVerifier, setIsVerifier] = useState(false)
+    const [verifier, setVerifier] = useState<Partial<IVerifier>>({})
     const [accountRefresh, setAccountRefresh] = useState(false)
     const [verifierToCompanyRefresh, setVerifierToCompanyRefresh] = useState(false)
     const [addSiteRefresh, setAddSiteRefresh] = useState(false)
@@ -102,6 +105,8 @@ export const IdentityContextProvider = ({ children }: { children: ReactNode }) =
             setCompany: setCompany,
             isVerifier: isVerifier,
             setIsVerifier: setIsVerifier,
+            verifier: verifier,
+            setVerifier: setVerifier,
             accountRefresh: accountRefresh,
             setAccountRefresh: setAccountRefresh,
             verifierToCompanyRefresh: verifierToCompanyRefresh,

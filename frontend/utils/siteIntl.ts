@@ -1,18 +1,18 @@
 import { useTranslations } from "next-intl"
 
-export interface ICreateSiteForm {
+export interface IAddSiteToCompanyForm {
     title: string
-    addSiteTitle: string
+    titleForButton: string
     siteName: string
     siteAddressName: string
 }
 
-export const createSiteFormIntl = (): ICreateSiteForm => {
-    const t = useTranslations('layout.form.createSite')
+export const addSiteToCompanyFormIntl = (): IAddSiteToCompanyForm => {
+    const t = useTranslations('layout.form.addSiteToCompany')
 
     return {
         title: t('title'),
-        addSiteTitle: t('addSiteTitle'),
+        titleForButton: t('titleForButton'),
         siteName: t('siteName'),
         siteAddressName: t('siteAddressName'),
     }

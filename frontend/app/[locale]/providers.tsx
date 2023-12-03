@@ -20,43 +20,14 @@ const customTheme = merge(lightTheme({
     overlayBlur: 'small',
     fontStack: 'system',
 }), {
-
     colors: {
         accentColor: '#4c5be0ff',
         accentColorForeground: '#d7fffdff', // Test Button
-
         connectButtonBackground: '#5452e7',
-        // connectButtonBackgroundError: '',
-        // connectButtonInnerBackground: '',
         connectButtonText: '#f1f5f9',
-        // connectButtonTextError: '#ff0f0f00',
-        // connectionIndicator: '#ff0f0f00',
-
-        // closeButton: '#ffffff',
-        // closeButtonBackground: '#4c5be0ff',
-
-        // downloadBottomCardBackground: '',
-        // downloadTopCardBackground: '',
-
-        // error: '',
-
         generalBorder: '#4c5be0ff',
-        // generalBorderDim: '',
-
         menuItemBackground: '#4c5be066',
-
-        // modalBackdrop: '',
-        // modalBackground: '#111827',
-        // modalBackground: '#ffffff',
-        // modalBorder: '',
-        // modalText: '',
-        // modalTextDim: '',
-        // modalTextSecondary: '',
-
-        // profileAction: '',
         profileActionHover: '#4c5be066',
-        // profileForeground: '',
-
         selectedOptionBorder: '',
         standby: '',
     },

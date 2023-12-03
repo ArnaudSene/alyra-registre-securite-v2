@@ -1,20 +1,74 @@
 import { useTranslations } from 'next-intl'
 import {
+    ICompanyRootPageIntl,
     ICreateVerificationTaskForm,
     IFormSubscriptionCompany,
-    IFormSubscriptionVerifier, IGeneral,
+    IFormSubscriptionVerifier,
+    IGeneral,
+    IGeneralProfile,
     IHeaderFooter,
     IHomePager,
     IIndex,
     ILayoutButton,
-    ILayoutEventLog, IProfile,
-    IToasterMessages, IVerificationTaskEditStatus,
-    IVerificationTaskFilters, IVerificationTaskFinalStatus
+    ILayoutEventLog,
+    IProfile,
+    IProfileAccount,
+    IToasterMessages,
+    IVerificationTaskEditStatus,
+    IVerificationTaskFilters,
+    IVerificationTaskFinalStatus
 } from '@/interfaces/intl'
 import { IVerificationTaskGrid } from "@/interfaces/verificationTasks"
+import { ITaskStatusEditAction, ITaskStatusFinalStatus, } from '@/constants/enums'
 import {
-    ITaskStatusEditAction, ITaskStatusFinalStatus,
-} from '@/constants/enums'
+    getRegisterCreatedsByCompany,
+    getVerifierCreatedsByAddress
+} from "@/utils/verificationTasks"
+import { ICompany, IVerifier } from "@/contexts/Identity"
+
+
+export const getCompanyAccount = (address: `0x${string}`): Promise<ICompany | undefined> => {
+    return getRegisterCreatedsByCompany(address)
+        .then((registerCreated) => {
+            if (registerCreated.length > 0) {
+
+                return {
+                    addr: registerCreated[0].account,
+                    name : registerCreated[0].name,
+                    addressName: registerCreated[0].addressName,
+                    siret: registerCreated[0].siret,
+                }
+            }
+        })
+}
+
+export const getVerifierAccount = (address: `0x${string}`): Promise<IVerifier | undefined> => {
+    return getVerifierCreatedsByAddress([address])
+        .then((verifierCreated) => {
+            if (verifierCreated.length > 0) {
+                return {
+                    addr: verifierCreated[0].verifier,
+                    name : verifierCreated[0].name,
+                    addressName: verifierCreated[0].addressName,
+                    siret: verifierCreated[0].siret,
+                    approval: verifierCreated[0].approvalNumber
+                }
+            }
+        })
+}
+
+export const getProfileAccount = async (address: `0x${string}`): Promise<IProfileAccount> => {
+    const company = await getCompanyAccount(address)
+    const verifier = await getVerifierAccount(address)
+
+    return {
+        isCompany: !!company?.addr,
+        company: company,
+        isVerifier: !!verifier?.addr,
+        verifier: verifier
+    } as IProfileAccount
+}
+
 
 export const toasterMessages = (): IToasterMessages => {
     const t = useTranslations('ToasterMessages')
@@ -40,10 +94,10 @@ export const toasterMessages = (): IToasterMessages => {
         updateVerificationTaskStatusOkDescription: t('updateVerificationTaskStatus.ok.description'),
         updateVerificationTaskStatusErrorTitle: t('updateVerificationTaskStatus.error.title'),
         updateVerificationTaskStatusErrorDescription: t('updateVerificationTaskStatus.error.description'),
-        addNewSiteToCompanyOkTitle: t('addNewSiteToCompany.ok.title'),
-        addNewSiteToCompanyOkDescription: t('addNewSiteToCompany.ok.description'),
-        addNewSiteToCompanyErrorTitle: t('addNewSiteToCompany.error.title'),
-        addNewSiteToCompanyErrorDescription: t('addNewSiteToCompany.error.description'),
+        addSiteToCompanyOkTitle: t('addSiteToCompany.ok.title'),
+        addSiteToCompanyOkDescription: t('addSiteToCompany.ok.description'),
+        addSiteToCompanyErrorTitle: t('addSiteToCompany.error.title'),
+        addSiteToCompanyErrorDescription: t('addSiteToCompany.error.description'),
     }
 }
 
@@ -286,10 +340,6 @@ export const verificationTaskGridIntl = (): IVerificationTaskGrid => {
     }
 }
 
-export interface IGeneralProfile {
-    id: number
-    profile: string
-}
 export const generalIntl = (): IGeneral => {
     const t = useTranslations('General')
     const generalProfile: IGeneralProfile[] = [
@@ -317,5 +367,12 @@ export const generalIntl = (): IGeneral => {
         profiles: _profiles,
         profilesObj: _profilesObj,
         selectAction: t('selectAction'),
+    }
+}
+
+export const companyRootPageIntl = (): ICompanyRootPageIntl => {
+    const t = useTranslations('CompanyRootPage')
+    return {
+        title: t('title'),
     }
 }

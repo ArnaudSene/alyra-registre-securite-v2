@@ -70,14 +70,14 @@
             "title": "Accès restreint",
             "description": "Vous n'avez pas accès à cette espace!"
         },
-        "addNewSiteToCompany": {
+        "addSiteToCompany": {
             "ok": {
                 "title": "Succès",
-                "description": "Le site a été créé avec succès!"
+                "description": "Le site a été ajouté avec succès!"
             },
             "error": {
                 "title": "Erreur",
-                "description": "Impossible de créer le site!"
+                "description": "Impossible d'ajouter le site!"
             }
         },
         "subscribeCompany": {
@@ -129,9 +129,9 @@
             "cancel": "Annuler"
         },
         "form": {
-            "createSite": {
-                "title": "Créer un nouveau site",
-                "addSiteTitle": "Ajouter site",
+            "addSiteToCompany": {
+                "title": "Ajouter un nouveau site à votre compagnie",
+                "titleForButton": "Ajouter site",
                 "siteName": "Nom du site",
                 "siteAddressName": "Address du site"
             },
@@ -263,5 +263,8 @@
                 }
             }
         }
+    },
+    "CompanyRootPage": {
+        "title": "Compte compagnie"
     }
 }

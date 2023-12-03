@@ -1,6 +1,5 @@
 import React from 'react'
-
-import HomePager from "./homePager/page"
+import HomePager from "@/app/[locale]/home/HomePager"
 
 const Home = () => {
 

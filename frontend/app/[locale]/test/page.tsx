@@ -2,7 +2,7 @@
 
 import React, {useState} from 'react'
 import { FormInputLayout2 } from "../components/layout/FormInputLayout"
-import { FormLayout } from "../components/layout/formLayout"
+import { FormModalLayout } from "../components/layout/formModalLayout"
 import { SubmitButtonLayout2 } from "../components/layout/ButtonLink"
 
 type Props = {}
@@ -81,7 +81,7 @@ const Form = (
         <>
             {isModalOpen && 
                 <div className="">
-                    <FormLayout props={{
+                    <FormModalLayout props={{
                         title: "This is a title test",
                         onModalClose: closeModal, 
                         onSubmit: handleSubmit 
@@ -101,7 +101,7 @@ const Form = (
                                 buttonName: "Save"
                             }}/>
                         </div>
-                    </FormLayout>   
+                    </FormModalLayout>
                 </div>
             }
         </>

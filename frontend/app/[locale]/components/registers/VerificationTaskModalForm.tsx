@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useEffect, useState } from "react"
-import { useToast } from "@chakra-ui/react"
 import { useAccount } from "wagmi"
 import { useRegisterSecurityEventContext } from "@/contexts/registerSecurityEvent"
 import {
@@ -16,7 +15,7 @@ import { IRegisterCreated } from "@/interfaces/registers"
 import { IVerificationTaskModalForm, IVerificationTaskGrid } from "@/interfaces/verificationTasks"
 import { SubmitButtonLayout2 } from "../layout/ButtonLink"
 import { EventLogLayoutMin2 } from "../layout/EventFieldLayout"
-import { FormLayout } from "../layout/formLayout"
+import { FormModalLayout } from "../layout/formModalLayout"
 import { FormInputLayout2, FormSelectLayout } from "../layout/FormInputLayout"
 import { writeContractByFunctionName } from "@/utils"
 import {
@@ -44,12 +43,11 @@ export const VerificationTaskModalForm = ({ props }: { props: IVerificationTaskM
     const [siteSelected, setSiteSelected] = useState("")
     const [sectorSelected, setSectorSelected] = useState("")
     const [eventLog, setEventLog] = useState<IEventLog | undefined>()
-    const [eventName, setEventName] = useState("VerificationTaskCreated")
     const [eventWaiting, setEventWaiting] = useState(false)
-
+    const [blockQuoteLevel, setBlockQuoteLevel] = useState("")
+    const [blockQuoteMessage, setBlockQuoteMessage] = useState("")
 
     // Utils
-    const toast = useToast()
     const createVerificationTaskForm: ICreateVerificationTaskForm = createVerificationTaskFormIntl()
     const general: IGeneral = generalIntl()
     const layoutButton: ILayoutButton = layoutButtonIntl()
@@ -58,11 +56,8 @@ export const VerificationTaskModalForm = ({ props }: { props: IVerificationTaskM
     const toastMessage: IToasterMessages = toasterMessages()
 
     // Constants
-    const layoutEventLogMapping: ILayoutEventLogMapping = {
-        addressAttribute: '_company',
-        addressValue: address as `0x${string}`,
-    }
-    const componentName: string = "VerificationTaskModalForm"
+    const EVENT_NAME = 'VerificationTaskCreated'
+    const COMPONENT_NAME: string = "VerificationTaskModalForm"
 
     /**
      *
@@ -133,13 +128,8 @@ export const VerificationTaskModalForm = ({ props }: { props: IVerificationTaskM
             })
             .catch(err => {
                 console.log(`writeContractByFunctionName(${actionName}) error => ` + err)
-                toast({
-                    title: toastMessage.createVerificationTaskErrorTitle,
-                    description: toastMessage.createVerificationTaskErrorDescription,
-                    status: 'error',
-                    duration: 5000,
-                    isClosable: true,
-                })
+                setBlockQuoteMessage(toastMessage.createVerificationTaskErrorDescription)
+                setBlockQuoteLevel("error")
             })
     }
 
@@ -162,35 +152,38 @@ export const VerificationTaskModalForm = ({ props }: { props: IVerificationTaskM
     }, [])
 
     useEffect(() => {
-        if ( subscribeEventLogs.id === componentName && subscribeEventLogs.eventLog.length > 0 ) {
+        const layoutEventLogMapping: ILayoutEventLogMapping = {
+            addressAttribute: '_company',
+            addressValue: address as `0x${string}`,
+        }
+
+        if ( subscribeEventLogs.id === COMPONENT_NAME && subscribeEventLogs.eventLog.length > 0 ) {
             const handleEventsResponse: IhandleEventsResponse = handleEvents(
                 layoutEventLog, subscribeEventLogs.eventLog, layoutEventLogMapping)
 
             if (handleEventsResponse.ok) {
                 setEventLog(handleEventsResponse.eventLog)
-                toast({
-                    title: toastMessage.createVerificationTaskOkTitle,
-                    description: toastMessage.createVerificationTaskOkDescription,
-                    status: 'success',
-                    duration: 5000,
-                    isClosable: true,
-                })
+                setBlockQuoteMessage(toastMessage.createVerificationTaskOkDescription)
+                setBlockQuoteLevel("success")
             }
             setEventWaiting(false)
             setLoading(false)
-            setSubscribeEventLogs({id: componentName, eventLog: []})
+            setSubscribeEventLogs({id: COMPONENT_NAME, eventLog: []})
             setReloadPage(true)
         }
     }, [subscribeEventLogs])
     return (
         <>
-            {eventWaiting && <SubscribeEvent props={{taskId: componentName, eventName: eventName}} />}
-            {props.isModalOpen && 
+            {eventWaiting && <SubscribeEvent props={{taskId: COMPONENT_NAME, eventName: EVENT_NAME}} />}
+
+            {props.isModalOpen &&
                 <div className="pt-0 z-10">
-                    <FormLayout props={{
+                    <FormModalLayout props={{
                         title: createVerificationTaskForm.title,
                         onModalClose: props.closeModal, 
-                        onSubmit: handleSubmit
+                        onSubmit: handleSubmit,
+                        message: blockQuoteMessage,
+                        messageLevel: blockQuoteLevel
                     }}>
                         <div className="my-2">
                             <EventLogLayoutMin2 props={{
@@ -235,11 +228,11 @@ export const VerificationTaskModalForm = ({ props }: { props: IVerificationTaskM
                                 spinnerSize: 'sm',
                                 buttonName: layoutButton.save,
                                 loadingName: general.inProgress,
-                                width: 'px-3 lg:px6',
+                                width: 'px-3 lg:px6 lg:w-[150px]',
                                 height: 'py-2 lg:py-3'
                             }}/>
                         </div>
-                    </FormLayout>
+                    </FormModalLayout>
                 </div>
             }            
         </>

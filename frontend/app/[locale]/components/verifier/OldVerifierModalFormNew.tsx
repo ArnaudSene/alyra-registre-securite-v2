@@ -20,7 +20,7 @@ const initialState = {
     message: null,
 }
 
-export const VerifierModalFormNew = () => {
+const OldVerifierModalFormNew = () => {
     const { address } = useAccount()
     const toast = useToast()
     const [loading, setLoading] = useState(false)
@@ -118,19 +118,19 @@ export const VerifierModalFormNew = () => {
                 siret: 2,
                 approval: 3
               }
-              
+
             let result: string[] = []
-    
+
             for (const [key, value] of formData.entries() as Iterable<[string, string]>)
                 result[mapping[key]] = value
-            
+
             return result
         }
         indexIntl(formData)
-    
+
         writeContractByFunctionName(actionName, ...indexIntl(formData))
             .then(() => {
-                setLoading(true)                
+                setLoading(true)
             })
             .catch(err => {
                 console.log(`writeContractByFunctionName(${actionName}) error => ` + err)
@@ -213,3 +213,5 @@ export const VerifierModalFormNew = () => {
         </IsConnectedAs>
     )
 }
+
+export default OldVerifierModalFormNew

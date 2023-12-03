@@ -1,5 +1,16 @@
 # Changelog
 
+### feat: Update layout form for `CompanyModalFormNew`
+
+- Rename component `FormLayout` to `FormModalLayout`
+- New non-modal form layout component `FormLayout`
+- Implement `FormLayout` in `CompanyModalFormNew`
+- Prevent to subscribe to an existing company/account
+- Prevent to subscribe to an existing verifier/account
+- Add blockQuote to forms (remove toast)
+
+---
+
 ### feat: Add for adding new company site.
 
 - Add a simple modal form to add new site for a company `CompanyModalFormNew`

@@ -12,14 +12,14 @@ const SubmitButtonLayout2 = ({ props }: { props: ISubmitButtonLayout }) => {
             type="submit" 
             onClick={props.onClick}
             aria-disabled={props.loading} 
-            disabled={props.loading}
+            disabled={props.disabled || props.loading}
             className={`
                 ${props.rounded? `${props.rounded}`: 'rounded'}
                 ${props.height? `${props.height} h-auto`: 'py-1.5 h-auto'}
                 ${props.width? `${props.width} lg:w-auto w-full`: 'px-1.5 lg:w-auto w-full'}
-                cursor-pointer transition ease-in-out delay-100 duration-100 hover:scale-105
+                transition ease-in-out delay-100 duration-100 hover:scale-105
                 bg-gradient-to-br from-indigo-700 to-indigo-500
-                text-slate-100 text-center font-bold`}>
+                text-slate-100 text-center font-bold ${props.disabled ? 'cursor-not-allowed': 'cursor-pointer'}`}>
             {props.loading ? (
                 <div className={`flex`}>
                     <div><Spinner size={props.spinnerSize} /></div>

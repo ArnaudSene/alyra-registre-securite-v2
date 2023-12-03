@@ -1,10 +1,10 @@
 import React from 'react'
-import { CompanyModalFormNew } from '../components/company/CompanyModalFormNew'
+import { SubscribeAsCompany } from '../components/company/SubscribeAsCompany'
 
 const SubscriptionCompany = () => {
     return (
-        <CompanyModalFormNew />
-  )
+        <SubscribeAsCompany />
+    )
 }
 
 export default SubscriptionCompany

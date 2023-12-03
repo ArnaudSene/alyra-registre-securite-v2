@@ -1,3 +1,5 @@
+import { ICompany, IVerifier } from "@/contexts/Identity"
+
 export interface IToasterMessages {
     notConnectedTitle: string,
     notConnectedDescription: string
@@ -19,10 +21,10 @@ export interface IToasterMessages {
     updateVerificationTaskStatusOkDescription: string
     updateVerificationTaskStatusErrorTitle: string
     updateVerificationTaskStatusErrorDescription: string
-    addNewSiteToCompanyOkTitle: string
-    addNewSiteToCompanyOkDescription: string
-    addNewSiteToCompanyErrorTitle: string
-    addNewSiteToCompanyErrorDescription: string
+    addSiteToCompanyOkTitle: string
+    addSiteToCompanyOkDescription: string
+    addSiteToCompanyErrorTitle: string
+    addSiteToCompanyErrorDescription: string
 }
 
 export interface IIndex {
@@ -161,4 +163,20 @@ export interface IGeneral {
     profiles: string[]
     profilesObj: IProfile
     selectAction: string
+}
+
+export interface ICompanyRootPageIntl {
+    title: string
+}
+
+export interface IProfileAccount {
+    isCompany: boolean
+    company: ICompany | undefined
+    isVerifier: boolean
+    verifier: IVerifier | undefined
+}
+
+export interface IGeneralProfile {
+    id: number
+    profile: string
 }
