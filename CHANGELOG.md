@@ -1,5 +1,9 @@
 # Changelog
 
+### fix: footer always stick at bottom
+
+- Update css style to stick footer att bottom
+
 ### feat: Update layout form for `CompanyModalFormNew`
 
 - Rename component `FormLayout` to `FormModalLayout`

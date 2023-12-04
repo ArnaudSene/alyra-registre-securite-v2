@@ -14,7 +14,7 @@ const Footer = () => {
     return (
         <footer>
             {footerOn && (
-                <div className="bottom-0 w-full text-sm">
+                <div className="w-full text-sm">
                     <nav className="flex flex-col mx-auto justify-between text-center p-4 text-gray-600">
                         <div className={`lg:grid grid-cols-3 p-1 my-2`}>
                             <div>
