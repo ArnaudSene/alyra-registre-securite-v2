@@ -55,7 +55,7 @@ const Headers = () => {
                         ? "bg-teal-50/80 bg-gradient-to-br from-indigo-600/20 via-fuchsia-500/20 to-indigo-500/20 \
                             backdrop-blur-sm shadow-xl ease-in-out duration-300" 
                         : "bg-transparent ease-in-out duration-300"} 
-                        fixed top-0 left-0 w-full z-10 mb-20 text-sm`}>
+                        fixed w-full z-20 text-sm`}>
 
                         <nav className="flex flex-row justify-between text-center p-3">
                             <div className="md:w-full mr-3">
